@@ -1,0 +1,188 @@
+<div class="vtabs" style="width: 100%">
+    <ul class="nav nav-tabs tabs-vertical" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link  {{ $ctrl.isActiveTab('contractdeploy')?'active':'' }}" data-toggle="tab" ui-sref="home.contract.deploymentContract({ tab: 'contractdeploy', id: {{$ctrl.id}} })"
+                role="tab" aria-expanded="true">
+                <span class="hidden-xs-down">Hợp đồng triển khai</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link  {{ $ctrl.isActiveTab('plandeploy')?'active':'' }}" data-toggle="tab" ui-sref="home.contract.deploymentContract({ tab: 'plandeploy', id: {{$ctrl.id}} })"
+                role="tab" aria-expanded="true">
+                <span class="hidden-xs-down">Kế hoạch triển khai</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link  {{ $ctrl.isActiveTab('costomerjoin')?'active':'' }}" data-toggle="tab" ui-sref="home.contract.deploymentContract({tab: 'costomerjoin', id: {{$ctrl.id}} })"
+                role="tab" aria-expanded="true">
+                <span class="hidden-xs-down">Nhân sự tham gia</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link  {{ $ctrl.isActiveTab('contenttask')?'active':'' }}" data-toggle="tab" ui-sref="home.contract.deploymentContract({ tab: 'contenttask', id: {{$ctrl.id}} })"
+                role="tab" aria-expanded="true">
+                <span class="hidden-xs-down">Nội dung công việc</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link  {{ $ctrl.isActiveTab('constructiondiary')?'active':'' }}" data-toggle="tab" ui-sref="home.contract.deploymentContract({ tab: 'constructiondiary', id: {{$ctrl.id}} })"
+                role="tab" aria-expanded="true">
+                <span class="hidden-xs-down">Nhật ký thi công</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link  {{ $ctrl.isActiveTab('finance')?'active':'' }}" data-toggle="tab" ui-sref="home.contract.deploymentContract({ tab: 'finance', id: {{$ctrl.id}} })"
+                role="tab" aria-expanded="true">
+                <span class="hidden-xs-down">Tài chính</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link  {{ $ctrl.isActiveTab('supplies')?'active':'' }}" data-toggle="tab" ui-sref="home.contract.deploymentContract({ tab: 'supplies', id: {{$ctrl.id}} })"
+                role="tab" aria-expanded="true">
+                <span class="hidden-xs-down">Chuẩn bị vật tư</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link  {{ $ctrl.isActiveTab('error')?'active':'' }}" data-toggle="tab" ui-sref="home.contract.deploymentContract({ tab: 'error', id: {{$ctrl.id}} })"
+                role="tab" aria-expanded="true">
+                <span class="hidden-xs-down">Sự cố</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link  {{ $ctrl.isActiveTab('makeshift')?'active':'' }}" data-toggle="tab" ui-sref="home.contract.deploymentContract({ tab: 'makeshift', id: {{$ctrl.id}} })"
+                role="tab" aria-expanded="true">
+                <span class="hidden-xs-down">Tạm ứng</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link  {{ $ctrl.isActiveTab('technical')?'active':'' }}" data-toggle="tab" ui-sref="home.contract.deploymentContract({ tab: 'technical', id: {{$ctrl.id}} })"
+                role="tab" aria-expanded="true">
+                <span class="hidden-xs-down">Quyết toán kỹ thuật</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link  {{ $ctrl.isActiveTab('attachments')?'active':'' }}" data-toggle="tab" ui-sref="home.contract.deploymentContract({ tab: 'attachments', id: {{$ctrl.id}} })"
+                role="tab" aria-expanded="true">
+                <span class="hidden-xs-down">Tài liệu đính kèm</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link  {{ $ctrl.isActiveTab('feedback')?'active':'' }}" data-toggle="tab" ui-sref="home.contract.deploymentContract({ tab: 'feedback', id: {{$ctrl.id}} })"
+                role="tab" aria-expanded="true">
+                <span class="hidden-xs-down">Phản hồi của khách hàng</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link  {{ $ctrl.isActiveTab('result')?'active':'' }}" data-toggle="tab" ui-sref="home.contract.deploymentContract({ tab: 'result', id: {{$ctrl.id}} })"
+                role="tab" aria-expanded="true">
+                <span class="hidden-xs-down">Kết quả đánh giá</span>
+            </a>
+        </li>
+    </ul>
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div class="tab-pane {{ $ctrl.isActiveTab('contractdeploy')?'active':'' }}" role="tabpanel" aria-expanded="true">
+            <deployment-detail-contractdeploy></deployment-detail-contractdeploy>
+        </div>
+        <div class="tab-pane {{ $ctrl.isActiveTab('plandeploy')?'active':'' }}" role="tabpanel" aria-expanded="true">
+            <deployment-detail-plandeploy></deployment-detail-plandeploy>
+        </div>
+        <div class="tab-pane {{ $ctrl.isActiveTab('costomerjoin')?'active':'' }}" role="tabpanel" aria-expanded="true">
+            <deployment-detail-costomerjoin></deployment-detail-costomerjoin>
+        </div>
+        <div class="tab-pane {{ $ctrl.isActiveTab('contenttask')?'active':'' }}" role="tabpanel" aria-expanded="true">
+            <deployment-detail-contenttask></deployment-detail-contenttask>
+        </div>
+        <div class="tab-pane {{ $ctrl.isActiveTab('constructiondiary')?'active':'' }}" role="tabpanel" aria-expanded="true">
+            <deployment-detail-constructiondiary></deployment-detail-constructiondiary>
+        </div>
+        <div class="tab-pane {{ $ctrl.isActiveTab('finance')?'active':'' }}" role="tabpanel" aria-expanded="true">
+            <deployment-detail-finance></deployment-detail-finance>
+        </div>
+        <div class="tab-pane {{ $ctrl.isActiveTab('supplies')?'active':'' }}" role="tabpanel" aria-expanded="true">
+            <deployment-detail-supplies></deployment-detail-supplies>
+        </div>
+        <div class="tab-pane {{ $ctrl.isActiveTab('error')?'active':'' }}" role="tabpanel" aria-expanded="true">
+            <deployment-detail-error></deployment-detail-error>
+        </div>
+        <div class="tab-pane {{ $ctrl.isActiveTab('makeshift')?'active':'' }}" role="tabpanel" aria-expanded="true">
+            <deployment-detail-makeshift></deployment-detail-makeshift>
+        </div>
+        <div class="tab-pane {{ $ctrl.isActiveTab('technical')?'active':'' }}" role="tabpanel" aria-expanded="true">
+            <deployment-detail-technical></deployment-detail-technical>
+        </div>
+        <div class="tab-pane {{ $ctrl.isActiveTab('attachments')?'active':'' }}" role="tabpanel" aria-expanded="true">
+            <deployment-detail-attachments></deployment-detail-attachments>
+        </div>
+        <div class="tab-pane {{ $ctrl.isActiveTab('feedback')?'active':'' }}" role="tabpanel" aria-expanded="true">
+            <deployment-detail-feedback></deployment-detail-feedback>
+        </div>
+        <div class="tab-pane {{ $ctrl.isActiveTab('result')?'active':'' }}" role="tabpanel" aria-expanded="true">
+            <doployment-detail-result></doployment-detail-result>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" my-modal="roleModelDialog" id="nhacviecDialog" tabindex="-1" role="dialog" aria-labelledby="changePassModalLabel"
+    style="display: none;" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel1">
+                    <b>Công trình: ABC</b>
+                </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="ng-pristine ng-valid">
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <textarea class="form-control" rows="3" placeholder="Nội dung nhắc việc"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                            <label>Giờ</label>
+                            <br />
+                            <input type="text" class="form-control" placeholder="Giờ" />
+                        </div>
+                        <div class="col-md-6">
+                            <label>Nhắc ngày</label>
+                            <br />
+                            <input type="date" class="form-control" placeholder="Nhắc ngày" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary" ng-click="$ctrl.onSaveRoleModel()">Ghi lại</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" my-modal="roleModelDialog" id="tab6" tabindex="-1" role="dialog" aria-labelledby="changePassModalLabel"
+    style="display: none;" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel1">
+                    <b>Thêm thông tin</b>
+                </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="ng-pristine ng-valid"></form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-primary" ng-click="$ctrl.onSaveRoleModel()">Ghi lại</button>
+            </div>
+        </div>
+    </div>
+</div>

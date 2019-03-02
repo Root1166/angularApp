@@ -1,0 +1,200 @@
+﻿<div class="section-header">
+    <div class="title">
+        <i class="fas fa-bullseye"></i>
+        QUYẾT TOÁN KỸ THUẬT
+    </div>
+    <div class="options">
+        <button ng-click="$ctrl.add()" data-toggle="modal" data-target="#tab10" class="btn waves-effect waves-light btn-info" data-original-title="Thêm thông tin">
+            <i class="fas fa-plus"></i> Thêm thông tin
+        </button>
+    </div>
+</div>
+
+<div class="row mt-3 grid-filter" style>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Tìm kiếm</label>
+        </div>
+        <input ng-model="$ctrl.text" class="form-control" placeholder="Tìm theo tên, mô tả..." type="text" ng-keypress="$ctrl.search($event)"
+        />
+    </div>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Lọc theo người tạm ứng</label>
+        </div>
+        <select ng-model="nguoitamung" name="editable-datatable_length" aria-controls="editable-datatable" class="form-control input-sm"
+            ng-options="s.Hovaten for s in $ctrl.liCustomjoins" ng-change="$ctrl.onSelectNguoitamung(nguoitamung)">
+            <option value="">--Người tạm ứng--</option>
+        </select>
+    </div>
+</div>
+
+<table class="display nowrap table table-hover table-striped table-bordered full-color-table full-info-table hover-table"
+    cellspacing="0" width="100%">
+    <colgroup>
+        <col width="50" />
+        <col width="25%" />
+        <col width="20%" />
+        <col width="20%" />
+        <col width="20%" />
+        <col />
+    </colgroup>
+    <thead>
+        <tr>
+            <th>STT</th>
+            <th>Người quyết toán</th>
+            <th>Tạm ứng</th>
+            <th>Chi phí</th>
+            <th>Còn lại</th>
+            <th>Ngày quyết toán</th>
+            <th>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="item in $ctrl.liTechnicals">
+            <td class="center">
+                {{$index + 1}}
+            </td>
+            <td class="center">
+                {{item.NguoiQuyettoan.Hovaten}}
+            </td>
+            <td class="center">
+                {{item.TongTamung | currency:'':0}} đ
+            </td>
+            <td class="center">
+                {{item.TongChiPhi | currency:'':0}} đ
+            </td>
+            <td class="center">
+                {{item.Conlai | currency:'':0}} đ
+            </td>
+            <td class="center">
+                {{item.NgayQuyettoan | date: 'dd/MM/yyyy'}}
+            </td>
+            <td class="text-nowrap">
+                <button ng-click="$ctrl.edit(item)" class="btn btn-secondary" data-original-title="Sửa" data-toggle="modal" data-target="#tab10">
+                    <i class="fas fa-edit"></i> Sửa</button>
+                <button ng-click="$ctrl.delete(item)" class="btn btn-danger" data-original-title="Xóa">
+                    <i class="fas fa-trash"></i> Xóa</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="modal fade" my-modal="roleModelDialog" id="tab10" tabindex="-1" role="dialog" aria-labelledby="changePassModalLabel"
+    style="display: none;" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel1">
+                    <b>Thêm/sửa thông tin</b>
+                </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="ng-pristine ng-valid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>Người quyết toán</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <select ng-model="$ctrl.model.NguoiQuyettoanId" name="editable-datatable_length" aria-controls="editable-datatable" class="form-control input-sm"
+                                ng-options="s.UserId as s.Hovaten for s in $ctrl.liCustomjoins" ng-change="$ctrl.getTamung($ctrl.model)">
+                                <option value="">--Người quyết toán--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>Ngày quyết toán</label>
+                        </div>
+                        <div class="col-md-12">
+                            <input ng-model="$ctrl.model.NgayQuyettoan" class="form-control" date-picker lang="vi" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Chi phí</label>
+                        </div>
+                        <div class="col-md-2">
+                            <button ng-click="$ctrl.addChiphi()" class="btn waves-effect waves-light btn-info" data-original-title="Thêm"> Thêm chi phí </button>
+                        </div>
+                    </div>
+                    <div class="row" ng-repeat="item in $ctrl.model.Chiphis">
+                        <div class="col-md-1">
+                            <button ng-click="$ctrl.removeChiphi($index)" class="btn waves-effect waves-light btn-warning" data-original-title="Bỏ">
+                                <i class=""></i> - </button>
+                        </div>
+                        <div class="col-md-5">
+                            <select ng-model="item.LoaiChiphi" name="editable-datatable_length" aria-controls="editable-datatable" class="form-control input-sm"
+                                ng-options="s.id as s.Name for s in $ctrl.listLoaiChiphi">
+                                <option value="">--Loại chi phí--</option>
+                            </select>
+                        </div>
+                        <div class="col-md-5">
+                            <input ng-model="item.Sotien" class="form-control" type="number" placeholder="Số tiền..." ng-change="$ctrl.getTongChi($ctrl.model)"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>Người duyệt kiểm toán</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <select ng-model="$ctrl.model.NguoiDuyetQuyettoanId" name="editable-datatable_length" aria-controls="editable-datatable"
+                                class="form-control input-sm" ng-options="s.TaikhoanId as s.Hovaten for s in $ctrl.listTaiKhoans">
+                                <option value="">-- Người duyệt quyết toán --</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <textarea ng-model="$ctrl.model.Ghichu" class="form-control" rows="3" placeholder="Ghi chú..."></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>
+                                <b>Số tiền tạm ứng:</b>
+                            </label>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <b>{{$ctrl.model.Tamung | currency:'':0}} đ</b>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>
+                                <b>Tổng chi:</b>
+                            </label>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <b> {{$ctrl.model.Tongchi | currency:'':0}} đ</b>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>
+                                <b>Còn lại:</b>
+                            </label>
+                        </div>
+                        <div class="col-md-6 text-right">
+                            <b> {{$ctrl.model.Tamung - $ctrl.model.Tongchi | currency:'':0}} đ</b>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button ng-click="$ctrl.cancel()" type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                <button ng-click="$ctrl.insert()" type="button" class="btn btn-primary">Ghi lại</button>
+            </div>
+        </div>
+    </div>
+</div>

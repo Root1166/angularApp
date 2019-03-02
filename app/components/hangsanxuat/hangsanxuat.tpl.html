@@ -1,0 +1,137 @@
+<div class="section-header">
+    <div class="title">
+        <i class="fas fa-industry"></i>
+        HÃNG SẢN XUẤT
+    </div>
+    <div class="options">
+        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#hangsanxuatModelDialog" ng-click="$ctrl.onAdd()">
+            <i class="fas fa-plus"></i> Thêm mới
+        </button>
+        <button type="button" ng-click="$ctrl.onRemoves()" class="btn btn-danger">
+            <i class="fas fa-close"></i> Xóa
+        </button>
+    </div>
+</div>
+
+<h6 class="card-subtitle">Quản lý danh sách hãng sản xuất của hệ thống</h6>
+
+<div class="row mt-3 grid-filter" style>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Tìm kiếm</label>
+        </div>
+        <input type="search" class="form-control input-sm" placeholder="" aria-controls="editable-datatable" ng-model="$ctrl.search"
+            ng-keypress="$ctrl.onSearch($event)">
+    </div>
+</div>
+
+<table class="display nowrap table table-hover table-striped table-bordered full-color-table full-info-table hover-table"
+    cellspacing="0" width="100%">
+    <thead>
+        <tr>
+            <th>
+                <input type="checkbox" id="chkAll" ng-click="$ctrl.toggleAll()" ng-model="$ctrl.isAllSelected" class="filled-in chk-col-light-blue"
+                />
+                <label for="chkAll"></label>
+            </th>
+            <th>Tên hãng sản xuất</th>
+            <th>Thứ tự</th>
+            <th>Trạng thái</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <th></th>
+            <th>Tên hãng sản xuất</th>
+            <th>Thứ tự</th>
+            <th>Trạng thái</th>
+            <th></th>
+        </tr>
+    </tfoot>
+    <tbody dir-paginate="hangsanxuat in $ctrl.hangsanxuatModels | itemsPerPage: $ctrl.pageSize" pagination-id="dataPagination"
+        current-page="$ctrl.currentPage" total-items="$ctrl.totalRowCount">
+        <tr>
+            <td class="center">
+                <input type="checkbox" ng-model="hangsanxuat.selected" id="chkItem{{$index+1}}" class="filled-in chk-col-light-blue" />
+                <label for="chkItem{{$index+1}}"></label>
+            </td>
+
+            <td>{{ hangsanxuat.TenHangsanxuat }}</td>
+            <td>{{ hangsanxuat.Thutu }}</td>
+            <td class="text-center">
+                <div class="label label-table label-{{ hangsanxuat.Hoatdong?'success':'danger' }}">{{ hangsanxuat.Hoatdong?"Hoạt động":"Tạm dừng" }}</div>
+            </td>
+
+            <td class="text-nowrap">
+                <a class="btn" data-toggle="modal" data-target="#hangsanxuatModelDialog" ng-click="$ctrl.onEdit(hangsanxuat)" data-original-title="Cập nhật">
+                    <i class="fas fa-edit text-inverse"></i> Sửa
+                </a>
+                <a class="btn" data-toggle="tooltip" data-original-title="Xóa" ng-click="$ctrl.onRemove(hangsanxuat)">
+                    <i class="fas fa-trash text-danger"></i> Xóa
+                </a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="row">
+    <div class="col-sm-6">
+        <div class="dataTables_length" id="datatable-responsive_length">
+            <label>
+                <select name="datatable-responsive_length" ng-model="$ctrl.pageSize" aria-controls="datatable-responsive" class="form-control">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+                records / page
+            </label>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <dir-pagination-controls boundary-links="true" on-page-change="$ctrl.onPageChanged(newPageNumber)" pagination-id="dataPagination"></dir-pagination-controls>
+    </div>
+</div>
+
+<div class="modal fade" my-modal="hangsanxuatModelDialog" id="hangsanxuatModelDialog" tabindex="-1" role="dialog" aria-labelledby="changePassModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel1">{{ $ctrl.currentHangsanxuatModel.Id==0?'Thêm mới':'Cập nhật' }} hãng sản xuất</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Tên hãng sản xuất *:</label>
+                        <input type="text" class="form-control" ng-model="$ctrl.currentHangsanxuatModel.TenHangsanxuat" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Trạng thái :</label>
+                        <div class="switch">
+                            <label>
+                                <input type="checkbox" ng-model="$ctrl.currentHangsanxuatModel.Hoatdong" checked>
+                                <span class="lever switch-col-red"></span>
+                            </label>
+                            {{ $ctrl.currentHangsanxuatModel.Hoatdong?"Hoạt động":"Tạm dừng" }}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Thứ tự:</label>
+                        <input type="number" class="form-control" ng-model="$ctrl.currentHangsanxuatModel.Thutu" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" ng-click="$ctrl.onSaveHangsanxuatModel()">Ghi lại</button>
+            </div>
+        </div>
+    </div>
+</div>

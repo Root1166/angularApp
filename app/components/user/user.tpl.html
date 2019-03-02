@@ -1,0 +1,214 @@
+﻿<div class="section-header">
+    <div class="title">
+        <i class="fas fa-user-circle"></i>
+        TÀI KHOẢN
+    </div>
+    <div class="options">
+        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#userModelDialog" ng-click="$ctrl.onAdd()">
+            <i class="fas fa-plus"></i> Thêm mới</button>
+        <button type="button" ng-click="$ctrl.onRemoves()" class="btn btn-danger">
+            <i class="fas fa-close"></i> Xóa</button>
+    </div>
+</div>
+
+<h6 class="card-subtitle">Quản lý danh sách tài khoản nhân viên của hệ thống</h6>
+
+<div class="row mt-3 grid-filter" style>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Tìm kiếm</label>
+        </div>
+        <input type="text" class="form-control input-sm" placeholder="" aria-controls="editable-datatable" ng-model="$ctrl.search"
+            ng-keypress="$ctrl.onSearch($event)">
+    </div>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Lọc theo Phòng/Bộ phận</label>
+        </div>
+        <select name="editable-datatable_length" aria-controls="editable-datatable" class="form-control input-sm" ng-model="$ctrl.departmentModel"
+            ng-options="s.PhongbanId as s.TenPhongban for s in $ctrl.departmentModels" ng-change="$ctrl.filterChanged()">
+            <option value="">---Chọn phòng---</option>
+        </select>
+    </div>
+</div>
+
+<table class="display nowrap table table-hover table-striped table-bordered full-color-table full-info-table hover-table"
+    cellspacing="0" width="100%">
+    <thead>
+        <tr>
+            <th>
+                <input type="checkbox" id="chkAll" ng-click="$ctrl.toggleAll()" ng-model="$ctrl.isAllSelected" class="filled-in chk-col-light-blue"
+                />
+                <label for="chkAll"></label>
+            </th>
+            <th>Họ tên</th>
+            <th>Mobile</th>
+            <th>Email</th>
+            <th>Phòng/Ban</th>
+            <th>Ngày tạo</th>
+            <th class="text-center">Hoạt động</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <th></th>
+            <th>Họ tên</th>
+            <th>Mobile</th>
+            <th>Email</th>
+            <th>Phòng/Ban</th>
+            <th>Ngày tạo</th>
+            <th>Hoạt động</th>
+            <th></th>
+        </tr>
+    </tfoot>
+    <tbody dir-paginate="user in $ctrl.userModels | itemsPerPage: $ctrl.pageSize" pagination-id="dataPagination" current-page="$ctrl.currentPage"
+        total-items="$ctrl.totalRowCount">
+        <tr>
+            <td class="center">
+                <input type="checkbox" ng-model="user.selected" id="chkItem{{$index+1}}" class="filled-in chk-col-light-blue" />
+                <label for="chkItem{{$index+1}}"></label>
+            </td>
+            <td>{{ user.Hovaten }}</td>
+            <td>{{ user.Mobile }}</td>
+            <td>{{ user.Email }}</td>
+            <td>{{ user.DepartmentName }}</td>
+            <td>{{ user.CreateDateStr }}</td>
+            <td class="text-center">
+                <div class="label label-table label-{{ user.Tinhtrang?'success':'danger' }}">{{ user.Tinhtrang?"Hoạt động":"Tạm dừng" }}</div>
+            </td>
+            <td class="text-nowrap">
+                <div class="dropdown dropdown-menu-right mx-1">
+                    <a class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)">
+                        <i class="fa fa-list"></i>&nbsp;chức năng
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" data-toggle="modal" data-target="#userModelDialog" ng-click="$ctrl.onEdit(user)" data-original-title="Cập nhật">
+                            <i class="fas fa-edit"></i> Cập nhật
+                        </a>
+                        <a class="dropdown-item" data-toggle="tooltip" data-original-title="Xóa" ng-click="$ctrl.onRemove(user)">
+                            <i class="fas fa-trash"></i> Xóa
+                        </a>
+                        <a class="dropdown-item" data-toggle="tooltip" data-original-title="Khóa tài khoản" ng-click="$ctrl.onLock(user)">
+                            <i class="fas {{ user.Tinhtrang==true?'fa-lock':'mdi-lock-open' }}"></i> Khóa tài khoản
+                        </a>
+                        <a class="dropdown-item" data-toggle="modal" data-target="#changePassModal" ng-click="$ctrl.onResetPass(user)" data-original-title="Đổi mật khẩu">
+                            <i class="fas fa-key"></i> Đổi mật khẩu
+                        </a>
+                    </div>
+                </div>
+
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="row">
+    <div class="col-sm-3">
+        <div class="dataTables_length" id="datatable-responsive_length">
+            <label>
+                <select name="datatable-responsive_length" ng-model="$ctrl.pageSize" aria-controls="datatable-responsive" class="form-control">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+                records / page
+            </label>
+        </div>
+    </div>
+    <div class="col-sm-9">
+        <dir-pagination-controls boundary-links="true" on-page-change="$ctrl.onPageChanged(newPageNumber)" pagination-id="dataPagination"></dir-pagination-controls>
+    </div>
+</div>
+
+<div class="modal fade" my-modal="changePassDialog" id="changePassModal" tabindex="-1" role="dialog" aria-labelledby="changePassModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel1">Reset mật khẩu</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Mật khẩu mới:</label>
+                        <input type="password" class="form-control" ng-model="$ctrl.changePassUserModel.Password" />
+                    </div>
+                    <div class="form-group">
+                        <label for="message-text" class="control-label">Nhập lại:</label>
+                        <input class="form-control" type="password" ng-model="$ctrl.changePassUserModel.ConfirmPassword" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" ng-click="$ctrl.onSavePass()">Ghi lại</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" my-modal="userModelDialog" id="userModelDialog" tabindex="-1" role="dialog" aria-labelledby="changePassModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel1">{{ $ctrl.currentUserModel.Id==0 || $ctrl.currentUserModel.Id==undefined ?'Thêm mới':'Cập nhật' }} tài khoản</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Họ tên *:</label>
+                        <input type="text" class="form-control" ng-model="$ctrl.currentUserModel.Hovaten" />
+                    </div>
+                    <div class="form-group" ng-hide="$ctrl.currentUserModel.TaikhoanId>0">
+                        <label for="message-text" class="control-label">Mật khẩu *:</label>
+                        <input class="form-control" type="password" ng-model="$ctrl.currentUserModel.Matkhau" />
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Email *:</label>
+                        <input type="text" class="form-control" ng-model="$ctrl.currentUserModel.Email" />
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Mobile *:</label>
+                        <input type="text" class="form-control" ng-model="$ctrl.currentUserModel.Mobile" />
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Phòng ban/Bộ phận *:</label>
+                        <select name="editable-datatable_length" aria-controls="editable-datatable" class="form-control input-sm" ng-model="$ctrl.currentUserModel.DepartmentModel"
+                            ng-options="s.TenPhongban for s in $ctrl.departmentModels">
+                            <option value="">---Chọn phòng---</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Vai trò *:</label>
+                        <select class="select2 m-b-10 select2-multiple" style="width: 100%" multiple="multiple" data-placeholder="Choose" ng-model="$ctrl.currentUserModel.RoleModels"
+                            ng-options="s.RoleName for s in $ctrl.roleModels" select2>
+                            <option value="">---Chọn vai trò---</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Tình trạng:</label>
+                        <div class="switch">
+                            <label>
+                                <input type="checkbox" ng-model="$ctrl.currentUserModel.Tinhtrang" checked>
+                                <span class="lever switch-col-red"></span>
+                            </label>
+                            {{ $ctrl.currentUserModel.Tinhtrang?"Hoạt động":"Tạm dừng" }}
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" ng-click="$ctrl.onSaveUserModel()">Ghi lại</button>
+            </div>
+        </div>
+    </div>
+</div>

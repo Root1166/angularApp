@@ -1,0 +1,146 @@
+﻿<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">{{ $ctrl.pageTitle }}</h4>
+        <div id="editable-datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="dt-buttons">
+                        <button type="button" class="btn btn-info"><i class="fa fa-plus"></i> Lập kế hoạch mới</button>
+                        <button type="button" class="btn btn-success"><i class="fa fa-check"></i> Hoàn thành</button>
+                        <button type="button" class="btn btn-danger"><i class="fa fa-close"></i> Xóa kế hoạch</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin-bottom: 10px;">
+                <div class="col-sm-4">
+                    <div id="editable-datatable_filter" class="dataTables_filter" style="float: left;margin-left: 0px;"><label>Search:<input type="search" class="form-control input-sm" placeholder="" aria-controls="editable-datatable"></label></div>
+                </div>
+                <div class="col-sm-8">
+
+                    <div class="dataTables_length dataTables_filter" id="editable-datatable_length">
+                        <label>
+
+                            <select name="editable-datatable_length" aria-controls="editable-datatable" class="form-control input-sm">
+                                <option value="">---Lọc theo khách hàng---</option>
+                                <option value="">KH A</option>
+                                <option value="">KH B</option>
+                            </select>
+                        </label>
+                    </div>
+
+                    <div id="editable-datatable_filter" class="dataTables_filter"><label><input class="form-control input-daterange-datepicker" type="text" name="daterange" value=""></label></div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <table class="display nowrap table table-hover table-striped table-bordered full-color-table full-info-table hover-table" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>
+                                    <input type="checkbox" id="chkAll" ng-click="$ctrl.toggleAll()" ng-model="$ctrl.isAllSelected" class="filled-in chk-col-light-blue" />
+                                    <label for="chkAll"></label>
+                                </th>
+                                <th>Kế hoạch</th>
+                                <th>Chất thải sản xuất</th>
+                                <th>Dự kiến</th>
+                                <th ng-show="$ctrl.status=='completed'">Kết quả</th>
+                                <th>Tình trạng</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>STT</th>
+                                <th></th>
+                                <th>Kế hoạch</th>
+                                <th>Chất thải sản xuất</th>
+                                <th>Dự kiến</th>
+                                <th ng-show="$ctrl.status=='completed'">Kết quả</th>
+                                <th>Tình trạng</th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                        <tbody dir-paginate="plan in $ctrl.listContracts | itemsPerPage: $ctrl.pageSize" pagination-id="dataPagination" current-page="$ctrl.currentPage" total-items="$ctrl.totalRowCount">
+                            <tr>
+                                <td class="center">
+                                    {{$index+1}}
+                                </td>
+                                <td class="center">
+                                    <input type="checkbox" ng-model="plan.selected" id="chkItem{{$index+1}}" class="filled-in chk-col-light-blue" />
+                                    <label for="chkItem{{$index+1}}"></label>
+                                </td>
+                                <td>
+                                    <b>Mã kế hoạch:</b> {{ plan.MaKH }}<br />
+                                    <b>Khách hàng:</b> {{ plan.TenKH }}<br />
+                                    <b>Trưởng ca:</b> {{ plan.Truongca }}<br />
+                                    <b>Thời gian bắt đầu:</b> {{ plan.Thoigianbatdau }}<br />
+                                    <b>Thời gian kết thúc:</b> {{ plan.Thoigianketthuc }}<br />
+                                    <b>Tình trạng thiết bị:</b> {{ plan.Tinhtrangthietbi }}<br />
+                                    <b>Ghi chú:</b> {{ plan.Ghichu }}<br />
+                                </td>
+                                <td>
+                                    1) Bóng đèn loại A: 200 kg <br />
+                                    2) Bóng đèn loại B: 300 kg <br />
+                                    3) Bóng đèn loại C: 250 kg <br />
+                                    Công nhân vận hành: 20 người <br />
+                                </td>
+                                <td>
+                                    Thành phẩm dự kiến: <br />
+                                    1) Kim loại: 20 kg <br />
+                                    2) Thủy tinh: 2 kg <br />
+                                    Bắt đầu lúc: 15/01/2017 <br />
+                                    Kết thúc lúc: 20/01/2017 <br />
+                                </td>
+                                <td ng-show="$ctrl.status=='completed'">
+                                    Thành phẩm thực tế: <br />
+                                    1) Kim loại: 20 kg <br />
+                                    2) Thủy tinh: 2 kg <br />
+                                    Bắt đầu lúc: 15/01/2017 <br />
+                                    Kết thúc lúc: 20/01/2017 <br />
+                                </td>
+                                <td>{{ plan.Tinhtrang }}</td>
+                                <td class="center">
+                                    <a href="#" data-toggle="tooltip" data-original-title="Hoàn thành">
+                                        <i class="mdi
+                                    mdi mdi-check-circle text-inverse m-r-10"></i>
+                                    </a>
+                                    <br />
+                                    <a href="#" data-toggle="tooltip" data-original-title="Sửa"> <i class="fa fa-pencil text-inverse m-r-10"></i> </a>
+                                    <br />
+                                    <a href="#" data-toggle="tooltip" data-original-title="In HĐ"> <i class="fa fa-print text-success m-r-10"></i> </a>
+                                    <br />
+                                    <a href="#" data-toggle="tooltip" data-original-title="Tạm dừng/bắt đầu"> <i class="mdi mdi-alert-octagon text-inverse m-r-10"></i> </a>
+                                    <br />
+                                    <a href="#" data-toggle="tooltip" data-original-title="Xóa HĐ"> <i class="fa fa-close text-danger m-r-10"></i> </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="dataTables_length" id="datatable-responsive_length">
+                        <label>
+                            <select name="datatable-responsive_length" ng-model="$ctrl.pageSize" aria-controls="datatable-responsive" class="form-control">
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                            records / page
+                        </label>
+                    </div>
+                </div>
+                <div class="col-sm-9">
+                    <dir-pagination-controls boundary-links="true" on-page-change="$ctrl.onPageChanged(newPageNumber)" pagination-id="dataPagination"></dir-pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

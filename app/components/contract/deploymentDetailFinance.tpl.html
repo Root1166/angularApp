@@ -1,0 +1,481 @@
+﻿<div class="section-header">
+    <div class="title">
+        <i class="fas fa-exclamation-triangle"></i>
+        TÀI CHÍNH
+    </div>
+</div>
+
+<div class="row">
+    <!-- Column -->
+    <div class="col-lg-12 col-xlg-12 col-md-12">
+        <div class="card">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs profile-tab">
+                <li class="nav-item">
+                    <a id="tabfirstactive" class="tablinks nav-link" onclick="openTaiChinh(event, 'AA1')">Thanh toán</a>
+                </li>
+                <li class="nav-item">
+                    <a class="tablinks nav-link" onclick="openTaiChinh(event, 'AA2')">Dự kiến thu</a>
+                </li>
+                <li class="nav-item">
+                    <a class="tablinks nav-link" onclick="openTaiChinh(event, 'AA3')">Dự kiến chi</a>
+                </li>
+                <li class="nav-item">
+                    <a class="tablinks nav-link" onclick="openTaiChinh(event, 'AA4')">Dự kiến hàng cần thiết</a>
+                </li>
+                <li class="nav-item">
+                    <a class="tablinks nav-link" onclick="openTaiChinh(event, 'AA5')">báo cáo lợi nhuận</a>
+                </li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div class="tabcontent" id="AA1">
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <div class="col-md-9">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label>Tìm kiếm</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input ng-model="$ctrl.text" type="text" class="form-control" placeholder="Tên, nội dung thanh toán" />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button ng-click="$ctrl.search(1)" class="btn btn-default">Tìm</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-9">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <table class="display nowrap table table-hover table-striped table-bordered full-color-table full-info-table hover-table"
+                                            cellspacing="0" width="100%">
+                                            <colgroup>
+                                                <col width="50" />
+                                                <col width="50%" />
+                                                <col width="15%" />
+                                                <col width="15%" />
+                                                <col width="10%" />
+                                            </colgroup>
+                                            <thead>
+                                                <tr>
+                                                    <th>STT</th>
+                                                    <th>Nội dung thanh toán</th>
+                                                    <th>Số tiền</th>
+                                                    <th>Ngày</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="item in $ctrl.liThanhtoans">
+                                                    <td class="center">{{$index + 1}}</td>
+                                                    <td class="center">{{item.NoidungThanhtoan}}</td>
+                                                    <td class="center">{{item.Sotien | currency:'':0}} đ</td>
+                                                    <td class="center">{{item.Ngaytao | date: 'dd/MM/yyyy'}}</td>
+                                                    <td class="text-nowrap">
+                                                        <button ng-click="$ctrl.edit(1, item)" class="btn waves-effect waves-light btn-xs btn-default" data-original-title="Sửa">
+                                                            <i class=""></i> Sửa</button>
+                                                        <button ng-click="$ctrl.delete(1, item)" class="btn waves-effect waves-light btn-xs btn-default" data-original-title="Xóa">
+                                                            <i class=""></i> Xóa</button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <textarea ng-model="$ctrl.thanhtoanModel.NoidungThanhtoan" class="form-control" rows="3" placeholder="Nội dung thanh toán..."></textarea>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <input ng-model="$ctrl.thanhtoanModel.Sotien" type="number" class="form-control" placeholder="Số tiền thanh toán..." />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <input ng-model="$ctrl.thanhtoanModel.Ngaytao" date-picker lang="vi" class="form-control" placeholder="Ngày thanh toán..."
+                                        />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <input ng-model="$ctrl.thanhtoanModel.NguoiThanhToan" lang="vi" class="form-control" placeholder="Người thanh toán..." />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-12 text-right">
+                                <button ng-click="$ctrl.insert(1)" class="btn waves-effect waves-light btn-default" data-original-title="Ghi lại">
+                                    <i class=""></i> Ghi lại</button>
+                                <button ng-click="$ctrl.cancel(1)" class="btn waves-effect waves-light btn-default" data-original-title="Hủy">
+                                    <i class=""></i> Hủy</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tabcontent" id="AA2">
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <div class="col-md-9">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label>Tìm kiếm</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input ng-model="$ctrl.text" type="text" class="form-control" placeholder="Tên, nội dung..." />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button ng-click="$ctrl.search(2)" class="btn btn-default">Tìm</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-9">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <table class="display nowrap table table-hover table-striped table-bordered full-color-table full-info-table hover-table"
+                                            cellspacing="0" width="100%">
+                                            <colgroup>
+                                                <col width="50" />
+                                                <col width="50%" />
+                                                <col width="15%" />
+                                                <col width="15%" />
+                                                <col width="10%" />
+                                            </colgroup>
+                                            <thead>
+                                                <tr>
+                                                    <th>STT</th>
+                                                    <th>Nội dung thu</th>
+                                                    <th>Số tiền</th>
+                                                    <th>Ngày</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="item in $ctrl.liDukienthus">
+                                                    <td class="center">{{$index + 1}}</td>
+                                                    <td class="center">{{item.Noidungthu}}</td>
+                                                    <td class="center">{{item.Sotien}}</td>
+                                                    <td class="center">{{item.Ngaytao | date: 'dd/MM/yyyy'}}</td>
+                                                    <td class="text-nowrap">
+                                                        <button ng-click="$ctrl.edit(2, item)" class="btn waves-effect waves-light btn-xs btn-default" data-original-title="Sửa">
+                                                            <i class=""></i> Sửa</button>
+                                                        <button ng-click="$ctrl.delete(2, item)" class="btn waves-effect waves-light btn-xs btn-default" data-original-title="Xóa">
+                                                            <i class=""></i> Xóa</button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <textarea ng-model="$ctrl.dukienthuModel.Noidungthu" class="form-control" rows="3" placeholder="Nội dung thu..."></textarea>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <input ng-model="$ctrl.dukienthuModel.Sotien" type="number" class="form-control" placeholder="Số tiền..." />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-12 text-right">
+                                <button ng-click="$ctrl.insert(2)" class="btn waves-effect waves-light btn-default" data-original-title="Ghi lại">
+                                    <i class=""></i> Ghi lại</button>
+                                <button ng-click="$ctrl.cancel(2)" class="btn waves-effect waves-light btn-default" data-original-title="Hủy">
+                                    <i class=""></i> Hủy</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tabcontent" id="AA3">
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <div class="col-md-9">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label>Tìm kiếm</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input ng-model="$ctrl.text" type="text" class="form-control" placeholder="Tên, nội dung..." />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button ng-click="$ctrl.search(3)" class="btn btn-default">Tìm</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-9">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <table class="display nowrap table table-hover table-striped table-bordered full-color-table full-info-table hover-table"
+                                            cellspacing="0" width="100%">
+                                            <colgroup>
+                                                <col width="50" />
+                                                <col width="50%" />
+                                                <col width="15%" />
+                                                <col width="15%" />
+                                                <col width="10%" />
+                                            </colgroup>
+                                            <thead>
+                                                <tr>
+                                                    <th>STT</th>
+                                                    <th>Lý do chi</th>
+                                                    <th>Số tiền</th>
+                                                    <th>Ngày</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="item in $ctrl.liDukienchis">
+                                                    <td class="center">{{$index + 1}}</td>
+                                                    <td class="center">{{item.Lydochi}}</td>
+                                                    <td class="center">{{item.Sotien}}</td>
+                                                    <td class="center">{{item.Ngaytao | date: 'dd/MM/yyyy'}}</td>
+                                                    <td class="text-nowrap">
+                                                        <button ng-click="$ctrl.edit(3, item)" class="btn waves-effect waves-light btn-xs btn-default" data-original-title="Sửa">
+                                                            <i class=""></i> Sửa</button>
+                                                        <button ng-click="$ctrl.delete(3, item)" class="btn waves-effect waves-light btn-xs btn-default" data-original-title="Xóa">
+                                                            <i class=""></i> Xóa</button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <textarea ng-model="$ctrl.dukienchiModel.Lydochi" class="form-control" rows="3" placeholder="Lý do chi..."></textarea>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <input ng-model="$ctrl.dukienchiModel.Sotien" type="number" class="form-control" placeholder="Số tiền..." />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-12 text-right">
+                                <button ng-click="$ctrl.insert(3)" class="btn waves-effect waves-light btn-default" data-original-title="Ghi lại">
+                                    <i class=""></i> Ghi lại</button>
+                                <button ng-click="$ctrl.cancel(3)" class="btn waves-effect waves-light btn-default" data-original-title="Hủy">
+                                    <i class=""></i> Hủy</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tabcontent" id="AA4">
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <div class="col-md-9">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <label>Tìm kiếm</label>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <input ng-model="$ctrl.text" type="text" class="form-control" placeholder="Tên, nội dung..." />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button ng-click="$ctrl.search(4)" class="btn btn-default">Tìm</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-9">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <table class="display nowrap table table-hover table-striped table-bordered full-color-table full-info-table hover-table"
+                                            cellspacing="0" width="100%">
+                                            <colgroup>
+                                                <col width="50" />
+                                                <col width="50%" />
+                                                <col width="15%" />
+                                                <col width="15%" />
+                                                <col width="10%" />
+                                            </colgroup>
+                                            <thead>
+                                                <tr>
+                                                    <th>STT</th>
+                                                    <th>Mặt hàng</th>
+                                                    <th>Tỉ lệ chốt</th>
+                                                    <th>Ngày</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="item in $ctrl.liDukienhangcanthiets">
+                                                    <td class="center">{{$index + 1}}</td>
+                                                    <td class="center">{{item.TenMathang}}</td>
+                                                    <td class="center">{{item.Tylechot}} %</td>
+                                                    <td class="center">{{item.Ngaytao | date: 'dd/MM/yyyy'}}</td>
+                                                    <td class="text-nowrap">
+                                                        <button ng-click="$ctrl.edit(4, item)" class="btn waves-effect waves-light btn-xs btn-default" data-original-title="Sửa">
+                                                            <i class=""></i> Sửa</button>
+                                                        <button ng-click="$ctrl.delete(4, item)" class="btn waves-effect waves-light btn-xs btn-default" data-original-title="Xóa">
+                                                            <i class=""></i> Xóa</button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <input ng-model="$ctrl.dukienhang_canthietModel.TenMathang" type="text" class="form-control" placeholder="Tên mặt hàng..."
+                                        />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <input ng-model="$ctrl.dukienhang_canthietModel.Chungloai" type="text" class="form-control" placeholder="Chủng loại..." />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label>Thời gian cần dự kiến</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <input ng-model="$ctrl.dukienhang_canthietModel.Thoigiancan" date-picker lang="vi" class="form-control" placeholder="Thời gian cần"
+                                        />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <input ng-model="$ctrl.dukienhang_canthietModel.Tylechot" type="text" class="form-control" placeholder="Tỉ lệ chốt..." />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <textarea ng-model="$ctrl.dukienhang_canthietModel.Ghichu" class="form-control" rows="3" placeholder="Ghi chú..."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-12 text-right">
+                                <button ng-click="$ctrl.insert(4)" class="btn waves-effect waves-light btn-default" data-original-title="Ghi lại">
+                                    <i class=""></i> Ghi lại</button>
+                                <button ng-click="$ctrl.cancel(4)" class="btn waves-effect waves-light btn-default" data-original-title="Hủy">
+                                    <i class=""></i> Hủy</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tabcontent" id="AA5">
+                    <div class="card-body">
+                        <div class="form-group row" id="printTable">
+                            <div class="col-md-9">
+                                <table class="display nowrap table table-hover table-striped table-bordered full-color-table full-info-table hover-table"
+                                    cellspacing="0" width="100%">
+                                    <colgroup>
+                                        <col width="50" />
+                                        <col width="70%" />
+                                        <col />
+                                    </colgroup>
+                                    <thead>
+                                        <tr>
+                                            <th>STT</th>
+                                            <th>Nội dung thanh toán</th>
+                                            <th>Số tiền</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="center">1</td>
+                                            <td class="center">Khoản thu</td>
+                                            <td class="center">{{$ctrl.BaocaoLoinhuan.Khoanthu | currency:'':0}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="center">2</td>
+                                            <td class="center">Chi phí ngày công</td>
+                                            <td class="center">{{$ctrl.BaocaoLoinhuan.ChiphiNgaycong | currency:'':0}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="center">3</td>
+                                            <td class="center">Chi phí ăn uống</td>
+                                            <td class="center">{{$ctrl.BaocaoLoinhuan.ChiphiAnUong | currency:'':0}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="center">4</td>
+                                            <td class="center">Chi phí nhà nghỉ</td>
+                                            <td class="center">{{$ctrl.BaocaoLoinhuan.ChiphiNhaNghi | currency:'':0}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="center">5</td>
+                                            <td class="center">Chi phí đi lại</td>
+                                            <td class="center">{{$ctrl.BaocaoLoinhuan.ChiphiDiLai | currency:'':0}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="center">6</td>
+                                            <td class="center">Chi phí khác</td>
+                                            <td class="center">{{$ctrl.BaocaoLoinhuan.ChiphiKhac | currency:'':0}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label>
+                                <b>Lợi nhuận: {{$ctrl.BaocaoLoinhuan.Loinhuan | currency:'':0}} đ</b>
+                            </label>
+                            </br>
+                            <button ng-click="$ctrl.onPrint('printTable')" class="btn waves-effect waves-light btn-default" data-original-title="In">
+                                <i class=""></i> In</button>
+
+                            <button ng-click="$ctrl.printExcel(item)" class="btn waves-effect waves-light btn-default" data-original-title="Xuất Excel">
+                                <i class=""></i> Xuất Excel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Column -->
+</div>
+</div>
+<script>
+    function openTaiChinh(evt, cityName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(cityName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+    var tabfirstactive = document.getElementById('tabfirstactive');
+    tabfirstactive.click();
+</script>

@@ -1,0 +1,239 @@
+<div class="section-header">
+    <div class="title">
+        <i class="fas fa-signal"></i>
+        Theo dõi tiến độ hợp đồng
+    </div>
+    <div class="options">
+        <button ui-sref="home.contract.trackexcel" type="button" class="btn btn-success">
+            <i class="fas fa-export"></i> Xuất ra excel
+        </button>
+        <button type="button" class="btn btn-info" ng-click="$ctrl.Hidden = !$ctrl.Hidden">
+            <i class="fas fa-filter"></i> Lọc dữ liệu</button>
+    </div>
+</div>
+
+<div ng-show="$ctrl.Hidden" class="row mt-3 grid-filter" style>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Tìm kiếm</label>
+        </div>
+        <input ng-change="$ctrl.loadData($ctrl.filter)" ng-model="$ctrl.filter.Search" class="form-control" type="text" placeholder="Nội dung cần tìm"
+            id="example-text-input">
+    </div>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Lọc theo trạng thái</label>
+        </div>
+        <select ng-change="$ctrl.loadData($ctrl.filter)" ng-model="$ctrl.searchpanel.Statusmodel" name="editable-datatable_length"
+            aria-controls="editable-datatable" class="custom-select col-12" ng-options="s.Hovaten for s in $ctrl.listTaiKhoans">
+            <option selected="">-- Trạng thái --</option>
+        </select>
+    </div>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Chọn thành phố/label>
+        </div>
+        <select ng-change="$ctrl.loadData($ctrl.filter)" ng-model="$ctrl.searchpanel.ThanhphoIdmodel" style="width: 100%;" name="editable-datatable_length"
+            aria-controls="editable-datatable" class="form-control input-sm" ng-options="s.Title for s in $ctrl.listThanhPhos">
+            <option value="">---Thành phố---</option>
+        </select>
+    </div>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Chọn quận huyện</label>
+        </div>
+        <select ng-change="$ctrl.loadData($ctrl.filter)" ng-model="$ctrl.searchpanel.QuanhuyenIdmodel" style="width: 100%;" name="editable-datatable_length"
+            aria-controls="editable-datatable" class="form-control input-sm" ng-options="s.Title for s in $ctrl.listQuanHuyens">
+            <option value="">---Quận huyện---</option>
+        </select>
+    </div>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Lọc theo nhu cầu</label>
+        </div>
+        <select ng-change="$ctrl.loadData($ctrl.filter)" ng-model="$ctrl.searchpanel.NhucauIdmodel" style="width: 100%;" name="editable-datatable_length"
+            aria-controls="editable-datatable" class="form-control input-sm" ng-options="s.TenNhucau for s in $ctrl.listNhucaugias">
+            <option value="">---Nhu cầu giá---</option>
+        </select>
+    </div>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Lọc theo người xử lý</label>
+        </div>
+        <select ng-change="$ctrl.loadData($ctrl.filter)" ng-model="$ctrl.searchpanel.NguoixulyIdmodel" style="width: 100%;" name="editable-datatable_length"
+            aria-controls="editable-datatable" class="form-control input-sm" ng-options="s.Hovaten for s in $ctrl.listTaiKhoans">
+            <option value="">---Người xử lý---</option>
+        </select>
+    </div>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Lọc theo loại khách</label>
+        </div>
+        <select ng-change="$ctrl.loadData($ctrl.filter)" ng-model="$ctrl.searchpanel.LoaikhachIdmodel" style="width: 100%;" name="editable-datatable_length"
+            aria-controls="editable-datatable" class="form-control input-sm" ng-options="s.TenLoai for s in $ctrl.listLoaiKhachHangs">
+            <option value="">---Loại khách---</option>
+        </select>
+    </div>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Lọc theo sản phẩm quan âm</label>
+        </div>
+        <select ng-change="$ctrl.loadData($ctrl.filter)" ng-model="$ctrl.searchpanel.SanphamQuantamIdmodel" style="width: 100%;"
+            name="editable-datatable_length" aria-controls="editable-datatable" class="form-control input-sm" ng-options="s.TenSanpham for s in $ctrl.listSanphams">
+            <option value="">---Sản phẩm quan tâm---</option>
+        </select>
+    </div>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Lọc theo nuồn khách</label>
+        </div>
+        <select ng-change="$ctrl.loadData($ctrl.filter)" ng-model="$ctrl.searchpanel.NguonkhachIdmodel" style="width: 100%;" name="editable-datatable_length"
+            aria-controls="editable-datatable" class="form-control input-sm" ng-options="s.TenNguon for s in $ctrl.listNguonKhachs">
+            <option value="">---Nguồn khách---</option>
+        </select>
+    </div>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group" ng-show="$ctrl.status=='new'">
+        <div class="ctl-label">
+            <label>Lọc theo thời gian</label>
+        </div>
+        <input class="form-control" type="text" placeholder="Lọc theo thời gian" id="example-text-input">
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <table class="display nowrap table table-hover table-striped table-bordered full-color-table full-info-table hover-table"
+            cellspacing="0" width="100%">
+            <colgroup>
+                <col width="50" />
+                <col width="50" />
+                <col width="25%" />
+                <col width="25%" />
+                <col width="15%" />
+                <col width="15%" />
+                <col width="15%" />
+                <col width="15%" />
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>
+                        <input type="checkbox" id="chkAll" ng-click="$ctrl.toggleAll()" ng-model="$ctrl.isAllSelected" class="filled-in chk-col-light-blue"
+                        />
+                        <label for="chkAll"></label>
+                    </th>
+                    <th>Hợp đồng</th>
+                    <th>Khách hàng</th>
+                    <th>Ngày tạo/cập nhật</th>
+                    <th>Tình trạng</th>
+                    <th>Ngày xử lý/tạo</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>STT</th>
+                    <th></th>
+                    <th>Hợp đồng</th>
+                    <th>Khách hàng</th>
+                    <th>Ngày tạo/cập nhật</th>
+                    <th>Tình trạng</th>
+                    <th>Ngày xử lý/tạo</th>
+                    <th></th>
+                </tr>
+            </tfoot>
+            <tbody dir-paginate="item in $ctrl.listContract | itemsPerPage: $ctrl.pageSize" pagination-id="dataPagination" current-page="$ctrl.currentPage"
+                total-items="$ctrl.totalRowCount">
+                <tr ng-mouseenter="item.showHoverButton=true" ng-mouseleave="item.showHoverButton=false">>
+                    <td class="center">
+                        {{$index + 1}}
+                    </td>
+                    <td>
+                        <input type="checkbox" ng-model="item.selected" id="chkItem{{$index+1}}" class="filled-in chk-col-light-blue" />
+                        <label for="chkItem{{$index+1}}"></label>
+                    </td>
+                    <td>
+                        HĐ số: {{item.SoHD}}
+                        <br /> Ngày lập: {{$ctrl.ConDate(item.Ngaytao,0)}}
+                        <br /> Người lập: {{item.Nguoitao}}
+                        <br /> Trị giá: {{item.Trigia}}
+                        <br /> Sản phẩm: {{item.Sanpham}}
+                    </td>
+                    <td>
+                        Họ tên: {{item.Khachhangmodel.Hoten}}
+                        <br /> Ngày sinh: {{$ctrl.ConDate(item.Khachhangmodel.Ngaysinh,0)}}
+                        <br /> Giới tính: {{item.Khachhangmodel.Gioitinh?'Nam':'Nữ'}}
+                        <br /> Email: {{item.Khachhangmodel.Email}}
+                        <br /> Mobile: {{item.Khachhangmodel.Mobile}}
+                        <br /> Socialsignin: {{item.Khachhangmodel.Socialsignin}}
+                        <br /> Tổng đơn: {{item.Khachhangmodel.Tongdon}}
+                        <br /> Thành phố: {{item.Khachhangmodel.Thanhphoname}}
+                        <br /> Hoạt động: {{item.Khachhangmodel.Hoatdong}}
+                    </td>
+                    <td>
+                        Loại KH: {{item.LoaiKH}}
+                        <br /> Nhu cầu giá: {{item.Nhucaugia}}
+                        <br /> SP quan tâm: {{item.Sanphamquantam}}
+                        <br />
+                        <span ng-repeat="_item in item.SPQTs">&nbsp&nbsp&nbsp
+                            <b>{{$index + 1}}- {{_item.TenSanpham}}</b>
+                            <br />
+                        </span>
+                        Nguồn khách: {{item.Nguonkhach}}
+                    </td>
+                    <td>
+                        {{item.Tinhtrang}}
+                    </td>
+                    <td>
+                        Tạo: {{$ctrl.ConDate(item.Ngaytao,0)}}
+                        <br /> Cập nhật: {{$ctrl.ConDate(item.Capnhat,0)}}
+                        <br /> Ngày giao: {{$ctrl.ConDate(item.Ngaygiao,0)}}
+                        <br /> Ngày hoàn thành: {{$ctrl.ConDate(item.Ngayhoanthanh,0)}}
+                    </td>
+                    <td class="text-nowrap">
+                        <div class="dropdown dropdown-menu-right mx-1">
+                            <a class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)">
+                                <i class="fa fa-list"></i>&nbsp;chức năng
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <button ng-click="$ctrl.getEdit(item)" class="dropdown-item" data-original-title="Sửa">
+                                    <i class="fas fa-edit"></i> Sửa
+                                </button>
+                                <button ng-click="$ctrl.delete(item)" class="dropdown-item" data-original-title="Xóa">
+                                    <i class="fas fa-trash"></i> Xóa
+                                </button>
+                                <button ui-sref="home.contract.trackexcel({status:'{{item.HopdongId}}'})" class="dropdown-item" data-original-title="Tiến độ">
+                                    <i class="fas fa-signal"></i> Tiến độ
+                                </button>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <div class="dataTables_length" id="datatable-responsive_length">
+            <label>
+                <select name="datatable-responsive_length" ng-model="$ctrl.pageSize" aria-controls="datatable-responsive" class="form-control">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+                bản ghi / trang
+            </label>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <dir-pagination-controls boundary-links="true" on-page-change="$ctrl.onPageChanged(newPageNumber)" pagination-id="dataPagination"></dir-pagination-controls>
+    </div>
+</div>
+
+
+<div class="modal fade" my-modal="dungcuModelDialog" id="dungcuModelDialog" tabindex="-1" role="dialog" aria-labelledby="changePassModalLabel">
+</div>

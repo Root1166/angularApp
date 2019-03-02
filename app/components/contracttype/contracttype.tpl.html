@@ -1,0 +1,117 @@
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">LOẠI HỢP ĐỒNG</h4>
+        <h6 class="card-subtitle">Quản lý danh sách loại hợp đồng của hệ thống</h6>
+        <div id="editable-datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="dt-buttons">
+                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#contracttypeModelDialog" ng-click="$ctrl.onAdd()"><i class="fa fa-plus"></i> Thêm mới</button>
+                        <button type="button" ng-click="$ctrl.onRemoves()" class="btn btn-danger"><i class="fa fa-close"></i> Xóa</button>
+                    </div>
+                </div>
+                <div class="col-sm-8" ng-show="false">
+
+                    <div id="editable-datatable_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control input-sm" placeholder="" aria-controls="editable-datatable" ng-model="$ctrl.search" ng-keypress="$ctrl.onSearch($event)"></label></div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <table class="display nowrap table table-hover table-striped table-bordered full-color-table full-info-table hover-table" cellspacing="0" width="100%">
+                        <colgroup>
+                            <col width="50" />
+                            <col width="35%" />
+                            <col width="25%" />
+                            <col width="15%" />
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>
+                                    <input type="checkbox" id="chkAll" ng-click="$ctrl.toggleAll()" ng-model="$ctrl.isAllSelected" class="filled-in chk-col-light-blue" />
+                                    <label for="chkAll"></label>
+                                </th>
+                                <th>Tên loại hợp đồng</th>
+                                <th>Thứ tự</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th></th>
+                                <th>Tên loại hợp đồng</th>
+                                <th>Thứ tự</th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                        <tbody dir-paginate="contracttype in $ctrl.contracttypeModels | itemsPerPage: $ctrl.pageSize" pagination-id="dataPagination" current-page="$ctrl.currentPage" total-items="$ctrl.totalRowCount">
+                            <tr>
+                                <td class="center">
+                                    <input type="checkbox" ng-model="contracttype.selected" id="chkItem{{$index+1}}" class="filled-in chk-col-light-blue" />
+                                    <label for="chkItem{{$index+1}}"></label>
+                                </td>
+
+                                <td>{{ contracttype.Name }}</td>
+                                <td>{{ contracttype.Order }}</td>
+
+                                <td class="text-nowrap">
+                                    <a class="btn" data-toggle="modal" data-target="#contracttypeModelDialog" ng-click="$ctrl.onEdit(contracttype)" data-original-title="Cập nhật"> <i class="fa fa-pencil text-inverse"></i> </a>
+                                    <a class="btn" data-toggle="tooltip" data-original-title="Xóa" ng-click="$ctrl.onRemove(contracttype)"> <i class="fa fa-close text-danger"></i> </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row" ng-show="false">
+                <div class="col-sm-6">
+                    <div class="dataTables_length" id="datatable-responsive_length">
+                        <label>
+                            <select name="datatable-responsive_length" ng-model="$ctrl.pageSize" aria-controls="datatable-responsive" class="form-control">
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                            records / page
+                        </label>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <dir-pagination-controls boundary-links="true" on-page-change="$ctrl.onPageChanged(newPageNumber)" pagination-id="dataPagination"></dir-pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" my-modal="contracttypeModelDialog" id="contracttypeModelDialog" tabindex="-1" role="dialog" aria-labelledby="changePassModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel1">{{ $ctrl.currentContractTypeModel.Id==0 || $ctrl.currentContractTypeModel.Id==undefined ?'Thêm mới':'Cập nhật' }} loại hợp đồng</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Tên loại:</label>
+                        <input type="text" class="form-control" ng-model="$ctrl.currentContractTypeModel.Name" />
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Thứ tự:</label>
+                        <input type="number" class="form-control" ng-model="$ctrl.currentContractTypeModel.Order" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" ng-click="$ctrl.onSaveContractTypeModel()">Ghi lại</button>
+            </div>
+        </div>
+    </div>
+</div>

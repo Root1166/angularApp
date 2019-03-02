@@ -1,0 +1,132 @@
+<div class="section-header">
+    <div class="title">
+        <i class="fas fa-money-check-alt"></i>
+        BÁO CÁO LỢI NHUẬN CHI TIẾT
+    </div>
+    <div class="options">
+        <button type="button" class="btn btn-info">
+            <i class="fa fa-filter"></i> Thống kê</button>
+        <button type="button" class="btn btn-primary">
+            <i class="fas fa-file-exce"></i> Xuất excel</button>
+        <button type="button" class="btn btn-danger">
+            <i class="fas fa-print"></i> In báo cáo</button>
+    </div>
+</div>
+
+<h6 class="card-subtitle">Tổng hợp lợi nhận của tất cả các hợp đồng</h6>
+
+<div class="row mt-3 grid-filter" style>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Lọc theo thành phố</label>
+        </div>
+        <md-autocomplete md-min-length="0" md-selected-item-change="$ctrl.onSelectThanhpho(item)" md-search-text="$scrl.searchText"
+            md-model="$scrl.searchText" md-items="item in $ctrl.searchThanhpho($scrl.searchText)" md-item-text="item.Title" placeholder="Thành phố">
+            <md-item-template>
+                <span md-highlight-text="$scrl.searchText">{{item.Title}}</span>
+            </md-item-template>
+        </md-autocomplete>
+    </div>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Lọc theo quận huyện</label>
+        </div>
+        <md-autocomplete md-min-length="0" md-selected-item-change="$ctrl.onSelectQuanhuyen(item)" md-search-text="$scrl.searchQuanhuyen"
+            md-model="$scrl.searchQuanhuyen" md-items="item in $ctrl.searchQuanhuyen($scrl.searchQuanhuyen)" md-item-text="item.Title"
+            placeholder="Quận Huyện">
+            <md-item-template>
+                <span md-highlight-text="$scrl.searchQuanhuyen">{{item.Title}}</span>
+            </md-item-template>
+        </md-autocomplete>
+    </div>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Lọc theo thời gian</label>
+        </div>
+        <div date-range-picker on-load-callback="$ctrl.filterByDate(arg1)" class="btn btn-primary" title="" data-toggle="dropdown">
+            <i class="glyph-icon icon-calendar"></i>
+            <span></span>
+            <b class="caret"></b>
+        </div>
+    </div>
+</div>
+
+
+<table class="table color-bordered-table info-bordered-table" cellspacing="0" width="100%">
+    <colgroup>
+        <col width="18%">
+        <col width="35%">
+        <col width="15%">
+        <col width="10%">
+        <col width="10%">
+        <col width="10%">
+        <col width="10%">
+        <col width="10%">
+        <col width="15%">
+    </colgroup>
+
+    <thead>
+        <tr>
+            <th rowspan="2" class="v-middle">Mã HĐ</th>
+            <th rowspan="2" class="v-middle">Khách hàng</th>
+            <th rowspan="2" class="v-middle">Doanh thu dịch vụ</th>
+            <th colspan="5" class="text-center">Chi phí</th>
+            <th rowspan="2" class="v-middle">Lợi nhuận</th>
+        </tr>
+        <tr>
+            <th class="text-center">CP ăn</th>
+            <th class="text-center">CP nghỉ</th>
+            <th class="text-center">CP đi lại</th>
+            <th class="text-center">CP nhân công</th>
+            <th class="text-center">CP khác</th>
+        </tr>
+    </thead>
+
+    <tfoot>
+        <tr>
+            <th class="text-left" colspan="2">Tổng cộng</th>
+            <th>{{$ctrl.reportProfitDetailModels | sumProfit:'DoanhthuDV'| currency: '':0 }} đ</th>
+            <th>{{$ctrl.reportProfitDetailModels | sumProfit:'ChiphiAn'| currency: '':0 }} đ</th>
+            <th>{{$ctrl.reportProfitDetailModels | sumProfit:'ChiphiNhanghi'| currency: '':0 }} đ</th>
+            <th>{{$ctrl.reportProfitDetailModels | sumProfit:'ChiphiDilai'| currency: '':0 }} đ</th>
+            <th>{{$ctrl.reportProfitDetailModels | sumProfit:'ChiphiNhanCong'| currency: '':0 }} đ</th>
+            <th>{{$ctrl.reportProfitDetailModels | sumProfit:'ChiphiKhac'| currency: '':0 }} đ</th>
+            <th>{{$ctrl.reportProfitDetailModels | sumProfit:'Loinhuan'| currency: '':0 }} đ</th>
+        </tr>
+    </tfoot>
+
+    <tbody dir-paginate="reportProfit  in $ctrl.reportProfitDetailModels | itemsPerPage: $ctrl.pageSize" pagination-id="dataPagination"
+        current-page="$ctrl.currentPage" total-items="$ctrl.totalRowCount">
+        <tr>
+            <td>{{ reportProfit.SoHD }}</td>
+            <td>{{ reportProfit.Khachhang }}</td>
+            <td>{{ reportProfit.DoanhthuDV | currency: '':0 }} đ</td>
+            <td>{{ reportProfit.ChiphiAn | currency: '':0 }} đ</td>
+            <td>{{ reportProfit.ChiphiNhanghi | currency: '':0 }} đ</td>
+            <td>{{ reportProfit.ChiphiDilai | currency: '':0 }} đ</td>
+            <td>{{ reportProfit.ChiphiNhanCong | currency: '':0 }} đ</td>
+            <td>{{ reportProfit.ChiphiKhac | currency: '':0 }} đ</td>
+            <td>{{ reportProfit.Loinhuan | currency: '':0 }} đ</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="row">
+    <div class="col-sm-3">
+        <div class="dataTables_length" id="datatable-responsive_length">
+            <label>
+                <select name="datatable-responsive_length" ng-model="$ctrl.pageSize" aria-controls="datatable-responsive" class="form-control">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+                records / page
+            </label>
+        </div>
+    </div>
+    <div class="col-sm-9">
+        <dir-pagination-controls boundary-links="true" on-page-change="$ctrl.onPageChanged(newPageNumber)" pagination-id="dataPagination"></dir-pagination-controls>
+    </div>
+</div>

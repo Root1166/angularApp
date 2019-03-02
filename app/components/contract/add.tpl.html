@@ -1,0 +1,337 @@
+<div class="section-header">
+    <div class="title">
+        <i class="fas fa-user-friends"></i>
+        {{$ctrl.status?'Sửa hợp đồng':'Lập hợp đồng mới'}}
+    </div>
+</div>
+
+<div class="row">
+    <!-- Column -->
+    <div class="col-lg-12 col-xlg-12 col-md-12">
+        <div class="card">
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" ng-init="$ctrl.activeTab='customer'">
+                <li class="nav-item">
+                    <a class="nav-link {{ $ctrl.activeTab=='customer'?'active':'' }}" ng-click="$ctrl.activeTab='customer';" id="thongtinkh"
+                        data-toggle="tab" href="#A1" target="_self">Thông tin khách hàng</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ $ctrl.activeTab=='contract'?'active':'' }}" ng-click="$ctrl.activeTab='contract';" data-toggle="tab"
+                        href="#A2" target="_self">Hợp đồng</a>
+                </li>
+            </ul>
+            <!-- Tab panes -->
+            <div class="tab-content tabcontent-border">
+                <div class="tab-pane {{ $ctrl.activeTab=='customer'?'active':'' }}" id="A1">
+                    <div class="card-body">
+                        <div class="row" ng-if="$ctrl.khachhangId == '0'">
+                            <div class="col-md-2">
+                                <label>Tìm kiếm</label>
+                            </div>
+                            <div class="col-md-4">
+                                <select class="form-control" style="width: 100%;" s2-modelvalue="$ctrl.model.Hopdong.KhachhangId" select2ajax s2-model="$ctrl.model.Hopdong.Customer"
+                                    s2-search="$ctrl.searchKhachHang(text)" s2-process="$ctrl.procesKhachHang(response)" s2-change="$ctrl.onSelectKhachHang(value)">
+                                    <option value="">-- Khách hàng --</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <div class="form-group row">
+                                            <div class="col-sm-2">
+                                                <label>Nguồn khách</label>
+                                            </div>
+                                            <div class="col-sm-10">
+                                                <label>{{$ctrl.model.Hopdong.Customer.NguonKhach}}</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-2">
+                                                <label>Tên khách</label>
+                                            </div>
+                                            <div class="col-sm-10">
+                                                <label>{{$ctrl.model.Hopdong.Customer.Hoten}}</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-2">
+                                                <label>Ngày sinh</label>
+                                            </div>
+                                            <div class="col-sm-10">
+                                                <label>{{$ctrl.model.Hopdong.Customer.Ngaysinh | date: 'dd/MM/yyyy'}}</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-2">
+                                                <label>Giới tính</label>
+                                            </div>
+                                            <div class="col-sm-10">
+                                                <label>{{$ctrl.model.Hopdong.Customer.Gioitinh?'Nam':'Nữ'}}</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-sm-2">
+                                                <label>Số điện thoại</label>
+                                            </div>
+                                            <div class="col-sm-10">
+                                                <label>{{$ctrl.model.Hopdong.Customer.Mobile}}</label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row" ng-if="$ctrl.khachhangId == '0'">
+                                            <div class="col-sm-2">
+                                                <button type="button" class="btn btn-info ng-binding" ng-click="$ctrl.activeTab='contract';">Chọn</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane {{ $ctrl.activeTab=='contract'?'active':'' }}" id="A2">
+                    <div class="card-body">
+                        <div class="form-group row">
+                            <div class="col-sm-6">
+                                <label>HĐ số:
+                                    <b>{{$ctrl.model.Hopdong.SoHD}}</b>
+                                </label>
+                            </div>
+                            <div class="col-sm-6 text-right">
+                                <label>Tổng:
+                                    <b class="text-danger">{{$ctrl.model.Hopdong.Trigia | currency:'':0 }} đ</b>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-6">
+                                <textarea ng-model="$ctrl.model.Hopdong.Ghichu" rows="3" class="form-control" placeholder="Ghi chú thêm..."></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <button data-toggle="modal" data-target="#tab6AddSanpham" type="button" class="btn btn-info ng-binding">
+                                    <i class="mdi mdi-plus"></i> Thêm sản phẩm</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="display nowrap table table-hover table-striped table-bordered full-color-table full-info-table hover-table"
+                                    cellspacing="0" width="100%">
+                                    <colgroup>
+                                        <col width="50" />
+                                        <col width="15%" />
+                                        <col width="20%" />
+                                        <col width="30%" />
+                                        <col width="15%" />
+                                        <col width="10%" />
+                                    </colgroup>
+                                    <thead>
+                                        <tr>
+                                            <th>STT</th>
+                                            <th>Ảnh</th>
+                                            <th>Tên sản phẩm</th>
+                                            <th>Mô tả</th>
+                                            <th>Giá</th>
+                                            <th>Số lượng</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="item in $ctrl.model.Sanphams">
+                                            <td class="center">{{$index + 1}}</td>
+                                            <td>
+                                                <img ng-src="{{item.AnhSanpham}}" style="width:65px" alt="item.MaSP" />
+                                            </td>
+                                            <td>{{item.TenSanpham}}</td>
+                                            <td>{{item.Mota}}</td>
+                                            <td>
+                                                <input type="number" class="form-control" ng-model="item.Gia" ng-change="$ctrl.getTriGiaHopdong()" />
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control" ng-model="item.Soluong" ng-change="$ctrl.getTriGiaHopdong()" />
+                                            </td>
+                                            <td class="text-nowrap">
+                                                <button ng-click="item.checkTab6 = false; $ctrl.BoSanpham($index);" class="btn waves-effect waves-light btn-xs btn-warning"
+                                                    data-original-title="Bỏ">Bỏ</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <button data-toggle="modal" data-target="#tab6AddDichvu" type="button" class="btn btn-info ng-binding">
+                                    <i class="mdi mdi-plus"></i> Thêm dịch vụ</button>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-12">
+                                <table class="display nowrap table table-hover table-striped table-bordered full-color-table full-info-table hover-table"
+                                    cellspacing="0" width="100%">
+                                    <colgroup>
+                                        <col width="50" />
+                                        <col width="50%" />
+                                        <col width="20%" />
+                                        <col width="15%" />
+                                        <col />
+                                    </colgroup>
+                                    <thead>
+                                        <tr>
+                                            <th>STT</th>
+                                            <th>Dịch vụ</th>
+                                            <th>Giá</th>
+                                            <th>Số lượng</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="item in $ctrl.model.Dichvus">
+                                            <td class="center">{{$index + 1}}</td>
+                                            <td>{{item.Dichvu}}</td>
+                                            <td>
+                                                <input class="form-control" type="number" ng-model="item.Gia" ng-change="$ctrl.getTriGiaHopdong()" />
+                                            </td>
+                                            <td>
+                                                <input class="form-control" type="number" ng-model="item.Soluong" ng-change="$ctrl.getTriGiaHopdong()" />
+                                            </td>
+                                            <td class="text-nowrap">
+                                                <button ng-click="$ctrl.BoDichvu($index)" class="btn waves-effect waves-light btn-xs btn-warning" data-original-title="Bỏ">Bỏ</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Column -->
+</div>
+<div class="form-group row">
+    <div class="text-right col-sm-12">
+        <a ui-sref="home.contract.list({status: $ctrl.model.tenTrangthai})" class="btn btn-warning ng-binding">
+            <i class="ti-back-right"></i>Trở lại</a>
+        <button ng-click="$ctrl.onSave()" type="button" class="btn btn-info ng-binding">
+            <i class="mdi mdi-plus"></i>Ghi lại</button>
+        <a ng-click="$ctrl.onSaveAndBack()" class="btn btn-success ng-binding">
+            <i class="mdi mdi-plus"></i>Ghi và trở lại</a>
+
+    </div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="modal fade" my-modal="roleModelDialog" id="tab6AddSanpham" tabindex="-1" role="dialog" aria-labelledby="changePassModalLabel"
+    style="display: none;" aria-hidden="true" width="80%">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel1">Thêm sản phẩm</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="$ctrl.liSanphams = [];">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-2">
+                        <label>Tìm kiếm</label>
+                    </div>
+                    <div class="col-md-5">
+                        <input ng-model="$ctrl.searchTxt" class="form-control" type="text" placeholder="Tên, mô tả sản phẩm..." id="example-text-input">
+                    </div>
+                    <div class="col-md-1">
+                        <button ng-click="$ctrl.liSanpham($ctrl.searchTxt)" type="button" class="btn btn-default">
+                            <i class="mdi mdi-file-find"></i>Tìm</button>
+                    </div>
+                    <div class="col-md-4 text-right">
+                        <a ui-sref="home.product.list" target="blank" class="btn btn-success">
+                            <i class="mdi mdi-plus"></i>Thêm sp mới</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="display nowrap table table-hover table-striped table-bordered full-color-table full-info-table hover-table"
+                            cellspacing="0" width="100%">
+                            <colgroup>
+                                <col width="50" />
+                                <col width="20%" />
+                                <col width="20%" />
+                                <col width="30%" />
+                                <col width="15%" />
+                                <col width="15%" />
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Ảnh</th>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Mô tả</th>
+                                    <th>Giá</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in $ctrl.liSanphams">
+                                    <td class="center">{{$index+1}}</td>
+                                    <td>
+                                        <img ng-src="{{item.AnhSanpham}}" style="width:65px" alt="item.MaSanpham" />
+                                    </td>
+                                    <td>{{item.TenSanpham}}</td>
+                                    <td>{{item.Mota}}</td>
+                                    <td>{{item.Gia}}</td>
+                                    <td class="text-nowrap">
+                                        <button ng-click="$ctrl.selectTabSanpham(item); item.checkTab6 = true;" ng-disabled="item.checkTab6" class="btn btn-success"
+                                            data-original-title="Chọn">Chọn</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="$ctrl.liSanphams = [];">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" my-modal="roleModelDialog" id="tab6AddDichvu" tabindex="-1" role="dialog" aria-labelledby="changePassModalLabel"
+    style="display: none;" aria-hidden="true" width="80%">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel1">Thêm dịch vụ</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <input type="text" class="form-control" placeholder="Tên dịch vụ" ng-model="$ctrl.modelDichvu.Dichvu" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <input type="number" placeholder="Chi phí" class="form-control" ng-model="$ctrl.modelDichvu.Gia" />
+                    </div>
+                    <div class="col-md-6">
+                        <input type="number" placeholder="Số lượng" class="form-control" ng-model="$ctrl.modelDichvu.Soluong" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button ng-click="$ctrl.selecTabDichvu()" type="button" class="btn btn-info">
+                    <i class="fa fa-save"></i> Ghi lại</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal"> Hủy</button>
+            </div>
+        </div>
+    </div>
+</div>

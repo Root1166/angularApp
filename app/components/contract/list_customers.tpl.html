@@ -1,0 +1,208 @@
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">DANH SÁCH KHÁCH HÀNG</h4>
+        <h6 class="card-subtitle">Quản lý danh sách Khách hàng của hệ thống</h6>
+        <div id="editable-datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="dt-buttons">
+                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#customerModelDialog" ng-click="$ctrl.onAdd()"><i class="fa fa-plus"></i> Thêm mới</button>
+                        <button type="button" ng-click="$ctrl.onRemoves()" class="btn btn-danger"><i class="fa fa-close"></i> Xóa</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin-bottom: 10px;">
+                <div class="col-sm-4">
+                    <div id="editable-datatable_filter" class="dataTables_filter" style="float: left;margin-left: 0px;"><label>Search:<input type="search" class="form-control input-sm" placeholder="" aria-controls="editable-datatable"></label></div>
+                </div>
+                <div class="col-sm-8">
+
+                    <!--<div class="dataTables_length dataTables_filter" id="editable-datatable_length">
+                        <label>
+                            <select name="editable-datatable_length" aria-controls="editable-datatable" class="form-control input-sm">
+                                <option value="">---Lọc theo NV CSKH---</option>
+                                <option value="">KH A</option>
+                                <option value="">KH B</option>
+                            </select>
+                        </label>
+                    </div>
+
+                    <div class="dataTables_length dataTables_filter" id="editable-datatable_length">
+                        <label>
+                            <select name="editable-datatable_length" aria-controls="editable-datatable" class="form-control input-sm">
+                                <option value="">---Lọc theo NV khai thác---</option>
+                                <option value="">KH A</option>
+                                <option value="">KH B</option>
+                            </select>
+                        </label>
+                    </div>-->
+
+                    <div class="dataTables_length dataTables_filter" id="editable-datatable_length">
+                        <label>
+                            <select name="editable-datatable_length" aria-controls="editable-datatable" class="form-control input-sm" ng-model="$ctrl.cityModels.Title" ng-options="s.Title for s in $ctrl.cityModels">
+                                <option value="">---Lọc theo khu vực---</option>
+                                <!--<option value="">KH A</option>
+                                <option value="">KH B</option>-->
+                            </select>
+                        </label>
+                    </div>
+
+                    <!--<div id="editable-datatable_filter" class="dataTables_filter"><label><input class="form-control input-daterange-datepicker" type="text" name="daterange" value=""></label></div>-->
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <table class="display nowrap table table-hover table-striped table-bordered full-color-table full-info-table hover-table" cellspacing="0" width="100%">
+                        <colgroup>
+                            <col width="50" />
+                            <col width="10%" />
+                            <col width="15%" />
+                            <col width="15%" />
+                            <col width="15%" />
+                            <col width="15%" />
+                            <col width="15%" />
+                            <col width="15%" />
+                            <col width="15%" />
+                            <col width="15%" />
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>
+                                    <input type="checkbox" id="chkAll" ng-click="$ctrl.toggleAll()" ng-model="$ctrl.isAllSelected" class="filled-in chk-col-light-blue" />
+                                    <label for="chkAll"></label>
+                                </th>
+                                <th>Mã KH</th>
+                                <th>Tên Khách hàng</th>
+                                <th>Địa chỉ</th>
+                                <th>Khu vực</th>
+                                <th>Xếp hạng</th>
+                                <!--<th>NV khai thác</th>
+                                <th>NV CSKH</th>
+                                <th>Ngày tạo</th>-->
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <!--<tfoot>
+                            <tr>
+                                <th></th>
+                                <th>Mã KH</th>
+                                <th>Tên Khách hàng</th>
+                                <th>Địa chỉ</th>
+                                <th>Khu vực</th>
+                                <th>Xếp hạng</th>
+                                <th>NV khai thác</th>
+                                <th>NV CSKH</th>
+                                <th>Ngày tạo</th>
+                                <th></th>
+                            </tr>
+                        </tfoot>-->
+                        <tbody dir-paginate="customer in $ctrl.customerModels | itemsPerPage: $ctrl.pageSize" pagination-id="dataPagination" current-page="$ctrl.currentPage" total-items="$ctrl.totalRowCount">
+                            <tr>
+                                <td class="center">
+                                    <input type="checkbox" ng-model="customer.selected" id="chkItem{{$index+1}}" class="filled-in chk-col-light-blue" />
+                                    <label for="chkItem{{$index+1}}"></label>
+                                </td>
+
+                                <td>{{ customer.Code }}</td>
+                                <td>{{ customer.Name }}</td>
+                                <td>{{ customer.Address }}</td>
+                                <td>{{ customer.CityId }}</td>
+                                <td>{{ customer.CustomerRateId }}</td>
+                                <!--<td>{{ customer.NVKhaithac }}</td>
+                                <td>{{ customer.NVCSKH }}</td>
+                                <td>{{ customer.Ngaytao }}</td>-->
+
+                                <td class="text-nowrap">
+                                    <a class="btn" data-toggle="modal" data-target="#customerModelDialog" ng-click="$ctrl.onEdit(customer)" data-original-title="Cập nhật"> <i class="fa fa-pencil text-inverse"></i> </a>
+                                    <a class="btn" data-toggle="modal" data-target="#customerModelDialog" ng-click="$ctrl.onEdit(customer)" data-original-title="Cập nhật"> <i class="mdi mdi-file-export text-success"></i> </a>
+                                    <a class="btn" data-toggle="tooltip" data-original-title="Xóa" ng-click="$ctrl.onRemove(customer)"> <i class="fa fa-close text-danger"></i> </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="dataTables_length" id="datatable-responsive_length">
+                        <label>
+                            <select name="datatable-responsive_length" ng-model="$ctrl.pageSize" aria-controls="datatable-responsive" class="form-control">
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                            records / page
+                        </label>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <dir-pagination-controls boundary-links="true" on-page-change="$ctrl.onPageChanged(newPageNumber)" pagination-id="dataPagination"></dir-pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" my-modal="customerModelDialog" id="customerModelDialog" tabindex="-1" role="dialog" aria-labelledby="changePassModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel1">{{ $ctrl.currentProviderModel.Id==0 || $ctrl.currentProviderModel.Id==undefined ?'Thêm mới':'Cập nhật' }} khách hàng</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Mã KH *:</label>
+                        <input type="text" class="form-control" ng-model="$ctrl.currentProviderModel.Code" />
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Tên khách hàng *:</label>
+                        <input type="text" class="form-control" ng-model="$ctrl.currentProviderModel.Name" />
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Địa chỉ:</label>
+                        <input type="text" class="form-control" ng-model="$ctrl.currentProviderModel.Address" />
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Khu vực:</label>
+                        <select name="editable-datatable_length" aria-controls="editable-datatable" class="form-control input-sm" ng-model="$ctrl.cityModels.Title" ng-options="s.Title for s in $ctrl.cityModels">
+                            <option value="">---Chọn khu vực---</option>
+                        </select>
+                    </div><div class="form-group">
+                        <label for="recipient-name" class="control-label">Xếp hạng:</label>
+                              <select name="editable-datatable_length" aria-controls="editable-datatable" class="form-control input-sm" ng-model="$ctrl.customerrateModels.Name" ng-options="s.Name for s in $ctrl.customerrateModels">
+                                  <option value="">---Chọn hạng---</option>
+                              </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Số điện thoại:</label>
+                        <input type="text" class="form-control" ng-model="$ctrl.currentProviderModel.Phone" />
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Fax:</label>
+                        <input type="text" class="form-control" ng-model="$ctrl.currentProviderModel.Fax" />
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Người liên hệ:</label>
+                        <input type="text" class="form-control" ng-model="$ctrl.currentProviderModel.Fax" />
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Điện thoại người liên hệ:</label>
+                        <input type="text" class="form-control" ng-model="$ctrl.currentProviderModel.Fax" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" ng-click="$ctrl.onSaveProviderModel()">Ghi lại</button>
+            </div>
+        </div>
+    </div>
+</div>

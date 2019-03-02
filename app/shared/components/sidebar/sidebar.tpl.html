@@ -1,0 +1,334 @@
+<nav id="navbar" class="navbar navbar-dark navbar-expand">
+    <a class="navbar-brand mx-0 mr-3" href="#">
+        <img src="/assets/images/logo.png" style="border-radius:4px;opacity: 0.6;" alt="VG-CRM-V2">
+    </a>
+    <div id="navbar-menu" class="collapse navbar-collapse mr-auto">
+
+        <ul class="navbar-nav">
+            <li class="nav-item dropdown" ng-show="$ctrl.hasPermissionManageMarket">
+                <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">
+                    <i class="icm icm-bullhorn navbar-icon"></i>
+                    <span class="navbar-label d-none d-lg-block">MARKETING</span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-light-icons">
+                    <li>
+                        <a class="dropdown-item" ui-sref="home.customer.add">
+                            <i class="fas fa-user-plus"></i>
+                            Thêm KH mới
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" ui-sref="home.customer.list({status: 'new'})">
+                            <i class="fas fa-user-friends"></i>
+                            D/S KH mới
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" ui-sref="home.customer.list({status: 'send2sale'})">
+                            <i class="fa fa-user-friends"></i>
+                            D/S KH đã chuyển sale
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" ui-sref="home.customer.list({status: 'converted'})">
+                            <i class="fas fa-user-friends"></i>
+                            D/S KH chuyển đổi
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" ui-sref="home.customer.list({status: 'notconvertion'})">
+                            <i class="fas fa-user-friends"></i>
+                            D/S KH không chuyển đổi
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" ui-sref="home.contract.track">
+                            <i class="fas fa-chart-bar"></i>
+                            Theo dõi tiến độ HĐ
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown" ng-show="$ctrl.hasPermissionManageSaleProgram">
+                <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">
+                    <i class="icm icm-chart-growth navbar-icon"></i>
+                    <span class="navbar-label d-none d-lg-block">SALE</span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-light-icons">
+                    <li ng-show="$ctrl.hasPermissionManageSalesManagement">
+                        <a class="dropdown-item" ui-sref="home.customer.list({status: 'received'})">
+                            <i class="fas fa-user-friends"></i>
+                            D/S KH mới tiếp nhận
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" ui-sref="home.customer.list({status: 'send2subsale'})">
+                            <i class="fas fa-user-friends"></i>
+                            {{$ctrl.listCustomerBySale}}
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" ui-sref="home.contract.list({status:'all'})">
+                            <i class="fas fa-tasks"></i>
+                            D/S hợp đồng
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" ui-sref="home.customer.list({status: 'notconvertion'})">
+                            <i class="fas fa-times"></i>
+                            D/S chốt fail
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" ui-sref="home.contract.track">
+                            <i class="fas fa-sort-amount-up"></i>
+                            Theo dõi tiến độ HĐ
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown" ng-show="$ctrl.hasPermissionManageTechnician">
+                <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">
+                    <i class="icm icm-puzzle navbar-icon"></i>
+                    <span class="navbar-label d-none d-lg-block">KĨ THUẬT</span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-light-icons">
+                    <li>
+                        <a class="dropdown-item" ui-sref="home.contract.list({status:'inprogress'})">
+                            <i class="fas fa-ellipsis-h"></i>
+                            HĐ chờ thi công
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" ui-sref="home.contract.list({status:'inprogress'})">
+                            <i class="fas fa-play-circle"></i>
+                            HĐ đang thi công
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" ui-sref="home.contract.list({status:'completed'})">
+                            <i class="fas fa-check"></i>
+                            HĐ đã hoàn thành
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" ui-sref="home.dungcu">
+                            <i class="fas fa-wrench"></i>
+                            Quản lý công cụ, dụng cụ
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown" ng-show="$ctrl.hasPermissionManageTechnician">
+                <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">
+                    <i class="icm icm-cube navbar-icon"></i>
+                    <span class="navbar-label d-none d-lg-block">CÔNG VIỆC</span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-light-icons">
+                    <li>
+                        <a class="dropdown-item" ui-sref="home.task.list({status: 'mytaskcreated'})">
+                            <i class="fas fa-user-plus"></i>
+                            Công việc của tôi tạo
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" ui-sref="home.task.list({status: 'mytask'})">
+                            <i class="fas fa-user-tag"></i>
+                            Công việc được giao
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" ui-sref="home.task.list({status: 'alltask'})">
+                            <i class="fas fa-cubes"></i>
+                            Tất cả
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown" ng-show="$ctrl.hasPermissionManageTechnician">
+                <a class="nav-link dropdown-toggle" ui-sref="home.baohanh">
+                    <i class="icm icm-shield navbar-icon"></i>
+                    <span class="navbar-label d-none d-lg-block">BẢO HÀNH</span>
+                </a>
+            </li>
+            <li class="nav-item dropdown" ng-show="$ctrl.hasPermissionManageProduct">
+                <a class="nav-link dropdown-toggle" ui-sref="home.product.list">
+                    <i class="icm icm-cash-dollar navbar-icon"></i>
+                    <span class="navbar-label d-none d-lg-block">KHO GIÁ</span>
+                </a>
+            </li>
+            <li class="nav-item dropdown" ng-show="$ctrl.hasPermissionManageStatic">
+                <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">
+                    <i class="icm icm-site-map navbar-icon"></i>
+                    <span class="navbar-label d-none d-lg-block">BÁO CÁO</span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-light-icons">
+                    <li>
+                        <a class="dropdown-item" ui-sref="home.statistic.customer">
+                            <i class="fas fa-user"></i>
+                            Báo cáo khách hàng
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" ui-sref="home.statistic.profit-total">
+                            <i class="fas fa-dollar-sign"></i>
+                            Báo cáo lợi nhuận
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" ui-sref="home.statistic.construction">
+                            <i class="fas fa-industry"></i>
+                            Báo cáo thi công
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" ui-sref="home.statistic.cost">
+                            <i class="fas fa-money-bill-alt"></i>
+                            Báo cáo chi phí
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" ui-sref="home.statistic.move2work">
+                            <i class="fas fa-map-marked-alt"></i>
+                            Báo cáo khu vực
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" ui-sref="home.statistic.progress">
+                            <i class="fas fa-signal"></i>
+                            Báo cáo tiến độ
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" ui-sref="home.statistic.profit">
+                            <i class="fas fa-money-check-alt"></i>
+                            Báo cáo lợi nhuận chi tiết
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown" ng-show="$ctrl.hasPermissionManageDistributor">
+                <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">
+                    <i class="icm icm-database navbar-icon"></i>
+                    <span class="navbar-label d-none d-lg-block">DANH MỤC</span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-light-icons">
+                    <li>
+                        <a class="dropdown-item" ui-sref="home.hangsanxuat">
+                            <i class="fas fa-industry"></i>
+                            Hãng sản xuất
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" ui-sref="home.loaikhachhang">
+                            <i class="fas fa-user-edit"></i>
+                            Loại khách hàng
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" ui-sref="home.nguonkhach">
+                            <i class="fab fa-osi"></i>
+                            Nguồn khách hàng
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" ui-sref="home.nhacungcap">
+                            <i class="fas fa-building"></i>
+                            Nhà cung cấp
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" ui-sref="home.nhomsanpham">
+                            <i class="fab fa-product-hunt"></i>
+                            Nhóm sản phẩm
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" ui-sref="home.nhucaugia">
+                            <i class="fas fa-hand-holding-usd"></i>
+                            Nhu cầu giá
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" ui-sref="home.phongban">
+                            <i class="fas fa-archway"></i>
+                            Bộ phận, phòng ban
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" ui-sref="home.thanhpho">
+                            <i class="fas fa-map-marked"></i>
+                            Thành phố
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" ui-sref="home.quanhuyen">
+                            <i class="fas fa-map-marked"></i>
+                            Quận/huyện
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown" ng-show="$ctrl.hasPermissionManageSystem">
+                <a class="nav-link dropdown-toggle" href="javascript:void(0)" data-toggle="dropdown">
+                    <i class="icm icm-equalizer navbar-icon"></i>
+                    <span class="navbar-label d-none d-lg-block">HỆ THỐNG</span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-light-icons">
+                    <li>
+                        <a class="dropdown-item" ui-sref="home.role">
+                            <i class="fas fa-project-diagram"></i>
+                            Vai trò
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" ui-sref="home.user">
+                            <i class="fas fa-user-circle"></i>
+                            Quản lý user
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" ui-sref="home.permission">
+                            <i class="fas fa-user-cog"></i>
+                            Phân quyền
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" ui-sref="home.config">
+                            <i class="fas fa-cogs"></i>
+                            Cấu hình chung
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="collapse navbar-collapse ml-auto ">
+        <ul class="navbar-nav ml-auto ">
+            <li class="nav-item dropdown ml-md-3 ">
+                <a class="nav-link dropdown-toggle navbar-tool" data-toggle="dropdown" title="demo" href="javascript:void()">
+                    <i class="icm icm-user navbar-icon "></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right dropdown-menu-light-icons" style="padding: 6px;">
+                    <img class="img img-fluid" src='{{ $ctrl.profileModel.Avatar==undefined?"/assets/images/users/Default-avatar.jpg":$ctrl.profileModel.Avatar }}'
+                        alt="user">
+                    <div class="u-text">
+                        <h4>{{ $ctrl.profileModel.FullName }}</h4>
+                        <p class="text-muted">{{ $ctrl.profileModel.Email }}</p>
+                        <a ui-sref="home.profile" class="btn btn-info">Xem hồ sơ</a>
+                    </div>
+                    <br>
+                    <a class="dropdown-item" ui-sref="home.profile.setting">
+                        <i class="fas fa-cogs"></i>
+                        Cài đặt tài khoản
+                    </a>
+                    <a class="dropdown-item" href="/login.html">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Đăng xuất
+                    </a>
+                </div>
+            </li>
+
+        </ul>
+    </div>
+</nav>

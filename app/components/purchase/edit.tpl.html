@@ -1,0 +1,174 @@
+﻿<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Lập phiếu mua hàng mới</h4>
+
+        <div class="tab-pane p-20 active" id="kehoachsanxuat" role="tabpanel">
+            <div class="row">
+                <div class="col-sm-3">
+                    <label class="card-title control-label col-form-label">
+                        <b>Thông tin nhà cung cấp</b>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label class="card-title control-label col-form-label">
+                        Mã nhà cung cấp
+                    </label>
+                    <input class="form-control" type="text" placeholder="Mã nhà cung cấp" id="example-text-input">
+                </div>
+                <div class="col-sm-6">
+                    <label class="card-title control-label col-form-label">
+                        Tên nhà cung cấp
+                    </label>
+                    <input class="form-control" type="text" placeholder="Tên nhà cung cấp" id="example-text-input">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label class="card-title control-label col-form-label">
+                        Địa chỉ
+                    </label>
+                    <input class="form-control" type="text" placeholder=" Địa chỉ" id="example-text-input">
+                </div>
+                <div class="col-sm-6">
+                    <label class="card-title control-label col-form-label">
+                        Điện thoại
+                    </label>
+                    <input class="form-control" type="text" placeholder="Điện thoại" id="example-text-input">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label class="card-title control-label col-form-label">
+                        <b>Loại mặt hàng cung cấp</b>
+                    </label>
+
+                    <div class="demo-radio-button">
+                        <div class="form-group row">
+                            <div class="col-sm-2">
+                                <input name="group5" type="radio" id="radio_30" class="with-gap radio-col-red" checked="">
+                                <label for="radio_30">Phế liệu</label>
+                            </div>
+                            <div class="col-sm-2">
+                                <input name="group5" type="radio" id="radio_31" class="with-gap radio-col-pink">
+                                <label for="radio_31">Phụ gia</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-3">
+                    <label class="card-title control-label col-form-label">
+                        <b>Mặt hàng</b>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-1">
+                    <button type="button" class="btn btn-info">
+                        <i class="ti-plus text" aria-hidden="true"></i>
+                    </button>
+                </div>
+                <div class="col-sm-2">
+                    <input class="form-control" type="text" placeholder="Mã" id="example-text-input">
+                </div>
+                <div class="col-sm-4">
+                    <input class="form-control" type="text" placeholder="Tên phế liệu" id="example-text-input">
+                </div>
+                <div class="col-sm-2">
+                    <input class="form-control" type="number" placeholder="Số lượng" id="example-text-input">
+                </div>
+                <div class="col-sm-1">
+                    <select name="editable-datatable_length" aria-controls="editable-datatable" class="form-control input-sm" ng-model="$ctrl.currentUserModel.DepartmentModel" ng-options="s.Name for s in $ctrl.departmentModels">
+                        <option value="">ĐVT</option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <input class="form-control" type="number" placeholder="Giá..." id="example-text-input">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-1">
+                    <button type="button" class="btn btn-info">
+                        <i class="ti-minus text" aria-hidden="true"></i>
+                    </button>
+                </div>
+                <div class="col-sm-2">
+                    <input class="form-control" type="text" placeholder="Mã" id="example-text-input">
+                </div>
+                <div class="col-sm-4">
+                    <input class="form-control" type="text" placeholder="Tên phế liệu" id="example-text-input">
+                </div>
+                <div class="col-sm-2">
+                    <input class="form-control" type="number" placeholder="Số lượng" id="example-text-input">
+                </div>
+                <div class="col-sm-1">
+                    <select name="editable-datatable_length" aria-controls="editable-datatable" class="form-control input-sm" ng-model="$ctrl.currentUserModel.DepartmentModel" ng-options="s.Name for s in $ctrl.departmentModels">
+                        <option value="">ĐVT</option>
+                    </select>
+                </div>
+                <div class="col-sm-2">
+                    <input class="form-control" type="number" placeholder="Giá..." id="example-text-input">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-1">
+                </div>
+                <div class="col-sm-2">
+                </div>
+                <div class="col-sm-4">
+                </div>
+                <div class="col-sm-2">
+                </div>
+                <div class="col-sm-1">
+                </div>
+                <div class="col-sm-2">
+                    <label><b>Thành tiền:</b> 350.000 đ</label>
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label class="card-title control-label col-form-label">Diễn giải: </label>
+                </div>
+                <div class="col-sm-10">
+                    <textarea class="form-control" placeholder="Diễn giải..." rows="5"></textarea>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-2">
+                    <label class="card-title control-label col-form-label">Vào quyển số: </label>
+                </div>
+                <div class="col-sm-4">
+                    <input class="form-control" type="text" placeholder="Vào quyển số..." id="example-text-input">
+                </div>
+                <div class="col-sm-2">
+                    <label class="card-title control-label col-form-label">Vào ngày: </label>
+                </div>
+                <div class="col-sm-4">
+                    <input class="form-control" type="text" placeholder="Vào ngày..." id="example-text-input">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="text-right col-sm-12">
+                    <button type="button" class="btn btn-warning"><i class="fa fa-ban"></i> Hủy</button>
+                    <button type="button" class="btn btn-info"><i class="fa fa-save"></i> Ghi lại</button>
+                    <button type="button" class="btn btn-success"><i class="ti-back-right"></i> Ghi và trở lại</button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>

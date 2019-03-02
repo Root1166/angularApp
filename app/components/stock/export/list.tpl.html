@@ -1,0 +1,144 @@
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">XUẤT KHO</h4>
+        <div id="editable-datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="dt-buttons">
+                        <div class="dt-buttons">
+                            <a class="btn btn-danger" href="/#!/stock/export/add-waste"><i class="mdi mdi-delete-empty"></i> Lập phiếu xuất kho chất thải</a>
+
+                            <a href="/#!/stock/export/add-additive" class="btn btn-primary" data-toggle="modal" data-target="#contractionsystemModelDialog" ng-click="$ctrl.onAdd()"><i class="mdi mdi-close-network"></i> Lập phiếu xuất kho phụ gia</a>
+
+                            <a href="/#!/stock/export/add-scrap" class="btn btn-info" data-toggle="modal" data-target="#contractionsystemModelDialog" ng-click="$ctrl.onAdd()"><i class="mdi mdi-image-broken-variant"></i> Lập phiếu xuất kho phế liệu</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="margin-bottom: 10px;">
+                <div class="col-sm-6">
+                    <div id="editable-datatable_filter" class="dataTables_filter" style="float: left;margin-left: 0px;"><label>Search:<input type="search" class="form-control input-sm" placeholder="" aria-controls="editable-datatable"></label></div>
+
+                    <div id="editable-datatable_filter" class="dataTables_filter" style="float: left;margin-left: 20px;"><label><input class="form-control input-daterange-datepicker" type="text" name="daterange" value=""></label></div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="dataTables_length dataTables_filter" id="editable-datatable_length">
+                        <label>
+
+                            <select name="editable-datatable_length" aria-controls="editable-datatable" class="form-control input-sm">
+                                <option value="">---Lọc theo kho---</option>
+                                <option value="">KH A</option>
+                                <option value="">KH B</option>
+                            </select>
+                        </label>
+                    </div>
+
+                    <div class="dataTables_length dataTables_filter" id="editable-datatable_length">
+                        <label>
+
+                            <select name="editable-datatable_length" aria-controls="editable-datatable" class="form-control input-sm">
+                                <option value="">---Lọc theo mặt hàng---</option>
+                                <option value="">KH A</option>
+                                <option value="">KH B</option>
+                            </select>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <table class="display nowrap table table-hover table-striped table-bordered full-color-table full-info-table hover-table" cellspacing="0" width="100%">
+                        <colgroup>
+                            <col width="5%">
+                            <col width="5%">
+                            <col width="10%">
+                            <col width="45%">
+                            <col width="15%">
+                            <col width="15%">
+                            <col width="15%">
+                            <col width="15%">
+                            <!--<col width="15%">-->
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>
+                                    <input type="checkbox" id="chkAll" ng-click="$ctrl.toggleAll()" ng-model="$ctrl.isAllSelected" class="filled-in chk-col-light-blue" />
+                                    <label for="chkAll"></label>
+                                </th>
+                                <th>Mã hàng</th>
+                                <th>Tên hàng</th>
+                                <th>Tổng KL xuất</th>
+                                <th>Kho</th>
+                                <th>Vị trí</th>
+                                <th>Ngày xuất kho</th>
+                                <!--<th></th>-->
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>STT</th>
+                                <th></th>
+                                <th>Mã hàng</th>
+                                <th>Tên hàng</th>
+                                <th>Tổng KL xuất</th>
+                                <th>Kho</th>
+                                <th>Vị trí</th>
+                                <th>Ngày xuất kho</th>
+                                <!--<th></th>-->
+                            </tr>
+                        </tfoot>
+                        <tbody dir-paginate="contract in $ctrl.listContracts | itemsPerPage: $ctrl.pageSize" pagination-id="dataPagination" current-page="$ctrl.currentPage" total-items="$ctrl.totalRowCount">
+                            <tr>
+                                <td class="center">
+                                    {{$index+1}}
+                                </td>
+                                <td class="center">
+                                    <input type="checkbox" ng-model="contract.selected" id="chkItem{{$index+1}}" class="filled-in chk-col-light-blue" />
+                                    <label for="chkItem{{$index+1}}"></label>
+                                </td>
+                                <td>{{ contract.Mahang }}</td>
+                                <td>
+                                    {{ contract.Tenhang }}
+                                </td>
+                                <td>
+                                    {{ contract.TongKL }} <i class="fa fa-sort-down text-danger"></i>
+                                </td>
+                                <td>{{ contract.Kho }}</td>
+                                <td>{{ contract.Vitri }}</td>
+                                <td>
+                                    {{ contract.Ngaynhapkho }}
+                                </td>
+                                <!--<td class="center">
+                                    <a href="/#!/stock/export/edit-waste/1" data-toggle="tooltip" data-original-title="Lịch sử xuất"> <i class="mdi mdi-calendar-clock text-inverse m-r-10"></i> </a>
+                                </td>-->
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="dataTables_length" id="datatable-responsive_length">
+                        <label>
+                            <select name="datatable-responsive_length" ng-model="$ctrl.pageSize" aria-controls="datatable-responsive" class="form-control">
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                            records / page
+                        </label>
+                    </div>
+                </div>
+                <div class="col-sm-9">
+                    <dir-pagination-controls boundary-links="true" on-page-change="$ctrl.onPageChanged(newPageNumber)" pagination-id="dataPagination"></dir-pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,193 @@
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Hợp đồng</h4>
+        <h6 class="card-subtitle">Quản lý danh sách hợp đồng</h6>
+        <div id="editable-datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="dt-buttons">
+                        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#dungcuModelDialog" ng-click="$ctrl.onAdd()">
+                            <i class="fa fa-plus"></i> Thêm mới</button>
+                        <button type="button" ng-click="$ctrl.onRemoves()" class="btn btn-danger">
+                            <i class="fa fa-close"></i> Xóa</button>
+                    </div>
+                </div>
+                <div class="col-sm-8">
+
+                    <div id="editable-datatable_filter" class="dataTables_filter">
+                        <label>Search:
+                            <input type="search" class="form-control input-sm" placeholder="" aria-controls="editable-datatable"
+                                ng-model="$ctrl.search" ng-keypress="$ctrl.onSearch($event)">
+                        </label>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <table class="display nowrap table table-hover table-striped table-bordered full-color-table full-info-table hover-table"
+                        cellspacing="0" width="100%">
+                        <colgroup>
+                            <col width="50" />
+                            <col width="15%" />
+                            <col width="15%" />
+                            <col width="15%" />
+                            <col width="15%" />
+                            <col width="15%" />
+                            <col width="15%" />
+                            <col width="15%" />
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>
+                                    <input type="checkbox" id="chkAll" ng-click="$ctrl.toggleAll()" ng-model="$ctrl.isAllSelected" class="filled-in chk-col-light-blue"
+                                    />
+                                    <label for="chkAll"></label>
+                                </th>
+                                <th>Id</th>
+                                <th>TenDungcu</th>
+                                <th>Ngaygiao</th>
+                                <th>Ngaynhan</th>
+                                <th>NguoigiaoId</th>
+                                <th>NguoinhanId</th>
+                                <th>Dongia</th>
+                                <th>Soluong</th>
+                                <th>NguoimuaId</th>
+                                <th>Ghichu</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th></th>
+                                <th>Id</th>
+                                <th>TenDungcu</th>
+                                <th>Ngaygiao</th>
+                                <th>Ngaynhan</th>
+                                <th>NguoigiaoId</th>
+                                <th>NguoinhanId</th>
+                                <th>Dongia</th>
+                                <th>Soluong</th>
+                                <th>NguoimuaId</th>
+                                <th>Ghichu</th>
+                                <th></th>
+                            </tr>
+                        </tfoot>
+                        <tbody dir-paginate="dungcu in $ctrl.dungcuModels | itemsPerPage: $ctrl.pageSize" pagination-id="dataPagination" current-page="$ctrl.currentPage"
+                            total-items="$ctrl.totalRowCount">
+                            <tr>
+                                <td class="center">
+                                    <input type="checkbox" ng-model="dungcu.selected" id="chkItem{{$index+1}}" class="filled-in chk-col-light-blue" />
+                                    <label for="chkItem{{$index+1}}"></label>
+                                </td>
+
+                                <td>{{ dungcu.Id }}</td>
+                                <td>{{ dungcu.TenDungcu }}</td>
+                                <td>{{ dungcu.Ngaygiao }}</td>
+                                <td>{{ dungcu.Ngaynhan }}</td>
+                                <td>{{ dungcu.NguoigiaoId }}</td>
+                                <td>{{ dungcu.NguoinhanId }}</td>
+                                <td>{{ dungcu.Dongia }}</td>
+                                <td>{{ dungcu.Soluong }}</td>
+                                <td>{{ dungcu.NguoimuaId }}</td>
+                                <td>{{ dungcu.Ghichu }}</td>
+
+
+                                <td class="text-nowrap">
+                                    <a class="btn" data-toggle="modal" data-target="#dungcuModelDialog" ng-click="$ctrl.onEdit(dungcu)" data-original-title="Cập nhật">
+                                        <i class="fa fa-pencil text-inverse"></i>
+                                    </a>
+                                    <a class="btn" data-toggle="tooltip" data-original-title="Xóa" ng-click="$ctrl.onRemove(dungcu)">
+                                        <i class="fa fa-close text-danger"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="dataTables_length" id="datatable-responsive_length">
+                        <label>
+                            <select name="datatable-responsive_length" ng-model="$ctrl.pageSize" aria-controls="datatable-responsive" class="form-control">
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                            records / page
+                        </label>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <dir-pagination-controls boundary-links="true" on-page-change="$ctrl.onPageChanged(newPageNumber)" pagination-id="dataPagination"></dir-pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" my-modal="dungcuModelDialog" id="dungcuModelDialog" tabindex="-1" role="dialog" aria-labelledby="changePassModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel1">{{ $ctrl.currentDungcuModel.Id==0?'Thêm mới':'Cập nhật' }} dungcu</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Id:</label>
+                        <input type="text" class="form-control" ng-model="$ctrl.currentDungcuModel.Id" />
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">TenDungcu:</label>
+                        <input type="text" class="form-control" ng-model="$ctrl.currentDungcuModel.TenDungcu" />
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Ngaygiao:</label>
+                        <input type="text" class="form-control" ng-model="$ctrl.currentDungcuModel.Ngaygiao" />
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Ngaynhan:</label>
+                        <input type="text" class="form-control" ng-model="$ctrl.currentDungcuModel.Ngaynhan" />
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">NguoigiaoId:</label>
+                        <input type="text" class="form-control" ng-model="$ctrl.currentDungcuModel.NguoigiaoId" />
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">NguoinhanId:</label>
+                        <input type="text" class="form-control" ng-model="$ctrl.currentDungcuModel.NguoinhanId" />
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Dongia:</label>
+                        <input type="text" class="form-control" ng-model="$ctrl.currentDungcuModel.Dongia" />
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Soluong:</label>
+                        <input type="text" class="form-control" ng-model="$ctrl.currentDungcuModel.Soluong" />
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">NguoimuaId:</label>
+                        <input type="text" class="form-control" ng-model="$ctrl.currentDungcuModel.NguoimuaId" />
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Ghichu:</label>
+                        <input type="text" class="form-control" ng-model="$ctrl.currentDungcuModel.Ghichu" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" ng-click="$ctrl.onSaveDungcuModel()">Ghi lại</button>
+            </div>
+        </div>
+    </div>
+</div>

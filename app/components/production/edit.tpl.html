@@ -1,0 +1,297 @@
+﻿<div class="card" ng-init="$ctrl.ActiveTabSystem=true;">
+    <div class="card-body">
+        <h4 class="card-title">Lập kế hoạch sản xuất</h4>
+
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item"> <a class="nav-link active" ng-click="$ctrl.ActiveTabSystem=true;$ctrl.ActiveTabPlan=false;" data-toggle="tab" href="javascript:void(0);" role="tab"><span class="hidden-sm-up"><i class="ti-home"></i></span> <span class="hidden-xs-down">Hệ thống</span></a> </li>
+            <li class="nav-item"> <a class="nav-link" ng-click="$ctrl.ActiveTabSystem=false;$ctrl.ActiveTabPlan=true;" href="javascript:void(0);" data-toggle="tab" role="tab"><span class="hidden-sm-up"><i class="ti-user"></i></span> <span class="hidden-xs-down">Kế hoạch sản xuất</span></a> </li>
+
+        </ul>
+        <div class="tab-content tabcontent-border">
+            <div class="tab-pane p-20 active" id="hethong" role="tabpanel" ng-show="$ctrl.ActiveTabSystem">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="box bg-danger text-center ">
+                            <span class="text-white">Bóng đèn huỳnh quang</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">Sản xuất vụn thủy tinh và kim loại thành phẩm từ nguyên liệu Bóng đèn huỳnh quang</div>
+                    <div class="col-sm-3">
+                        <a ng-click="$ctrl.ActiveTabSystem=false;$ctrl.ActiveTabPlan=true;" class="btn btn-success" href="javascript:void(0);">Chọn nhà sản xuất</a>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="box bg-danger text-center ">
+                            <span class="text-white">Bản mạch thải</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">Sản xuất vụn thủy tinh và kim loại thành phẩm từ nguyên liệu bản mạch thải</div>
+                    <div class="col-sm-3">
+                        <a ng-click="$ctrl.ActiveTabSystem=false;$ctrl.ActiveTabPlan=true;"  class="btn btn-success" href="javascript:void(0);">Chọn nhà sản xuất</a>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="box bg-danger text-center ">
+                            <span class="text-white">Dầu thải</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">Sản xuất vụn thủy tinh và kim loại thành phẩm từ nguyên liệu dầu thải</div>
+                    <div class="col-sm-3">
+                        <a ng-click="$ctrl.ActiveTabSystem=false;$ctrl.ActiveTabPlan=true;"  class="btn btn-success" href="javascript:void(0);">Chọn nhà sản xuất</a>
+                    </div>
+                </div>
+                <hr />
+            </div>
+            <div class="tab-pane p-20 active" id="kehoachsanxuat" role="tabpanel" ng-show="$ctrl.ActiveTabPlan">
+                <div class="form-group row">
+                    <div class="col-sm-3">
+                        <select class="custom-select col-12" id="inlineFormCustomSelect">
+                            <option selected="">-- Chọn hệ thống --</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <h4 class="card-title">Chọn chất thải cần sản xuất cho <b>Hệ thống sản xuất: </b> Bóng đèn huỳnh quang</h4>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-1">
+                        <button type="button" class="btn btn-info">
+                            <i class="ti-plus text" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <div class="col-sm-2">
+                        <input class="form-control" type="text" placeholder="Mã CT" id="example-text-input">
+                    </div>
+                    <div class="col-sm-4">
+                        <input class="form-control" type="text" placeholder="Tên chất thải" id="example-text-input">
+                    </div>
+                    <div class="col-sm-4">
+                        <input class="form-control" type="text" placeholder="Khối lượng đầu vào..." id="example-text-input">
+                    </div>
+                    <div class="col-sm-1">
+                        <label class="text-right control-label col-form-label">(Kg)</label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-1">
+                        <button type="button" class="btn btn-info">
+                            <i class="ti-minus text" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <div class="col-sm-2">
+                        <input class="form-control" type="text" placeholder="Mã CT" id="example-text-input">
+                    </div>
+                    <div class="col-sm-4">
+                        <input class="form-control" type="text" placeholder="Tên chất thải" id="example-text-input">
+                    </div>
+                    <div class="col-sm-4">
+                        <input class="form-control" type="text" placeholder="Khối lượng đầu vào..." id="example-text-input">
+                    </div>
+                    <div class="col-sm-1">
+                        <label class="text-right control-label col-form-label">(Kg)</label>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <h4 class="card-title control-label col-form-label">
+                            Phụ gia sản xuất: <button type="button" class="btn btn-info">
+                                <i class="ti-plus text" aria-hidden="true"></i> Thêm phụ gia
+                            </button>
+                        </h4>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-1">
+                        <button type="button" class="btn btn-info">
+                            <i class="ti-minus text" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <div class="col-sm-2">
+                        <select class="custom-select col-12" id="inlineFormCustomSelect">
+                            <option selected="">-- Chọn phụ gia --</option>
+                            <option value="1">H2O</option>
+                            <option value="2">CO2</option>
+                            <option value="3">H2SO4</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-3">
+                        <input class="form-control" type="text" placeholder="Tên chất thải" id="example-text-input">
+                    </div>
+                    <div class="col-sm-3">
+                        <input class="form-control" type="text" placeholder="Khối lượng" id="example-text-input">
+                    </div>
+                    <div class="col-sm-1">
+                        <label class="text-right control-label col-form-label">(Kg)</label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-1">
+                        <button type="button" class="btn btn-info">
+                            <i class="ti-minus text" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <div class="col-sm-2">
+                        <select class="custom-select col-12" id="inlineFormCustomSelect">
+                            <option selected="">-- Chọn phụ gia --</option>
+                            <option value="1">H2O</option>
+                            <option value="2">CO2</option>
+                            <option value="3">H2SO4</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-3">
+                        <input class="form-control" type="text" placeholder="Tên chất thải" id="example-text-input">
+                    </div>
+                    <div class="col-sm-3">
+                        <input class="form-control" type="text" placeholder="Khối lượng" id="example-text-input">
+                    </div>
+                    <div class="col-sm-1">
+                        <label class="text-right control-label col-form-label">(Kg)</label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-1">
+                        <button type="button" class="btn btn-info">
+                            <i class="ti-minus text" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <div class="col-sm-2">
+                        <select class="custom-select col-12" id="inlineFormCustomSelect">
+                            <option selected="">-- Chọn phụ gia --</option>
+                            <option value="1">H2O</option>
+                            <option value="2">CO2</option>
+                            <option value="3">H2SO4</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-3">
+                        <input class="form-control" type="text" placeholder="Tên chất thải" id="example-text-input">
+                    </div>
+                    <div class="col-sm-3">
+                        <input class="form-control" type="text" placeholder="Khối lượng" id="example-text-input">
+                    </div>
+                    <div class="col-sm-1">
+                        <label class="text-right control-label col-form-label">(Kg)</label>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <h4 class="card-title">Ca sản xuất</h4>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-4">
+                        <label class="card-title control-label col-form-label">Trưởng ca 1: </label>
+                        <input class="form-control" type="text" placeholder="" id="example-text-input">
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="card-title control-label col-form-label">Ca1 Bắt đầu: </label>
+                        <input class="form-control" type="datetime-local" id="example-datetime-local-input">
+                    </div>
+
+                    <div class="col-sm-4">
+                        <label class="card-title control-label col-form-label">Kết thúc: </label>
+                        <input class="form-control" type="datetime-local" id="example-datetime-local-input">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-4">
+                        <label class="card-title control-label col-form-label">Trưởng ca 2: </label>
+                        <input class="form-control" type="text" placeholder="" id="example-text-input">
+                    </div>
+                    <div class="col-sm-4">
+                        <label class="card-title control-label col-form-label">Ca2 Bắt đầu: </label>
+                        <input class="form-control" type="datetime-local" id="example-datetime-local-input">
+                    </div>
+
+                    <div class="col-sm-4">
+                        <label class="card-title control-label col-form-label">Kết thúc: </label>
+                        <input class="form-control" type="datetime-local" id="example-datetime-local-input">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <h4 class="card-title control-label col-form-label">
+                            Công nhân vận hành: <button type="button" class="btn btn-info">
+                                <i class="ti-plus text" aria-hidden="true"></i> Thêm công nhân
+                            </button>
+                        </h4>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-1">
+                        <button type="button" class="btn btn-info">
+                            <i class="ti-minus text" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <div class="col-sm-4">
+                        <input class="form-control" type="text" placeholder="Tên công nhân..." id="example-text-input">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-1">
+                        <button type="button" class="btn btn-info">
+                            <i class="ti-minus text" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <div class="col-sm-4">
+                        <input class="form-control" type="text" placeholder="Tên công nhân..." id="example-text-input">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-4">
+                        <label>Tình trạng thiết bị: </label>
+                        <input type="checkbox" id="basic_checkbox_1" class="filled-in" checked="">
+                        <label for="basic_checkbox_1">Ok</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input type="checkbox" id="basic_checkbox_2" class="filled-in" checked="">
+                        <label for="basic_checkbox_2">Không phù hợp/Không đạt</label>
+                    </div>
+                    <div class="col-sm-4">
+                        <input class="form-control" type="text" placeholder="Lý do không đạt..." id="example-text-input">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="col-sm-2">
+                        <label class="card-title control-label col-form-label">Ghi chú: </label>
+                    </div>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" rows="5"></textarea>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-2">
+                        <label class="card-title control-label col-form-label">Mã thẻ kho: </label>
+                    </div>
+                    <div class="col-sm-5">
+                        <input class="form-control" type="text" placeholder="Mã thẻ kho..." id="example-text-input">
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <div class="text-right col-sm-12">
+                        <button type="button" class="btn btn-warning"><i class="fa fa-ban"></i> Hủy</button>
+                        <button type="button" class="btn btn-info"><i class="fa fa-save"></i> Lưu tạm</button>
+                        <button type="button" class="btn btn-success"><i class="fa fa-cogs"></i> Sản xuất ngay</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>

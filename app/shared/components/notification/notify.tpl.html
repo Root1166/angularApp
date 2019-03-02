@@ -1,0 +1,26 @@
+﻿<a class="nav-link dropdown-toggle waves-effect waves-dark" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding:23px 30px;">
+    <i class="mdi mdi-message"></i>
+    <div class="notify" ng-show="$ctrl.notificationModels.length>0"> <span class="heartbit"></span> <span class="point"></span> </div>
+</a>
+<div class="dropdown-menu dropdown-menu-right mailbox animated bounceInDown">
+    <ul>
+        <li>
+            <div class="drop-title">THÔNG BÁO</div>
+        </li>
+        <li>
+            <div class="message-center">
+               
+                <a ui-sref="{{$ctrl.getResourceLink(notify)}}" ng-repeat="notify in $ctrl.notificationModels">
+                    <div class="btn btn-info btn-circle"><i class="ti-settings"></i></div>
+                    <div class="mail-contnet">
+                        <h5>Thông báo {{ notify.ResourceType == 1? " sản xuất":" hợp đồng" }}</h5> <span class="mail-desc">{{ notify.Title }}</span> <span class="time">{{ notify.SendDateStr }}</span>
+                    </div>
+                </a>
+                
+            </div>
+        </li>
+        <li>
+            <a class="nav-link text-center" ui-sref="home.notification"> <strong>Xem toàn bộ</strong> <i class="fa fa-angle-right"></i> </a>
+        </li>
+    </ul>
+</div>

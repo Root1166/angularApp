@@ -1,0 +1,48 @@
+﻿<div class="section-header">
+    <div class="title">
+        <i class="fas fa-user-cog"></i>
+        PHÂN QUYỀN HỆ THỐNG
+    </div>
+</div>
+
+<table id="demo-foo-addrow2" class="table table-bordered table-hover toggle-circle default footable-loaded footable color-table primary-table"
+    data-page-size="7">
+    <thead>
+        <tr>
+            <th data-sort-initial="true" data-toggle="true" class="footable-visible footable-sortable footable-sorted footable-first-column">Quyền
+                <span class="footable-sort-indicator"></span>
+            </th>
+
+            <th width="15%" ng-repeat="role in $ctrl.roleModels" class="footable-visible footable-sortable text-center">{{ role.RoleName }}
+                <span class="footable-sort-indicator"></span>
+            </th>
+        </tr>
+    </thead>
+
+    <tbody ng-repeat="group in $ctrl.permissionModels">
+        <tr class="footable-even" style="background-color:#ccc;">
+            <td class="footable-visible footable-first-column">
+                <span class="footable-toggle"></span>{{ group.Name }}</td>
+
+            <td ng-repeat="role in $ctrl.roleModels" class="footable-visible text-center">
+                <input type="checkbox" id="chkGroupRole_{{ role.RoleId }}_{{ group.GroupId }}" class="filled-in" ng-model="groupRole" ng-checked="$ctrl.isGroupChecked(role, group)"
+                    ng-click="$ctrl.toggleGroup(role, group, groupRole)">
+                <label for="chkGroupRole_{{ role.RoleId }}_{{ group.GroupId }}"></label>
+            </td>
+
+        </tr>
+
+        <tr ng-repeat="permission in group.Permissions" class="footable-even" style="">
+            <td class="footable-visible footable-first-column">
+                <span class="footable-toggle"></span>{{ permission.Name }}</td>
+
+            <td ng-repeat="role in $ctrl.roleModels" class="footable-visible text-center">
+                <input type="checkbox" id="chkPermissionRole_{{ role.RoleId }}_{{ permission.Code }}" class="filled-in" ng-checked="$ctrl.isChecked(role, permission)"
+                    ng-click="$ctrl.togglePermission(role, permission)">
+                <label for="chkPermissionRole_{{ role.RoleId }}_{{ permission.Code }}"></label>
+            </td>
+        </tr>
+
+    </tbody>
+
+</table>

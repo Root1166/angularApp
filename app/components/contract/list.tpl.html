@@ -1,0 +1,261 @@
+<style media="screen">
+    .hvButtons {
+        margin-top: 16%;
+    }
+</style>
+<div class="section-header">
+    <div class="title">
+        <i class="fas fa-user-friends"></i>
+        {{ $ctrl.pageTitle }}
+    </div>
+    <div class="options">
+        <button type="button" ui-sref="home.contract.add({khachhangId:0, baogiaId:0})" ng-show="$ctrl.status=='all' || $ctrl.isTechnical" class="btn btn-info">
+            <i class="fas fa-plus"></i> Lập hợp đồng mới
+        </button>
+        <button type="button" class="btn btn-success">
+            <i class="fas fa-file-excel"></i> Xuất ra excel
+        </button>
+        <button type="button" class="btn btn-info" ng-click="$ctrl.showFilters();">
+            <i class="fas fa-filter"></i> Lọc dữ liệu
+        </button>
+    </div>
+</div>
+
+<div ng-show="$ctrl.Hidden" class="row mt-3 grid-filter" style>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Tìm kiếm</label>
+        </div>
+        <input ng-model="$ctrl.search" ng-keypress="$ctrl.onSearch($event)" class="form-control" style="width: 100%;" type="text"
+            placeholder="Nội dung cần tìm..." id="example-text-input">
+    </div>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Chọn thành phố</label>
+        </div>
+        <select ng-model="city" name="editable-datatable_length" aria-controls="editable-datatable" class="form-control" style="width: 100%;"
+            ng-options="s.Title for s in ::$ctrl.liThanhphos" ng-change="$ctrl.onSelectCity(city)">
+            <option value=""> -- Thành phố -- </option>
+        </select>
+    </div>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Chọn quận huyện</label>
+        </div>
+        <select ng-model="quanhuyen" name="editable-datatable_length" aria-controls="editable-datatable" class="form-control" style="width: 100%;"
+            ng-options="s.Title for s in $ctrl.liQuanhuyens" ng-change="$ctrl.onSelectDistrict(quanhuyen)">
+            <option value="">Quận huyện</option>
+        </select>
+    </div>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Lọc theo loại hàng</label>
+        </div>
+        <select class="custom-select" style="width: 100%;" id="inlineFormCustomSelect" ng-model="loai" ng-options="s.Name for s in ::$ctrl.liLoaiHopdongs"
+            ng-change="$ctrl.onSelectLoaiHopDong(loai)">
+            <option value="">-- Loại HĐ --</option>
+        </select>
+    </div>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Lọc theo nhu cầu giá</label>
+        </div>
+        <select ng-model="nhucaugia" name="editable-datatable_length" aria-controls="editable-datatable" class="form-control" style="width: 100%;"
+            ng-options="s.TenNhucau for s in ::$ctrl.liNhucaugias" ng-change="$ctrl.onSelectNhucaugia(nhucaugia)">
+            <option value="">Nhu cầu giá</option>
+        </select>
+    </div>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Lọc theo sản phẩm quan tâm</label>
+        </div>
+        <select ng-show="$ctrl.status=='waiting'" class="form-control" style="width: 100%;" s2-modelvalue="$ctrl.sanphanQuantam.SanphamId"
+            select2ajax s2-model="$ctrl.sanphanQuantam" s2-search="$ctrl.searchSanphamquantam(text)" s2-process="$ctrl.procesSanphamquantam(response)"
+            s2-change="$ctrl.onSelectSanpham(value)">
+            <option value="">-- Sản phẩm quan tâm --</option>
+        </select>
+    </div>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Lọc theo người xử lý</label>
+        </div>
+        <select ng-model="nguoixuly" name="editable-datatable_length" aria-controls="editable-datatable" class="form-control" style="width: 100%;"
+            ng-options="s.Hovaten for s in ::$ctrl.liNguoixulys" ng-change="$ctrl.onSelectNguoixuly(nguoixuly)">
+            <option value="">-- Người xử lý --</option>
+        </select>
+    </div>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Lọc theo loại khách hàng</label>
+        </div>
+        <select ng-model="loaikhach" name="editable-datatable_length" aria-controls="editable-datatable" class="form-control" style="width: 100%;"
+            ng-options="s.TenLoai for s in ::$ctrl.liLoaikhachs" ng-change="$ctrl.onSelectLoaiKhach(loaikhach)">
+            <option value="">Loại khách</option>
+        </select>
+    </div>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Lọc theo nhóm SP</label>
+        </div>
+        <select ng-model="nhomsp" name="editable-datatable_length" aria-controls="editable-datatable" class="form-control" style="width: 100%;"
+            ng-options="s.TenNhomsanpham for s in ::$ctrl.liNhomSPs" ng-change="$ctrl.onSelectNhomSP(nhomsp)">
+            <option value="">- Nhóm SP -</option>
+        </select>
+    </div>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Lọc theo nguồn khách</label>
+        </div>
+        <select ng-model="nguonkhach" name="editable-datatable_length" aria-controls="editable-datatable" class="form-control" style="width: 100%;"
+            ng-options="s.TenNguon for s in ::$ctrl.liNguonkhachs" ng-change="$ctrl.onSelectNguonKhach(nguonkhach)">
+            <option value="">Nguồn khách</option>
+        </select>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-sm-12">
+        <table class="display nowrap table table-hover table-striped table-bordered full-color-table full-info-table hover-table"
+            cellspacing="0" width="100%">
+            <colgroup>
+                <col width="50" />
+                <col width="50" />
+                <col width="45%" />
+                <col width="30%" />
+                <col width="20%" />
+                <col width="5%" />
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>
+                        <input type="checkbox" id="chkAll" ng-click="$ctrl.toggleAll()" ng-model="$ctrl.isAllSelected" class="filled-in chk-col-light-blue"
+                        />
+                        <label for="chkAll"></label>
+                    </th>
+                    <th>Hợp đồng</th>
+                    <th>Khách hàng</th>
+                    <th>Ngày xử lý/tạo</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>STT</th>
+                    <th></th>
+                    <th>Hợp đồng</th>
+                    <th>Khách hàng</th>
+                    <th>Ngày xử lý/tạo</th>
+                    <th></th>
+                </tr>
+            </tfoot>
+            <tbody dir-paginate="item in $ctrl.listContract | itemsPerPage: $ctrl.pageSize" pagination-id="dataPagination" current-page="$ctrl.currentPage"
+                total-items="$ctrl.totalRowCount">
+                <tr ng-mouseenter="item.showHoverButton=true" ng-mouseleave="item.showHoverButton=false">
+                    <td class="center">
+                        {{$index + 1}}
+                    </td>
+                    <td>
+                        <input type="checkbox" ng-model="item.selected" id="chkItem{{$index+1}}" class="filled-in chk-col-light-blue" />
+                        <label for="chkItem{{$index+1}}"></label>
+                    </td>
+                    <td>
+                        HĐ số: {{item.SoHD}}
+                        <br /> Người lập: {{item.NguoitaoName}}
+                        <br /> Người xử lý: {{item.NguoicapnhatName}}
+                        <br /> Trị giá:
+                        <b class="text-danger">
+                            {{item.Trigia | currency: '':0 }} đ
+                        </b>
+                        <br /> Sản phẩm:
+                        <br />
+                        <ol style="font-size: 14px;">
+                            <li ng-repeat="sp in item.listSanpham">{{sp.TenSanpham}}: {{sp.Soluong}} x {{sp.Gia | currency: '':0}} =
+                                <b class="text-danger">{{sp.Thanhtien | currency: '':0}} đ</b>
+                            </li>
+                        </ol>
+                        <br /> Dịch vụ:
+                        <br />
+                        <ol style="font-size: 14px;">
+                            <li ng-repeat="sp in item.listDichvu">{{sp.Dichvu}}: {{sp.Soluong}} x {{sp.Gia | currency: '':0}} =
+                                <b class="text-danger">{{sp.Thanhtien | currency: '':0}} đ</b>
+                            </li>
+                        </ol>
+                    </td>
+                    <td>
+                        Họ tên: {{item.Customer.Hoten}}
+                        <br /> Ngày sinh: {{item.Customer.Ngaysinh | date: 'dd/MM/yyyy'}}
+                        <br /> Giới tính: {{item.Customer.Gioitinh? "Nam":"Nữ"}}
+                        <br /> Email: {{item.Customer.Email}}
+                        <br /> Mobile: {{item.Customer.Mobile}}
+                        <br /> Socialsignin: {{item.Customer.TKFacebook}}
+                        <br />
+
+                        <!-- Tổng đơn: {{item.Customer.Tongdon}}<br /> -->
+                        Thành phố: {{item.Customer.thanhPho.Title}}
+                        <br /> 
+                        Đối Tượng:{{item.TenCongty ? ' Công ty' : ' Cá Nhân'}}
+                        <span ng-if="item.TenCongty"><br />Công ty : {{item.TenCongty}}</span>
+                        Loại KH: {{item.Customer.LoaiKH.TenLoai}}
+                        <br />
+                    </td>
+
+                    <td>
+                        Tạo: {{item.Ngaytao | date: 'dd/MM/yyyy'}}
+                        <br /> Cập nhật: {{item.Ngaycapnhat | date: 'dd/MM/yyyy'}}
+                        <br /> Triển khai: {{item.NgayTrienkhaiDukien | date: 'dd/MM/yyyy'}}
+                        <br /> Hoàn thành: {{item.NgayHoanthanhDukien | date: 'dd/MM/yyyy'}}
+                    </td>
+
+                    <td class="text-nowrap">
+                        <div class="dropdown dropdown-menu-right mx-1">
+                            <a class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)">
+                                <i class="fa fa-list"></i>&nbsp;chức năng
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <button style="float:left;margin-bottom:5px;" ui-sref="home.contract.edit({status:'{{item.HopdongId}}'})" type="button" class="dropdown-item">
+                                    <i class="fa fa-edit"></i> Sửa
+                                </button>
+                                <button style="float:left;margin-bottom:5px;" ng-show="item.Trangthai==3" ng-click="$ctrl.chuyenkythuat(item)" type="button"
+                                    class="dropdown-item">
+                                    <i class="fas fa-exchange-alt"></i> Chuyển TC
+                                </button>
+                                <button style="float:left;margin-bottom:5px;" ng-show="item.Trangthai!=3" ui-sref="home.contract.deploymentContract({ tab: 'contractdeploy', id:{{item.HopdongId}} })"
+                                    type="button" class="dropdown-item">
+                                    <i class="fas fa-arrow-alt-circle-right"></i> Triển khai
+                                </button>
+                                <button style="float:left;margin-bottom:5px;" ng-show="item.Trangthai!=3" ui-sref="home.contract.trackexcel({status:'{{item.HopdongId}}'})"
+                                    type="button" class="dropdown-item">
+                                    <i class="fas fa-signal"></i> Tiến độ
+                                </button>
+                                <button style="float:left;margin-bottom:5px;" ng-click="$ctrl.delete(item)" class="dropdown-item" data-original-title="Xóa">
+                                    <i class="fas fa-trash"></i> Xóa
+                                </button>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <div class="dataTables_length" id="datatable-responsive_length">
+            <label>
+                <select name="datatable-responsive_length" ng-model="$ctrl.pageSize" aria-controls="datatable-responsive" class="form-control">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+                bản ghi / trang
+            </label>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <dir-pagination-controls boundary-links="true" on-page-change="$ctrl.onPageChanged(newPageNumber)" pagination-id="dataPagination"></dir-pagination-controls>
+    </div>
+</div>

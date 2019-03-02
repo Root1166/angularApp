@@ -1,0 +1,233 @@
+<style media="screen">
+    .md-dialog-container,
+    md-dialog {
+        margin-top: 25%;
+        z-index: 4000;
+    }
+
+    .dtp-btn-calendar .md-icon-button .md-button .md-ink-ripple {
+        float: right;
+    }
+    
+    .dtp table.dtp-picker-days tr>td>a.selected,
+    .dtp table.dtp-picker-days tr>td>a.selected.hilite,
+    .dtp div.dtp-date,
+    .dtp div.dtp-time,
+    .dtp .dtp-hand.on,
+    .dtp .dtp-actual-meridien a.selected,
+    .dtp .dtp-picker-time>a.dtp-select-hour.selected {
+        background: #2abab9;
+    }
+
+    .dtp table.dtp-picker-days tr>td>a.hilite:not(.selected),
+    .dtp div.dtp-actual-time.p60 span.selected {
+        color: #2abab9;
+    }
+
+    .dtp div.dtp-year-btn,
+    .dtp div.dtp-actual-year,
+    .dtp div.dtp-actual-maxtime {
+        color: #d0f0f0;
+    }
+
+    .dtp>.dtp-content>.dtp-date-view>header.dtp-header {
+        background: #009796;
+    }
+</style>
+
+<div class="section-header">
+    <div class="title">
+        <i class="fas fa-signal"></i>
+        NHẬT KÝ THI CÔNG
+    </div>
+    <div class="options">
+        <button ng-click="$ctrl.add()" data-toggle="modal" data-target="#tab5" class="btn waves-effect waves-light btn-info" data-original-title="Thêm thông tin">
+            Thêm thông tin
+        </button>
+    </div>
+</div>
+
+<div class="row mt-3 grid-filter">
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Lọc theo kế hoạch</label>
+        </div>
+        <select name="editable-datatable_length" aria-controls="editable-datatable" class="form-control input-sm" ng-model="kehoach"
+            ng-options=" kehoach.Id as kehoach.NoidungThuchien for kehoach in $ctrl.liPlanDeploys | filter:{ParentId:null}" ng-change="$ctrl.onSelectKehoach(kehoach)">
+            <option value="">Kế hoạch</option>
+        </select>
+    </div>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Tìm theo tên, mô tả công việc</label>
+        </div>
+        <input ng-model="$ctrl.text" class="form-control" placeholder="Tìm theo tên, mô tả công việc" type="text" ng-keypress="$ctrl.onSearch($event)"
+        />
+    </div>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Lọc theo loại công việc</label>
+        </div>
+        <select name="editable-datatable_length" aria-controls="editable-datatable" class="form-control input-sm" ng-model="loaicongviec"
+            ng-options=" item.Id as item.Name for item in $ctrl.listLoaiCongviec" ng-change="$ctrl.onSelectLoaiCongviec(loaicongviec)">
+            <option value="">Loại công việc</option>
+        </select>
+    </div>
+</div>
+
+<div class="form-group row">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="display nowrap table table-hover table-striped table-bordered full-color-table full-info-table hover-table"
+                    cellspacing="0" width="100%">
+                    <colgroup>
+                        <col width="50" />
+                        <col width="55%" />
+                        <col width="15%" />
+                        <col width="15%" />
+                        <col />
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Nội dung báo cáo</th>
+                            <th>Bắt đầu</th>
+                            <th>Kết thúc</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody ng-repeat="nguoi in $ctrl.listNguoicoBaocao">
+                        <tr ng-model="parentIndex" style="background:#999;color:#fff">
+                            <td>{{parentIndex = $index+1}}</td>
+                            <td colspan="4">{{nguoi.Ten}}</td>
+                        </tr>
+                        <tr ng-repeat="item in $ctrl.liconstructiondiarys | filter : {NguoibaocaoId: nguoi.UserId}">
+                            <td class="center">
+                                {{parentIndex}}.{{$index + 1}}
+                            </td>
+                            <td class="center">
+                                {{item.Noidungbaocao}}
+                            </td>
+                            <td class="center">
+                                {{item.Batdau | date: 'dd/MM/yyyy'}}
+                            </td>
+                            <td class="center">
+                                {{item.Ketthuc | date: 'dd/MM/yyyy'}}
+                            </td>
+                            <td class="text-nowrap">
+                                <button ng-click="$ctrl.edit(item)" class="btn btn-default" data-original-title="Sửa" data-toggle="modal" data-target="#tab5">
+                                    Sửa
+                                </button>
+                                <button ng-click="$ctrl.delete(item)" class="btn btn-danger" data-original-title="Xóa">
+                                    Xóa
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-md-9">
+        <div class="row">
+            <div class="col-md-12">
+                <label>
+                    <b>Danh sách kỹ thuật chưa báo cáo</b>
+                </label>
+            </div>
+            <div class="col-md-12" ng-repeat="item in $ctrl.listNguoiChuacoBaocao">
+                <label>{{item.Ten}}</label>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+<div class="modal fade" my-modal="roleModelDialog" id="tab5" tabindex="-1" role="dialog" aria-labelledby="changePassModalLabel"
+    style="display: none;" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel1">
+                    <b>Thêm thông tin</b>
+                </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="ng-pristine ng-valid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <select name="editable-datatable_length" aria-controls="editable-datatable" class="form-control input-sm" ng-model="$ctrl.model.KehoachId"
+                                ng-options="s.Id as s.NoidungThuchien for s in $ctrl.liPlanDeploys">
+                                <option value="">--Giai đoạn thi công--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <select name="editable-datatable_length" aria-controls="editable-datatable" class="form-control input-sm" ng-model="$ctrl.model.LoaiCongviec"
+                                ng-options="s.Id as s.Name for s in $ctrl.listLoaiCongviec">
+                                <option value="">--Báo cáo công việc--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <textarea ng-model="$ctrl.model.Noidungbaocao" class="form-control" rows="3" placeholder="Nội dung báo cáo..."></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>Người báo cáo</label>
+                        </div>
+                        <div class="col-md-12">
+                            <select name="editable-datatable_length" aria-controls="editable-datatable" class="form-control input-sm" ng-model="$ctrl.model.NguoibaocaoId"
+                                ng-options="s.UserId as s.Ten for s in $ctrl.liCustomjoins">
+                                <option value="">--Người báo cáo--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>Ngày bắt đầu</label>
+                        </div>
+                        <div class="col-md-12 ">
+                            <md-input-container flex-gt-md="30">
+                                <input mdc-datetime-picker="" edit-input="true" show-icon="true" auto-ok="true" date="true" time="true" type="text" ng-model="$ctrl.model.Batdau"
+                                    class="md-input">
+                            </md-input-container>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>Ngày kết thúc</label>
+                        </div>
+                        <div class="col-md-12 ">
+                            <md-input-container flex-gt-md="30">
+                                <input mdc-datetime-picker="" edit-input="true" show-icon="true" auto-ok="true" date="true" time="true" type="text" ng-model="$ctrl.model.Ketthuc"
+                                    class=" md-input">
+                            </md-input-container>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input class="form-control" nv-file-select uploader="$ctrl.uploader" type="file" accept=".png,.jpeg,.pdf,.bmp,.gif,.jpg">
+                            <div ng-show="$ctrl.model.AnhDinhkem != undefined">
+                                <b>1 file uploaded</b>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button ng-click="$ctrl.cancel()" type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                <button ng-click="$ctrl.insert()" type="button" class="btn btn-primary">Ghi lại</button>
+            </div>
+        </div>
+    </div>
+</div>

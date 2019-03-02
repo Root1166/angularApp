@@ -1,0 +1,173 @@
+﻿<style>
+    .my-custom-stars .button .material-icons {
+        font-size: 20px;
+    }
+</style>
+<div class="section-header">
+    <div class="title">
+        <i class="fab fa-pinterest"></i>
+        KẾT QUẢ ĐÁNH GIÁ
+    </div>
+    <div class="options">
+        <button ng-click="$ctrl.add()" data-toggle="modal" data-target="#tab13" class="btn waves-effect waves-light btn-info" data-original-title="Thêm thông tin">
+            Thêm/sửa thông tin
+        </button>
+    </div>
+</div>
+
+<div class="row mt-3 grid-filter" style>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Tìm kiếm</label>
+        </div>
+        <input ng-click="$ctrl.text" class="form-control" placeholder="Tìm theo tên, mô tả công việc..." type="text" ng-keypress="$ctrl.search($event)"
+        />
+    </div>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Lọc theo kỹ thuật</label>
+        </div>
+        <select ng-model="kythuatvien" name="editable-datatable_length" aria-controls="editable-datatable" class="form-control input-sm"
+            ng-options="s.Hovaten for s in $ctrl.liCustomjoins" ng-change="$ctrl.onSelectKythuat(kythuatvien)">
+            <option value="">--Kỹ thuật--</option>
+        </select>
+    </div>
+</div>
+
+<table class="display nowrap table table-hover table-striped table-bordered full-color-table full-info-table hover-table"
+    cellspacing="0" width="100%">
+    <colgroup>
+        <col width="50" />
+        <col width="25%" />
+        <col width="10%" />
+        <col width="10%" />
+        <col width="10%" />
+        <col width="15%" />
+        <col width="15%" />
+        <col />
+    </colgroup>
+    <thead>
+        <tr>
+            <th>STT</th>
+            <th>Kỹ thuật</th>
+            <th>Tiến độ</th>
+            <th>Chất lượng</th>
+            <th>Phản hồi KH</th>
+            <th>Chi phí</th>
+            <th>Ngày đánh giá</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="item in $ctrl.liResults">
+            <td class="center">
+                {{$index + 1}}
+            </td>
+            <td class="center">
+                {{item.Kythuatvien.Hovaten}}
+            </td>
+            <td class="center">
+                {{item.Tiendo}}
+            </td>
+            <td class="center">
+                {{item.Chatluong}}
+            </td>
+            <td class="center">
+                {{item.PhanhoiKH}}
+            </td>
+            <td class="center">
+                {{item.Chiphi}}
+            </td>
+            <td class="center">
+                {{item.Ngaydanhgia | date: 'dd/MM/yyyy'}}
+            </td>
+            <td class="text-nowrap">
+                <button ng-click="$ctrl.edit(item)" class="btn btn-secondary" data-original-title="Sửa" data-toggle="modal" data-target="#tab13">
+                    <i class="fas fa-edit"></i> Sửa</button>
+                <button ng-click="$ctrl.delete(item)" class="btn btn-danger" data-original-title="Xóa">
+                    <i class="fas fa-trash"></i> Xóa</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="modal fade" my-modal="roleModelDialog" id="tab13" tabindex="-1" role="dialog" aria-labelledby="changePassModalLabel"
+    style="display: none;" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel1">
+                    <b>Thêm thông tin</b>
+                </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="ng-pristine ng-valid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <select ng-model="$ctrl.model.KythuatId" name="editable-datatable_length" aria-controls="editable-datatable" class="form-control input-sm"
+                                ng-options="s.UserId as s.Hovaten for s in $ctrl.liCustomjoins">
+                                <option selected="">--Kỹ thuật--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Tiến độ</label>
+                        </div>
+                        <div class="col-md-6">
+                            <jk-rating-stars class="my-custom-stars" max-rating="10" rating="$ctrl.model.Tiendo"></jk-rating-stars>
+                        </div>
+                        <div class="col-md-3">
+                            {{$ctrl.model.Tiendo}} điểm
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Chất lượng</label>
+                        </div>
+                        <div class="col-md-6">
+                            <jk-rating-stars class="my-custom-stars" max-rating="10" rating="$ctrl.model.Chatluong"></jk-rating-stars>
+                        </div>
+                        <div class="col-md-3">
+                            {{$ctrl.model.Chatluong}} điểm
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Phản hồi KH</label>
+                        </div>
+                        <div class="col-md-6">
+                            <jk-rating-stars class="my-custom-stars" max-rating="10" rating="$ctrl.model.PhanhoiKH"></jk-rating-stars>
+                        </div>
+                        <div class="col-md-3">
+                            {{$ctrl.model.PhanhoiKH}} điểm
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <label>Chi phí thi công</label>
+                        </div>
+                        <div class="col-md-6">
+                            <jk-rating-stars class="my-custom-stars" max-rating="10" rating="$ctrl.model.Chiphi"></jk-rating-stars>
+                        </div>
+                        <div class="col-md-3">
+                            {{$ctrl.model.Chiphi}} điểm
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <textarea ng-model="$ctrl.model.Noidung" class="form-control" rows="3" placeholder="Nhận xét khách hàng..."></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button ng-click="$ctrl.cancel()" type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                <button ng-click="$ctrl.insert()" type="button" class="btn btn-primary" ng-click="$ctrl.onSaveRoleModel()">Ghi lại</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,153 @@
+<div class="section-header">
+    <div class="title">
+        <i class="fas fa-user-friends"></i>
+        Theo dõi tiến độ hợp đồng
+    </div>
+    <div class="options">
+        <button type="button" class="btn btn-info" ng-click="$ctrl.onAdd()">
+            <i ng-class="!$ctrl.show ? 'fas fa-minus text':'fas fa-plus text'" aria-hidden="true"></i>
+        </button>
+    </div>
+</div>
+
+<div class="row mt-3 grid-filter" style>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Lọc theo giai đoạn</label>
+        </div>
+        <md-autocomplete md-input-name="autocomplete" md-min-length="0" md-selected-item-change="$ctrl.onSelectGiaidoan(item)" md-search-text="$scrl.searchText"
+            md-model="$scrl.searchText" md-items="item in $ctrl.searchGiaidoan($scrl.searchText)" md-item-text="item.NoidungThuchien"
+            placeholder="Giai đoạn">
+            <md-item-template>
+                <span md-highlight-text="$scrl.searchText">{{item.NoidungThuchien}}</span>
+            </md-item-template>
+        </md-autocomplete>
+    </div>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Lọc theo thời gian</label>
+        </div>
+        <div date-range-picker on-load-callback="$ctrl.filterByDate(arg1)" class="btn btn-primary" title="" data-toggle="dropdown">
+            <i class="glyph-icon icon-calendar"></i>
+            <span></span>
+            <b class="caret"></b>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-4" ng-show="!$ctrl.show">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="display nowrap table table-hover table-striped table-bordered full-color-table full-info-table hover-table"
+                    cellspacing="0" width="100%">
+                    <colgroup>
+                        <col width="50" />
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>Hợp đồng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <p>Số HĐ: {{$ctrl.model.Hopdong.SoHD}}</p>
+                                <p>Ngày tạo: {{$ctrl.model.Hopdong.Ngaytao| date: 'dd/MM/yyyy'}}</p>
+                                <p>Nguời tạo: {{$ctrl.model.Hopdong.NguoitaoName }}</p>
+                                <p>Trị giá: {{$ctrl.model.Hopdong.Trigia| currency: '':0}} đ</p>
+                                <p>Ghi chú: {{$ctrl.model.Hopdong.Ghichu}}</p>
+                                <p>Ngày triển khai dự án: {{$ctrl.model.Hopdong.NgayTrienkhaiDukien| date: 'dd/MM/yyyy'}}</p>
+                                <p>Ngày hoàn thành dự kiến: {{$ctrl.model.Hopdong.NgayHoanthanhDukien| date: 'dd/MM/yyyy'}}
+                                </p>
+                                <span ng-repeat="sanpham in $ctrl.model.Sanphams">Sản phẩm:
+                                    <p> {{$index +1 }}) {{sanpham.TenSanpham}}</p>
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="display nowrap table table-hover table-striped table-bordered full-color-table full-info-table hover-table"
+                    cellspacing="0" width="100%">
+                    <colgroup>
+                        <col width="50" />
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>Khách hàng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <p>Họ tên: {{$ctrl.Customer.Hoten}}</p>
+                                <p>Ngày sinh: {{$ctrl.Customer.Ngaysinh |date: "dd/MM/yyyy"}}</p>
+                                <p>Giới tính: {{$ctrl.Customer.Gioitinh}}</p>
+                                <p>Email: {{$ctrl.Customer.Email}}</p>
+                                <p>Mobile: {{$ctrl.Customer.Mobile}}</p>
+                                <p>Thành phố: {{$ctrl.Customer.thanhPho}}</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-8" ng-class="$ctrl.show ?'col-sm-12':'col-sm-8'">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="display nowrap table table-hover table-striped table-bordered full-color-table full-info-table hover-table"
+                    cellspacing="0" width="100%">
+                    <colgroup>
+                        <col width="10%" />
+                        <col width="25%" />
+                        <col width="20%" />
+                        <col width="20%" />
+                        <col width="25%" />
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Nội dung thực hiện</th>
+                            <th>Ngày bắt đầu/Kết thúc</th>
+                            <th>Loại công việc</th>
+                            <th>Người báo cáo</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>STT</th>
+                            <th>Nội dung thực hiện</th>
+                            <th>Ngày bắt đầu/Kết thúc </th>
+                            <th>Loại công việc</th>
+                            <th>Người báo cáo</th>
+                        </tr>
+                    </tfoot>
+                    <tbody ng-repeat="tiendos in $ctrl.tiendoHDmodel">
+                        <tr>
+                            <td colspan="5">
+                                <strong>{{$index +1 }}. {{tiendos.Kehoach}}</strong>
+                        </tr>
+                        <tr ng-repeat="tiendo in tiendos.NhatkyThicongs">
+                            <td>{{$index +1 }}</td>
+                            <td>{{tiendo.Noidungbaocao}}</td>
+                            <td>
+                                <p>Bắt đầu: {{tiendo.Batdau | date: 'dd/MM/yyyy'}}</p>
+                                <p>Kết thúc: {{tiendo.Ketthuc | date: 'dd/MM/yyyy'}}</p>
+                            </td>
+                            <td>Công việc: {{tiendo.Congviec}}</td>
+                            <td>
+                                {{tiendo.Nguoibaocao}}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

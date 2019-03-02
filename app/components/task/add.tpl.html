@@ -1,0 +1,277 @@
+<div class="section-header">
+    <div class="title">
+        <i class="fas fa-user-plus"></i>
+        {{$ctrl.Title}}
+    </div>
+</div>
+
+<div ng-show="$ctrl.status == 0 || $ctrl.status == 1">
+    <div class="tab-pane p-20 active" id="thongtin" role="tabpanel">
+        <div class="card-body">
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="nav-item">
+                    <a>
+                        <span class="hidden-sm-up">
+                            <i class="ti-home"></i>
+                        </span>
+                        <span class="hidden-xs-down">Thông tin</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content tabcontent-border">
+                <div class="tab-pane  active p-20" id="customer" role="tabpanel">
+                    <div class="form-group row">
+                        <div class="col-sm-3">
+                            <label>Tên công việc</label>
+                        </div>
+                        <div class="col-sm-9">
+                            <input ng-model="$ctrl.currentCongviec.TenCongviec" class="form-control" placeholder="Tên công việc" />
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-3">
+                            <label>Ngày bắt đầu</label>
+                        </div>
+                        <div class="col-sm-9">
+                            <input type="text" onfocus="(this.type='date')" class="form-control" ng-model="$ctrl.currentCongviec.Ngaybatdau" type="text"
+                                placeholder="Thời gian bắt đầu">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-3">
+                            <label>Deadline</label>
+                        </div>
+                        <div class="col-sm-9">
+                            <input type="text" onfocus="(this.type='date')" class="form-control" ng-model="$ctrl.currentCongviec.Deadline" type="text"
+                                placeholder="Thời gian kết thúc">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-3">
+                            <label>Mô tả công việc</label>
+                        </div>
+                        <div class="col-sm-9">
+                            <textarea ng-model="$ctrl.currentCongviec.MotaCongviec" rows="3" placeholder="Nội dung công việc..." class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-3">
+                            <label>File đính kèm</label>
+                        </div>
+                        <div class="col-sm-9">
+                            <div class="form-group">
+                                <input type="file" id="selectFile1" nv-file-select uploader="$ctrl.uploader">
+                                <label style="color:red;" ng-show="$ctrl.currentCongviec.FileDinhkems">Đã có file được thêm vào.</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-3">
+                            <label>Hợp đồng liên quan </label>
+                        </div>
+                        <div class="col-sm-9">
+                            <select ng-model="$ctrl.HopdongLienquans" class="select2 m-b-10 select2-multiple" style="width: 100%" multiple="multiple"
+                                data-placeholder="Chọn hợp đồng" ng-options="s.HopdongId as s.SoHD for s in $ctrl.listHopdongs"
+                                select2>
+                                <option value="">---Chọn hợp đồng---</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-3">
+                            <label>Người thực hiện </label>
+                        </div>
+                        <div class="col-sm-9">
+                            <button type="button" class="btn btn-info ng-binding" ng-click="$ctrl.showNguoithuchien=!$ctrl.showNguoithuchien">
+                                <i class="mdi mdi-plus"></i>Giao cho người khác</button>
+                        </div>
+                    </div>
+                    <div class="form-group row" ng-show="$ctrl.showNguoithuchien">
+                        <div class="col-sm-3">
+                        </div>
+                        <div class="col-sm-9">
+                            <md-autocomplete required md-input-name="autocomplete" md-min-length="0" md-selected-item-change="$ctrl.onSelectNguoinhan(item)"
+                                md-selected-item="$ctrl.currentDungcuModel.Nguoinhan" md-search-text="$scrl.searchNguoinhan"
+                                md-items="item in $ctrl.searchUser($scrl.searchNguoinhan)" md-item-text="item.Hovaten" placeholder="Người nhận ....">
+                                <md-item-template>
+                                    <span md-highlight-text="$scrl.searchNguoinhan">{{item.Hovaten}}</span>
+                                </md-item-template>
+                            </md-autocomplete>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-3">
+                            <label>Tình trạng công việc </label>
+                        </div>
+                        <div class="col-sm-9">
+                            <select ng-model="$ctrl.currentCongviec.Trangthai" name="editable-datatable_length" aria-controls="editable-datatable" class="form-control input-sm"
+                                ng-options="s.id as s.value for s in $ctrl.liStatus"></select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-12">
+            <button ng-click="$ctrl.insert()" type="button" class="btn btn-info ng-binding">
+                <i class="mdi mdi-plus"></i>Ghi</button>
+            <button type="button" ng-click="$ctrl.insert();$ctrl.back = true" class="btn btn-success ng-binding">
+                <i class="mdi mdi-plus"></i>Ghi và trở lại</button>
+            <button ui-sref="home.task.list({status: 'mytaskcreated'})" type="button" class="btn btn-success ng-binding">
+                <i class="ti-back-right"></i>Trở lại</button>
+        </div>
+    </div>
+</div>
+</div>
+<div class="card" ng-show="$ctrl.status == 2">
+    <div class="card-body">
+        <h4 class="card-title">Xem công việc</h4>
+        <div class="tab-pane p-20 active" id="thongtin" role="tabpanel">
+            <div class="card-body">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a ng-click="$ctrl.activeTab='customer'" ng-hide="$ctrl.isEditable" class="nav-link active" data-toggle="tab" href="javascript:void(0);"
+                            role="tab">
+                            <span class="hidden-sm-up">
+                                <i class="ti-home"></i>
+                            </span>
+                            <span class="hidden-xs-down">Thông tin</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content tabcontent-border">
+                    <div class="tab-pane  active p-20" id="customer" role="tabpanel">
+                        <div class="form-group row">
+                            <div class="col-sm-3">
+                                <label>Công việc</label>
+                            </div>
+                            <div class="col-sm-9">
+                                <label>{{$ctrl.currentCongviec.TenCongviec}}</label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-3">
+                                <label>Ngày tạo</label>
+                            </div>
+                            <div class="col-sm-3">
+                                <i></i>
+                                <label>{{$ctrl.currentCongviec.Ngaytao | date:'dd/MM/yyyy'}}</label>
+                            </div>
+                            <div class="col-sm-2">
+                                <label>Deadline</label>
+                            </div>
+                            <div class="col-sm-4">
+                                <i></i>
+                                <label>{{$ctrl.currentCongviec.Deadline | date:'dd/MM/yyyy'}}</label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-3">
+                                <label>Chi tiết</label>
+                            </div>
+                            <div class="col-sm-9">
+                                <label>{{$ctrl.currentCongviec.MotaCongviec}}</label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-3">
+                                <label>File đính kèm</label>
+                            </div>
+                            <div class="col-sm-3">
+                                <label>
+                                    <i class="fa fa-paperclip"></i>Ý tưởng của khách
+                                    <label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-3">
+                                <label>Hợp đồng liên quan</label>
+                            </div>
+                            <div class="col-sm-3">
+                                <ul ng-repeat="hopdong in $ctrl.HopdongLienquansModel">
+                                    <li>Số HD : {{hopdong}}</li>
+
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-3">
+                                <label>Người thực hiện</label>
+                            </div>
+                            <div class="col-sm-3">
+                                <a>{{$ctrl.currentCongviec.Nguoithuchiencv}}</a>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-3">
+                                <label>Người giao việc</label>
+                            </div>
+                            <div class="col-sm-3">
+                                <a>{{$ctrl.currentCongviec.Nguoigiaocv}}</a>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <hr />
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Nội dung trao đổi công việc</h4>
+                                        <div class="chat-box" style=" max-height: 450px;overflow-y:scroll;">
+                                            <!--chat Row -->
+                                            <ul class="chat-list">
+                                                <!--chat Row -->
+                                                <li ng-repeat="item in $ctrl.listComments" class="{{(item.NguoitaoId == $ctrl.Login.TaikhoanId)?'':'reverse'}}">
+                                                    <!--Left-->
+                                                    <div ng-hide="{{(item.NguoitaoId == $ctrl.Login.TaikhoanId)?false:true}}" class="chat-img">
+                                                        <img src="../assets/images/users/2.jpg" alt="user" />
+                                                    </div>
+                                                    <div class="chat-content">
+                                                        <h5>{{item.NguoitaoIdmodel}}</h5>
+                                                        <div ng-hide="{{(item.NguoitaoId == $ctrl.Login.TaikhoanId)?true:false}}" class="box bg-light-info">{{item.NoidungThaoluan}}</div>
+                                                        <div ng-hide="{{(item.NguoitaoId == $ctrl.Login.TaikhoanId)?false:true}}" class="box bg-light-inverse">{{item.NoidungThaoluan}}</div>
+                                                        <a class="btn" data-toggle="tooltip" data-original-title="Xóa" ng-click="$ctrl.onRemove(item)">
+                                                            <i class="fa fa-close text-danger"></i>
+                                                        </a>
+                                                    </div>
+                                                    <div ng-hide="{{(item.NguoitaoId == $ctrl.Login.TaikhoanId)?true:false}}" class="chat-img">
+                                                        <img src="../assets/images/users/5.jpg" alt="user" />
+                                                    </div>
+                                                    <div class="chat-time">
+                                                        {{item.Ngaytao |date:'dd/MM/yyyy'}}
+                                                    </div>
+                                                    <!--Right-->
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body b-t">
+                                    <div class="row">
+                                        <div class="col-8">
+                                            <textarea ng-keypress="$ctrl.onEnter($event)" ng-model="$ctrl.modelComment.NoidungThaoluan" placeholder="Nhập nội dung công việc"
+                                                class="form-control b-0"></textarea>
+                                        </div>
+                                        <div class="col-4 text-right">
+                                            <button ng-click="$ctrl.sendMess()" type="button" class="btn btn-info btn-circle btn-lg">
+                                                <i class="fa fa-paper-plane-o"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-11">
+                <button style="float:right" ui-sref="home.task.list({status:'mytaskcreated'})" type="button" class="btn btn-success ng-binding">
+                    <i class="ti-back-right"></i>Trở lại</button>
+            </div>
+        </div>
+    </div>
+</div>

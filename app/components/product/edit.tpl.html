@@ -1,0 +1,152 @@
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Thông tin sản phẩm</h4>
+
+        <div class="tab-pane p-20 active" id="kehoachsanxuat" role="tabpanel">
+            <div class="form-group row">
+                <div class="col-sm-8">
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            <label class="card-title control-label col-form-label">
+                                Mã sản phẩm
+                            </label>
+                            <input class="form-control" type="text" ng-model="$ctrl.productModel.MaSanpham" name="providers" placeholder="Mã sản phẩm" />
+                        </div>
+                        <div class="col-sm-12">
+                            <label class="card-title control-label col-form-label">
+                                Tên sản phẩm
+                            </label>
+                            <input class="form-control" type="text" ng-model="$ctrl.productModel.TenSanpham" placeholder="Tên sản phẩm..." />
+                        </div>
+                        <div class="col-sm-12">
+                            <label class="card-title control-label col-form-label">
+                                Nhóm sản phẩm
+                            </label>
+                            <md-autocomplete required md-input-name="autocomplete"
+                                 md-min-length="0"
+                                 md-selected-item-change="$ctrl.onSelectNhomsp(item)"
+                                 md-selected-item="$ctrl.productModel.TenNhomsanpham"
+                                 md-search-text="$scrl.searchNhomsp"
+                                 md-model="$scrl.searchNhomsp"
+                                 md-items="item in $ctrl.searchNhomsp($scrl.searchNhomsp)"
+                                 md-item-text="item.TenNhomsanpham"
+                                 placeholder ="Nhóm sản phẩm --">
+                                <md-item-template>
+                                    <span md-highlight-text="$scrl.searchNhomsp">{{item.TenNhomsanpham}}</span>
+                                </md-item-template>
+                            </md-autocomplete>
+                        </div>
+                        <div class="col-sm-12">
+                            <label class="card-title control-label col-form-label">
+                                Nhà cung cấp
+                            </label>
+                            <md-autocomplete required md-input-name="autocomplete"
+                                 md-min-length="0"
+                                 md-selected-item-change="$ctrl.onSelectNhacungcap(item)"
+                                 md-selected-item="$ctrl.productModel.TenNhacungcap"
+                                 md-search-text="$scrl.searchNhacungcap"
+                                 md-model="$scrl.searchNhacungcap"
+                                 md-items="item in $ctrl.searchNhacungcap($scrl.searchNhacungcap)"
+                                 md-item-text="item.TenNhacungcap"
+                                 placeholder ="Nhà cung cấp --">
+                                <md-item-template>
+                                    <span md-highlight-text="$scrl.searchNhomsp">{{item.TenNhacungcap}}</span>
+                                </md-item-template>
+                            </md-autocomplete>
+                        </div>
+                        <div class="col-sm-12">
+                            <label class="card-title control-label col-form-label">
+                                Hãng sản xuất
+                            </label>
+                            <md-autocomplete required md-input-name="autocomplete"
+                                 md-min-length="0"
+                                 md-selected-item-change="$ctrl.onSelectHangsanxuat(item)"
+                                 md-selected-item="$ctrl.productModel.TenHangsanxuat"
+                                 md-search-text="$scrl.searchHangsanxuat"
+                                 md-model="$scrl.searchHangsanxuat"
+                                 md-items="item in $ctrl.searchHangsanxuat($scrl.searchHangsanxuat)"
+                                 md-item-text="item.TenHangsanxuat"
+                                 placeholder ="Hãng sản xuất --">
+                                <md-item-template>
+                                    <span md-highlight-text="$scrl.searchHangsanxuat">{{item.TenHangsanxuat}}</span>
+                                </md-item-template>
+                            </md-autocomplete>
+                        </div>
+                        <div class="col-sm-12">
+                            <label class="card-title control-label col-form-label">
+                                Mô tả
+                            </label>
+                            <textarea rows="5" class="form-control" ng-model="$ctrl.productModel.Mota" placeholder="Mô tả" />
+                        </div>
+
+                        <div class="col-sm-12">
+                            <label class="card-title control-label col-form-label">
+                                Giá đầu vào
+                            </label>
+                            <input class="form-control" type="number" ng-model="$ctrl.productModel.Giadauvao" placeholder="Giá đầu vào..." />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <center class="m-t-30">
+                        <img src='{{$ctrl.productModel.AnhSanpham}}' class="img-circle" width="150" />
+                        <h4 class="card-title m-t-10">Ảnh sản phẩm</h4>
+                        <input type="file" onchange="angular.element(this).scope().$ctrl.onChangeImage(this.files[0])" placeholder="Ảnh sản phẩm..." class="form-control form-control-line" />
+                    </center>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-12">
+                    <label class="card-title control-label col-form-label">
+                        <b>Giá bán </b>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-1">
+                    <button type="button" class="btn btn-info" ng-click="$ctrl.onAddItem()">
+                    <i class="ti-plus text" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="form-group row" ng-repeat="nhucau in $ctrl.Giabans">
+                <div class="col-sm-1">
+                    <button type="button" class="btn btn-info" ng-click="$ctrl.onRemoveItem($index)">
+                        <i class="ti-minus text" aria-hidden="true"></i>
+                    </button>
+                </div>
+                <div class="col-sm-4">
+                   <md-autocomplete required md-input-name="autocomplete"
+                        md-min-length="0"
+                        md-selected-item-change="$ctrl.onSelectNhucaugia(item,$index)"
+                        md-selected-item="nhucau.Nhucau"
+                        md-search-text="$scrl.searchNhucaugia[$index]"
+                        md-items="item in $ctrl.searchNhucaugia($scrl.searchNhucaugia[$index])"
+                        md-item-text="item.TenNhucau"
+                        placeholder="-- Nhu cầu giá --">
+                       <md-item-template>
+                           <span md-highlight-text="$scrl.searchNhucaugia[$index]">{{item.TenNhucau}}</span>
+                       </md-item-template>
+                   </md-autocomplete>
+                </div>
+                <div class="col-sm-4">
+                    <input class="form-control" type="number" ng-model="nhucau.Gia" placeholder="Giá bán" id="productionQuanlity">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="text-right col-sm-12">
+                    <button type="button" class="btn btn-warning" ui-sref="home.product.list"><i class="fa fa-ban"></i> Trở lại</button>
+                    <button type="button" class="btn btn-info" ng-click="$ctrl.onSaveproductModel ()"><i class="fa fa-save"></i> Ghi lại</button>
+                    <button type="button" class="btn btn-success" ng-click="$ctrl.status= true;$ctrl.onSaveproductModel ()"><i class="ti-back-right"></i> Ghi và trở lại</button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>

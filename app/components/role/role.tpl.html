@@ -1,0 +1,139 @@
+<div class="section-header">
+    <div class="title">
+        <i class="fas fa-project-diagram"></i>
+        VAI TRÒ
+    </div>
+    <div class="options">
+        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#roleModelDialog" ng-click="$ctrl.onAdd()">
+            <i class="fas fa-plus"></i> Thêm mới
+        </button>
+        <button type="button" ng-click="$ctrl.onRemoves()" class="btn btn-danger">
+            <i class="fas fa-close"></i> Xóa
+        </button>
+    </div>
+</div>
+
+<h6 class="card-subtitle">Quản lý danh sách vai trò của hệ thống</h6>
+
+<div class="row mt-3 grid-filter" style>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Tìm kiếm</label>
+        </div>
+        <input type="search" class="form-control input-sm" placeholder="" aria-controls="editable-datatable" ng-model="$ctrl.search"
+            ng-keypress="$ctrl.onSearch($event)">
+    </div>
+</div>
+
+<table class="display nowrap table table-hover table-striped table-bordered full-color-table full-info-table hover-table"
+    cellspacing="0" width="100%">
+    <colgroup>
+        <col width="50" />
+        <col width="15%" />
+        <col width="35%" />
+        <col width="25%" />
+        <col width="15%" />
+    </colgroup>
+    <thead>
+        <tr>
+            <th>
+                <input type="checkbox" id="chkAll" ng-click="$ctrl.toggleAll()" ng-model="$ctrl.isAllSelected" class="filled-in chk-col-light-blue"
+                />
+                <label for="chkAll"></label>
+            </th>
+            <th>RoleName</th>
+            <th>Title</th>
+            <th>Description</th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <th></th>
+            <th>RoleName</th>
+            <th>Title</th>
+            <th>Description</th>
+
+            <th></th>
+        </tr>
+    </tfoot>
+    <tbody dir-paginate="role in $ctrl.roleModels | itemsPerPage: $ctrl.pageSize" pagination-id="dataPagination" current-page="$ctrl.currentPage"
+        total-items="$ctrl.totalRowCount">
+        <tr>
+            <td class="center">
+                <input type="checkbox" ng-model="role.selected" id="chkItem{{$index+1}}" class="filled-in chk-col-light-blue" />
+                <label for="chkItem{{$index+1}}"></label>
+            </td>
+
+            <td>{{ role.RoleName }}</td>
+            <td>{{ role.Title }}</td>
+            <td>{{ role.Description }}</td>
+
+            <td class="text-nowrap">
+                <a class="btn" data-toggle="modal" data-target="#roleModelDialog" ng-click="$ctrl.onEdit(role)" data-original-title="Cập nhật">
+                    <i class="fas fa-edit text-inverse"></i> Sửa
+                </a>
+                <a class="btn" data-toggle="tooltip" data-original-title="Xóa" ng-click="$ctrl.onRemove(role)">
+                    <i class="fas fa-trash text-danger"></i> Xóa
+                </a>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+<div class="row" ng-show="false">
+    <div class="col-sm-6">
+        <div class="dataTables_length" id="datatable-responsive_length">
+            <label>
+                <select name="datatable-responsive_length" ng-model="$ctrl.pageSize" aria-controls="datatable-responsive" class="form-control">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+                records / page
+            </label>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <dir-pagination-controls boundary-links="true" on-page-change="$ctrl.onPageChanged(newPageNumber)" pagination-id="dataPagination"></dir-pagination-controls>
+    </div>
+</div>
+
+<div class="modal fade" my-modal="roleModelDialog" id="roleModelDialog" tabindex="-1" role="dialog" aria-labelledby="changePassModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel1">{{ $ctrl.currentRoleModel.RoleId==0 || $ctrl.currentRoleModel.RoleId==undefined ?'Thêm mới':'Cập nhật' }}
+                    role
+                </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">RoleName *:</label>
+                        <input type="text" class="form-control" ng-model="$ctrl.currentRoleModel.RoleName" />
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Title *:</label>
+                        <input type="text" class="form-control" ng-model="$ctrl.currentRoleModel.Title" />
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Description:</label>
+                        <textarea rows="5" class="form-control" ng-model="$ctrl.currentRoleModel.Description" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" ng-click="$ctrl.onSaveRoleModel()">Ghi lại</button>
+            </div>
+        </div>
+    </div>
+</div>

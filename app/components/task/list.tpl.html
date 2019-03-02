@@ -1,0 +1,235 @@
+<style>
+    .task-hr {
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+        opacity: 0.6;
+    }
+
+    .list-group {
+        box-shadow: 5px 10px 18px #888888;
+    }
+</style>
+<div class="section-header">
+    <div class="title">
+        <i class="fas fa-user-friends"></i>
+        {{ $ctrl.pageTitle }}
+    </div>
+    <div class="options">
+        <button ui-sref="home.task.add({id: 0, status: 0})" type="button" class="btn btn-info" ui-sref="home.task.add">
+            <i class="fas fa-plus"></i> Thêm mới
+        </button>
+        <button ng-click="$ctrl.checkSearch = !$ctrl.checkSearch" ng-model="$ctrl.checkSearch" ng-init="$ctrl.checkSearch = false"
+            type="button" class="btn btn-info">
+            <i class="fas fa-filter"></i>Lọc dữ liệu
+        </button>
+    </div>
+</div>
+
+<div ng-show="$ctrl.checkSearch" class="row mt-3 grid-filter" style>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Tìm kiếm</label>
+        </div>
+        <input ng-model="$ctrl.search" class="form-control" type="text" placeholder="Nội dung cần tìm" id="example-text-input" ng-keypress="$ctrl.onSearch($event)">
+    </div>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Tìm kiếm</label>
+        </div>
+        <div date-range-picker on-load-callback="$ctrl.filterByDate(arg1)" class="btn btn-primary" title="" data-toggle="dropdown">
+            <i class="glyph-icon icon-calendar"></i>
+            <span></span>
+            <b class="caret"></b>
+        </div>
+    </div>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Lọc theo loại công việc</label>
+        </div>
+        <select ng-change="$ctrl.loadData()" ng-model="$ctrl.searchpanel.Statusmodel" style="width: 100%;" name="editable-datatable_length"
+            aria-controls="editable-datatable" class="form-control input-sm" ng-options="s.value for s in $ctrl.liStatus">
+            <option value="">-- Loại công việc --</option>
+        </select>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12 col-md-4">
+        <div class="list-group">
+            <div class="list-group-item list-group-item-action flex-column align-items-start active">
+                <div class="w-100 justify-content-between text-center">
+                    <h5 class="mb-1 text-white">Chờ xử lý</h5>
+                </div>
+            </div>
+            <div ng-repeat="item in $ctrl.taskData1" class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                    <h3 class="mb-1">{{item.TenCongviec}}</h3>
+                </div>
+                <div class="d-flex w-100 justify-content-between">
+                    <p>{{item.MotaCongviec}}</p>
+                </div>
+                <hr class="task-hr" />
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p class="mb-1">
+                            <i class="fa fa-clock"></i> {{item.Ngaytao|date:'dd/MM/yyyy'}}</p>
+                    </div>
+                    <div class="col-sm-6 text-right">
+                        <p class="mb-1">
+                            <button ui-sref="home.task.add({id: {{item.Id}}, status: 2})" class="btn btn-success btn-sm">
+                                <i class="fa fa-eye"></i>
+                            </button>
+                            <button ui-sref="home.task.add({id: {{item.Id}}, status: 1})" class="btn btn-primary btn-sm">
+                                <i class="fa fa-edit"></i>
+                            </button>
+                            <button ng-click="$ctrl.deleteTask(item)" class="btn btn-warning btn-sm">
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-4">
+        <div class="list-group">
+            <div class="list-group-item list-group-item-action flex-column align-items-start active">
+                <div class=" w-100 justify-content-between text-center">
+                    <h5 class="mb-1 text-white ">Đang xử lý</h5>
+                </div>
+            </div>
+            <div ng-repeat="item in $ctrl.taskData2" class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                    <h3 class="mb-1">{{item.TenCongviec}}</h3>
+                </div>
+                <div class="d-flex w-100 justify-content-between">
+                    <p>{{item.MotaCongviec}}</p>
+                </div>
+                <hr class="task-hr" />
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p class="mb-1">
+                            <i class="fa fa-clock"></i> {{item.Ngaytao |date:'dd/MM/yyyy'}}</p>
+                    </div>
+                    <div class="col-sm-6 text-right">
+                        <p class="mb-1">
+                            <button ui-sref="home.task.add({id: {{item.Id}}, status: 2})" class="btn btn-success btn-sm">
+                                <i class="fa fa-eye"></i>
+                            </button>
+                            <button ui-sref="home.task.add({id: {{item.Id}}, status: 1})" class="btn btn-primary btn-sm">
+                                <i class="fa fa-edit"></i>
+                            </button>
+                            <button ng-click="$ctrl.deleteTask(item)" class="btn btn-warning btn-sm">
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-4">
+        <div class="list-group">
+            <div class="list-group-item list-group-item-action flex-column align-items-start active">
+                <div class=" w-100 justify-content-between text-center">
+                    <h5 class="mb-1 text-white ">Hoàn thành</h5>
+                </div>
+            </div>
+            <div ng-repeat="item in $ctrl.taskData3" class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                    <h3 class="mb-1">{{item.TenCongviec}}</h3>
+                </div>
+                <div class="d-flex w-100 justify-content-between">
+                    <p>{{item.MotaCongviec}}</p>
+                </div>
+                <hr class="task-hr" />
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p class="mb-1">
+                            <i class="fa fa-clock"></i> {{item.Ngaytao|date:'dd/MM/yyyy'}}</p>
+                    </div>
+                    <div class="col-sm-6 text-right">
+                        <p class="mb-1">
+                            <button ui-sref="home.task.add({id: {{item.Id}}, status: 2})" class="btn btn-success btn-sm">
+                                <i class="fa fa-eye"></i>
+                            </button>
+                            <button ui-sref="home.task.add({id: {{item.Id}}, status: 1})" class="btn btn-primary btn-sm">
+                                <i class="fa fa-edit"></i>
+                            </button>
+                            <button ng-click="$ctrl.deleteTask(item)" class="btn btn-warning btn-sm">
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" my-modal="roleModelDialog" id="taskFinderDialog" tabindex="-1" role="dialog" aria-labelledby="changePassModalLabel"
+    style="display: none;" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel1">Tìm hợp đồng</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="ng-pristine ng-valid">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <label for="recipient-name" class="control-label">Tìm kiếm</label>
+                            <input class="form-control" placeholder="Số hợp đồng, tên khách" />
+                            <button type="button" class="btn btn-info">Tìm</button>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">Danh sách SP quan tâm</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="display nowrap table table-hover table-striped table-bordered full-color-table full-info-table hover-table"
+                                cellspacing="0" width="100%">
+                                <colgroup>
+                                    <col width="50" />
+                                    <col width="75%" />
+                                    <col width="20%" />
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>Hợp đồng</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>Hợp đồng</th>
+                                        <th></th>
+                                    </tr>
+                                </tfoot>
+                                <tbody dir-paginate="city in $ctrl.cityModels | itemsPerPage: $ctrl.pageSize" pagination-id="dataPagination" current-page="$ctrl.currentPage"
+                                    total-items="$ctrl.totalRowCount">
+                                    <tr>
+                                        <td class="center"></td>
+                                        <td></td>
+                                        <td class="text-nowrap">
+                                            <a class="btn" data-original-title="Chọn">Chọn</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>

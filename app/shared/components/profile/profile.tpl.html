@@ -1,0 +1,22 @@
+﻿<a class="nav-link dropdown-toggle waves-effect waves-dark" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding: 20px;">
+    <img src='{{ $ctrl.profileModel.Avatar==undefined ?"/assets/images/users/Default-avatar.jpg":$ctrl.profileModel.Avatar }}' alt="user" class="profile-pic" /></a>
+
+<div class="dropdown-menu dropdown-menu-right animated flipInY">
+    <ul class="dropdown-user">
+        <li>
+            <div class="dw-user-box">
+                <div class="u-img"><img src='{{ $ctrl.profileModel.Avatar==undefined?"/assets/images/users/Default-avatar.jpg":$ctrl.profileModel.Avatar }}' alt="user"></div>
+<div class="u-text">
+    <h4>{{ $ctrl.profileModel.FullName }}</h4>
+    <p class="text-muted">{{ $ctrl.profileModel.Email }}</p><a ui-sref="home.profile" class="btn btn-rounded btn-danger btn-sm">Xem hồ sơ</a>
+</div>
+            </div>
+        </li>
+<li role="separator" class="divider"></li>
+<li><a ui-sref="home.profile"><i class="ti-user"></i> Hồ sơ cá nhân</a></li>
+<li role="separator" class="divider"></li>
+<li><a ui-sref="home.profile.setting"><i class="ti-settings"></i> Cài đặt tài khoản</a></li>
+<li role="separator" class="divider"></li>
+<li><a href="/login.html" ng-click="$ctrl.onSignOut();"><i class="fa fa-power-off"></i> Đăng xuất</a></li>
+    </ul>
+</div>

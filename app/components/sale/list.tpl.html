@@ -1,0 +1,169 @@
+<div class="section-header">
+    <div class="title">
+        <i class="fas fa-user-friends"></i>
+        {{ $ctrl.pageTitle }}
+    </div>
+    <div class="options">
+        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#contractionsystemModelDialog" ng-click="$ctrl.onAdd()">
+            <i class="fas fa-plus"></i> Tạo phiếu mới
+        </button>
+        <button type="button" ng-click="$ctrl.onRemoves()" class="btn btn-danger">
+            <i class="fas fa-close"></i> Xóa phiếu
+        </button>
+    </div>
+</div>
+
+<div class="row mt-3 grid-filter" style>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Tìm kiếm</label>
+        </div>
+        <input type="text" class="form-control input-sm" placeholder="" aria-controls="editable-datatable">
+    </div>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Lọc theo thời gian</label>
+        </div>
+        <input class="form-control input-daterange-datepicker" type="text" name="daterange" value="">
+    </div>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Lọc theo công ty</label>
+        </div>
+        <select name="editable-datatable_length" aria-controls="editable-datatable" class="form-control input-sm">
+            <option value="">---Lọc theo công ty---</option>
+            <option value="">KH A</option>
+            <option value="">KH B</option>
+        </select>
+    </div>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Lọc theo mặt hàng</label>
+        </div>
+        <select name="editable-datatable_length" aria-controls="editable-datatable" class="form-control input-sm">
+            <option value="">---Lọc theo mặt hàng---</option>
+            <option value="">KH A</option>
+            <option value="">KH B</option>
+        </select>
+    </div>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Tìm kiếm</label>
+        </div>
+        <input type="text" class="form-control input-sm" placeholder="" aria-controls="editable-datatable">
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <table class="display nowrap table table-hover table-striped table-bordered full-color-table full-info-table hover-table"
+            cellspacing="0" width="100%">
+            <colgroup>
+                <col width="5%">
+                <col width="5%">
+                <col width="10%">
+                <col width="25%">
+                <col width="25%">
+                <col width="15%">
+                <col width="15%">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>
+                        <input type="checkbox" id="chkAll" ng-click="$ctrl.toggleAll()" ng-model="$ctrl.isAllSelected" class="filled-in chk-col-light-blue"
+                        />
+                        <label for="chkAll"></label>
+                    </th>
+                    <th>Số phiếu</th>
+                    <th>Người mua hàng</th>
+                    <th>Mặt hàng</th>
+                    <th>Ghi chú</th>
+                    <th>Ngày tạo/cập nhật</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>STT</th>
+                    <th></th>
+                    <th>Số phiếu</th>
+                    <th>Người mua hàng</th>
+                    <th>Mặt hàng</th>
+                    <th>Ghi chú</th>
+                    <th>Ngày tạo/cập nhật</th>
+                    <th></th>
+                </tr>
+            </tfoot>
+            <tbody dir-paginate="contract in $ctrl.listContracts | itemsPerPage: $ctrl.pageSize" pagination-id="dataPagination" current-page="$ctrl.currentPage"
+                total-items="$ctrl.totalRowCount">
+                <tr>
+                    <td class="center">
+                        {{$index+1}}
+                    </td>
+                    <td class="center">
+                        <input type="checkbox" ng-model="contract.selected" id="chkItem{{$index+1}}" class="filled-in chk-col-light-blue" />
+                        <label for="chkItem{{$index+1}}"></label>
+                    </td>
+                    <td>{{ contract.SoHD }}</td>
+                    <td>
+                        <b>Họ và tên:</b> {{ contract.Hovaten }}
+                        <br />
+                        <b>Địa chỉ:</b> {{ contract.Diachi }}
+                        <br />
+                        <b>Điện thoại:</b> {{ contract.Dienthoai }}
+                        <br />
+                    </td>
+                    <td>
+                        1) Phíp trắng: 20 kg
+                        <br /> 2) Sắt phế liệu: 50 kg
+                        <br /> 3) Vỏ phuy sắt loại 1: 120 kg
+                        <br />
+                    </td>
+                    <td>{{ contract.Ghichu }}</td>
+                    <td>
+                        Tạo lúc: {{ contract.Ngaytao }} bởi {{ contract.Nguoitao }}
+                        <br /> Cập nhật lúc: {{ contract.Ngaycapnhat }} bởi {{ contract.Nguoicapnhat }}
+                        <br />
+                    </td>
+                    <td class="center">
+                        <a href="#" data-toggle="tooltip" data-original-title="Sửa">
+                            <i class="fa fa-pencil text-inverse m-r-10"></i>
+                        </a>
+                        <br />
+                        <a href="#" data-toggle="tooltip" data-original-title="In HĐ">
+                            <i class="fa fa-print text-success m-r-10"></i>
+                        </a>
+                        <br />
+                        <a href="#" data-toggle="tooltip" data-original-title="Xóa HĐ">
+                            <i class="fa fa-close text-danger m-r-10"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-3">
+        <div class="dataTables_length" id="datatable-responsive_length">
+            <label>
+                <select name="datatable-responsive_length" ng-model="$ctrl.pageSize" aria-controls="datatable-responsive" class="form-control">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+                records / page
+            </label>
+        </div>
+    </div>
+    <div class="col-sm-9">
+        <dir-pagination-controls boundary-links="true" on-page-change="$ctrl.onPageChanged(newPageNumber)" pagination-id="dataPagination"></dir-pagination-controls>
+    </div>
+</div>
+</div>
+</div>
+</div>

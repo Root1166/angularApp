@@ -1,0 +1,242 @@
+<div class="section-header">
+    <div class="title">
+        <i class="fas fa-user-friends"></i>
+        BẢO HÀNH
+    </div>
+    <div class="options">
+        <button type="button" class="btn btn-info" ng-click="$ctrl.onAdd()" style="float:right">
+            <i ng-class="!$ctrl.show ? 'fas fa-minus text':'fas fa-plus text'" aria-hidden="true"></i>
+        </button>
+    </div>
+</div>
+<h6 class="card-subtitle">Quản lý danh sách bảo hành của hệ thống</h6>
+
+<div class="row mt-3 grid-filter" style>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Tìm kiếm</label>
+        </div>
+        <input type="search" class="form-control input-sm" ng-model="$ctrl.search" ng-keypress="$ctrl.onSearch($event)" placeholder=""
+            aria-controls="editable-datatable">
+    </div>
+</div>
+<br>
+<div class="row">
+    <div ng-class="$ctrl.show ?'col-sm-12':'col-sm-8'">
+        <div class="col-sm-12">
+            <table class="display nowrap table table-hover table-striped table-bordered full-color-table full-info-table hover-table"
+                cellspacing="0" width="100%">
+                <colgroup>
+                    <col width="5%" />
+                    <col width="30%" />
+                    <col width="30%" />
+                    <col width="20%" />
+                    <col width="15%" />
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Mặt hàng</th>
+                        <th>Ghi Chú</th>
+                        <th>Ngay</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>STT</th>
+                        <th>Mặt hàng</th>
+                        <th>Ghi Chú</th>
+                        <th>Ngày</th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+                <tbody dir-paginate="baohanh in $ctrl.baohanhModels | itemsPerPage: $ctrl.pageSize" pagination-id="dataPagination" current-page="$ctrl.currentPage"
+                    total-items="$ctrl.totalRowCount">
+                    <tr>
+                        <td>{{$index +1}}</td>
+                        <td>
+                            <p>Tên: {{ baohanh.TenSanpham }}</p>
+                            <p>MaSP:
+                                <strong>{{baohanh.MaSP}}</strong>
+                            </p>
+                            <p>TG hoàn thành: {{ baohanh.ThoigianDukienHoanthanh| date:'dd/MM/yyyy' }} </p>
+                            <p>Hợp Đồng:
+                                <strong>{{baohanh.SoHD}} </strong>
+                            </p>
+                        </td>
+                        <td>{{ baohanh.GhichuHonghoc }}</td>
+                        <td>
+                            <p>Người tạo: {{baohanh.NguoitaoName}}</p>
+                            <p>Ngày tạo: {{ baohanh.Ngaytao | date:'dd/MM/yyyy'}}</p>
+                        </td>
+                        <td class="text-nowrap">
+                            <a class="btn" ng-click="$ctrl.onEdit(baohanh);$ctrl.show = false" data-original-title="Cập nhật">
+                                <i class="fa fa-pencil text-inverse"></i>
+                            </a>
+                            <a class="btn" data-toggle="tooltip" data-original-title="Xóa" ng-click="$ctrl.onRemove(baohanh)">
+                                <i class="fa fa-close text-danger"></i>
+                            </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-sm-4" ng-show="!$ctrl.show">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="input-group">
+                    <label ng-show="$ctrl.currentBaohanhModel.SoHD">Số HD:
+                        <strong>{{$ctrl.currentBaohanhModel.SoHD}}</strong>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="---Chọn sp bảo hành---" ng-model="$ctrl.currentBaohanhModel.TenSanpham"
+                    />
+                    <div style="cursor: pointer" class="input-group-addon" data-toggle="modal" data-target="#searchModelDialog" ng-click="$ctrl.SelectSanphamModel()">Chọn</div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="input-group">
+                    <input type="text" onfocus="(this.type='date')" class="form-control" ng-model="$ctrl.currentBaohanhModel.ThoigianDukienHoanthanh"
+                        type="text" placeholder="Thời gian dự kiến hoàn thành">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="input-group">
+                    <textarea class="form-control" rows="3" ng-model="$ctrl.currentBaohanhModel.GhichuHonghoc" placeholder="Ghi chú hỏng hóc sản phẩm..."></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <md-autocomplete required md-input-name="autocomplete" md-min-length="0" md-selected-item-change="$ctrl.onSelectKythuatvien(item)"
+                    md-selected-item="$ctrl.currentBaohanhModel.KythuatXulyName" md-search-text="$scrl.searchText" md-model="$scrl.searchText"
+                    md-items="item in $ctrl.searchKythuatvien($scrl.searchText)" md-item-text="item.Hovaten" placeholder="Chọn kỹ thuật ...">
+                    <md-item-template>
+                        <span md-highlight-text="$scrl.searchText">{{item.Hovaten}}</span>
+                    </md-item-template>
+                </md-autocomplete>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="text-right col-sm-12">
+                <button type="button" class="btn btn-info" ng-click="$ctrl.onSaveBaohanhModel()">
+                    <i class=""></i>Ghi</button>
+                <button type="button" class="btn btn-danger" ng-click="$ctrl.onCanel()">
+                    <i class=""></i>Hủy</button>
+            </div>
+        </div>
+        </br>
+        <h4 class="alert alert-danger error" ng-show="$ctrl.Hethan">MS01:cảnh báo : Sản phẩm đã hết thời hạn bảo hành</h4>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="dataTables_length" id="datatable-responsive_length">
+                <label>
+                    <select name="datatable-responsive_length" ng-model="$ctrl.pageSize" aria-controls="datatable-responsive" class="form-control">
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                    records / page
+                </label>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <dir-pagination-controls boundary-links="true" on-page-change="$ctrl.onPageChanged(newPageNumber)" pagination-id="dataPagination"></dir-pagination-controls>
+        </div>
+    </div>
+
+    <div class="modal fade" my-modal="searchModelDialog" id="searchModelDialog" tabindex="-1" role="dialog" aria-labelledby="changePassModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Sản phẩm</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <div id="editable-datatable_filter" class="dataTables_filter" style="float: left;margin-left: 0px;">
+                                    <label>
+                                        Tìm kiếm :
+                                        <input type="search" class="form-control input-sm" ng-model="$ctrl.searchSP" placeholder="" ng-keypress="$ctrl.onSearchSP($event)"
+                                            aria-controls="editable-datatable">
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table class="display nowrap table table-hover table-striped table-bordered full-color-table full-info-table hover-table"
+                                cellspacing="0" width="100%">
+                                <colgroup>
+                                    <col width="15%" />
+                                    <col width="15%" />
+                                    <col width="40%" />
+                                    <col width="15%" />
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>Ảnh</th>
+                                        <th>Tên sản phẩm</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>Ảnh</th>
+                                        <th>Tên sản phẩm</th>
+                                        <th></th>
+                                    </tr>
+                                </tfoot>
+                                <tbody dir-paginate="product in $ctrl.productModels | itemsPerPage: $ctrl.pageSize" pagination-id="dataPagination" current-page="$ctrl.currentPage"
+                                    total-items="$ctrl.totalRowCount">
+                                    <tr>
+                                        <td>{{$index +1}}</td>
+                                        <td>
+                                            <img src="{{product.AnhSanpham}}" alt="" style="width:100%">
+                                        </td>
+                                        <td>
+                                            <strong>Mã: {{product.MaSP}}</strong>
+                                            <p> {{product.TenSanpham}}</p>
+                                        </td>
+                                        <td class="text-nowrap" ng-hide="$ctrl.checked()">
+                                            <button ng-click="$ctrl.selectTabSanpham(product,$index); product.checkTab6 = true;" ng-disabled="product.checkTab6" class="btn btn-default  btn-sm"
+                                                data-original-title="Chọn">Chọn
+                                            </button>
+                                            <button ng-show="product.checkTab6" ng-click="product.checkTab6 = false; $ctrl.currentBaohanhModel.splice($index,1);" class="btn waves-effect waves-light btn-xs btn-warning"
+                                                data-original-title="Bỏ">Bỏ
+                                            </button>
+                                        </td>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>

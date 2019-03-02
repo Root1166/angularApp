@@ -1,0 +1,134 @@
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">TỒN KHO</h4>
+        <div id="editable-datatable_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+            <div class="row" style="margin-bottom: 10px;">
+                <div class="col-sm-6">
+                    <div id="editable-datatable_filter" class="dataTables_filter" style="float: left;margin-left: 0px;">
+                        <label>Search:
+                            <input type="search" class="form-control input-sm" placeholder="" aria-controls="editable-datatable">
+                        </label>
+                    </div>
+
+                    <div id="editable-datatable_filter" class="dataTables_filter" style="float: left;margin-left: 20px;">
+                        <label>
+                            <input class="form-control input-daterange-datepicker" type="text" name="daterange" value="">
+                        </label>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="dataTables_length dataTables_filter" id="editable-datatable_length">
+                        <label>
+
+                            <select name="editable-datatable_length" aria-controls="editable-datatable" class="form-control input-sm">
+                                <option value="">---Lọc theo kho---</option>
+                                <option value="">KH A</option>
+                                <option value="">KH B</option>
+                            </select>
+                        </label>
+                    </div>
+
+                    <div class="dataTables_length dataTables_filter" id="editable-datatable_length">
+                        <label>
+
+                            <select name="editable-datatable_length" aria-controls="editable-datatable" class="form-control input-sm">
+                                <option value="">---Lọc theo mặt hàng---</option>
+                                <option value="">KH A</option>
+                                <option value="">KH B</option>
+                            </select>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <table class="display nowrap table table-hover table-striped table-bordered full-color-table full-info-table hover-table"
+                        cellspacing="0" width="100%">
+                        <colgroup>
+                            <col width="5%">
+                            <col width="5%">
+                            <col width="10%">
+                            <col width="45%">
+                            <col width="15%">
+                            <col width="15%">
+                            <col width="15%">
+                            <col width="15%">
+                            <!--<col width="15%">-->
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>
+                                    <input type="checkbox" id="chkAll" ng-click="$ctrl.toggleAll()" ng-model="$ctrl.isAllSelected" class="filled-in chk-col-light-blue"
+                                    />
+                                    <label for="chkAll"></label>
+                                </th>
+                                <th>Mã hàng</th>
+                                <th>Tên hàng</th>
+                                <th>Nhập</th>
+                                <th>Xuất</th>
+                                <th>Tồn</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>STT</th>
+                                <th></th>
+                                <th>Mã hàng</th>
+                                <th>Tên hàng</th>
+                                <th>Nhập</th>
+                                <th>Xuất</th>
+                                <th>Tồn</th>
+                            </tr>
+                        </tfoot>
+                        <tbody dir-paginate="contract in $ctrl.listContracts | itemsPerPage: $ctrl.pageSize" pagination-id="dataPagination" current-page="$ctrl.currentPage"
+                            total-items="$ctrl.totalRowCount">
+                            <tr>
+                                <td class="center">
+                                    {{$index+1}}
+                                </td>
+                                <td class="center">
+                                    <input type="checkbox" ng-model="contract.selected" id="chkItem{{$index+1}}" class="filled-in chk-col-light-blue" />
+                                    <label for="chkItem{{$index+1}}"></label>
+                                </td>
+                                <td>{{ contract.Mahang }}</td>
+                                <td>
+                                    {{ contract.Tenhang }}
+                                </td>
+                                <td>
+                                    {{ contract.Nhap }}
+                                    <i class="fa fa-sort-up text-success"></i>
+                                </td>
+                                <td>{{ contract.Xuat }}
+                                    <i class="fa fa-sort-down text-danger"></i>
+                                </td>
+                                <td>{{ contract.Ton }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-3">
+                    <div class="dataTables_length" id="datatable-responsive_length">
+                        <label>
+                            <select name="datatable-responsive_length" ng-model="$ctrl.pageSize" aria-controls="datatable-responsive" class="form-control">
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="25">25</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                            records / page
+                        </label>
+                    </div>
+                </div>
+                <div class="col-sm-9">
+                    <dir-pagination-controls boundary-links="true" on-page-change="$ctrl.onPageChanged(newPageNumber)" pagination-id="dataPagination"></dir-pagination-controls>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,315 @@
+﻿<!DOCTYPE html>
+<html lang="en" ng-app="webApp" style="background-color:#e9ecef;">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon.png">
+    <title>BILICO INTERNAL MANAGEMENT SYSTEM</title>
+
+    <link rel="stylesheet" href="/assets/css/fontastic.css">
+    <!-- <link rel="stylesheet" href="http://demo.smartstore.com/backend/Administration/Content/theme.scss"> -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
+        crossorigin="anonymous">
+    <!-- Bootstrap Core CSS -->
+    <link href="/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/plugins/perfect-scrollbar/css/perfect-scrollbar.css" rel="stylesheet">
+    <!-- This page CSS -->
+    <!-- chartist CSS -->
+    <link href="/assets/plugins/chartist-js/dist/chartist.min.css" rel="stylesheet">
+    <link href="/assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.css" rel="stylesheet">
+    <!--c3 CSS -->
+    <link href="/assets/plugins/c3-master/c3.min.css" rel="stylesheet">
+    <link href="/assets/plugins/select2/dist/css/select2.min.css" rel="stylesheet" type="text/css" />
+    <!-- toast CSS -->
+    <link href="/assets/plugins/toast-master/css/jquery.toast.css" rel="stylesheet">
+    <link rel="stylesheet" href="/app/shared/components/toaster/ngToast.min.css">
+    <link href="/assets/plugins/sweetalert/sweetalert.css" rel="stylesheet" type="text/css">
+    <!-- Custom CSS -->
+    <link href="/assets/css/style.css" rel="stylesheet">
+    <!-- page css -->
+    <link href="/assets/css/pages/tab-page.css" rel="stylesheet">
+    <!-- Dashboard 1 Page CSS -->
+    <link href="/assets/css/pages/dashboard3.css" rel="stylesheet">
+    <!-- Date picker plugins css -->
+    <link href="https://cdn.jsdelivr.net/npm/ng-material-datetimepicker/dist/material-datetimepicker.min.css" rel="stylesheet"
+        type="text/css">
+    <link rel="stylesheet" href="./assets/plugins/bootstrap-daterangepicker/daterangepicker.css">
+    <!-- <link href="/assets/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet"> -->
+    <link href="/assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
+    <!-- angular-material -->
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.8/angular-material.min.css">
+    <!-- Daterange picker plugins css -->
+    <link href="/assets/plugins/timepicker/bootstrap-timepicker.min.css" rel="stylesheet">
+    <!-- <link href="/assets/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css"> -->
+    <!-- <link href="/assets/plugins/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet"> -->
+    <!-- You can change the theme colors from here -->
+    <link href="/assets/css/colors/default-dark.css" id="theme" rel="stylesheet">
+    <!-- Dũng thêm -->
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.8/angular-material.min.css">
+    <link rel="stylesheet" href="/assets/css/jk-rating-stars.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        /*fix bug for auto complete*/
+
+        html,
+        body {
+            height: auto;
+            position: relative;
+        }
+    </style>
+
+    <script src="/app/components/global.js">
+    </script>
+    <script>
+        var APP_VERSION = "20182805.18";
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.0/moment.min.js"></script>
+
+</head>
+
+<body class>
+
+    <toast></toast>
+    <div id="page">
+
+        <header>
+            <sidebar></sidebar>
+        </header>
+
+        <div id="content">
+            <div class="cph">
+                <ng-view></ng-view>
+            </div>
+            <app-loading></app-loading>
+        </div>
+
+        <footer style="padding:10px; text-align:center"> © 2018 Developed by
+            <a href="http://vnsolution.com.vn" target="_blank">vnsolution.com.vn</a>
+        </footer>
+
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <script src="/assets/plugins/jquery/jquery.min.js"></script>
+    <!-- <script src="/assets/plugins/tether/tether.min.js"></script> -->
+    <!-- Angular Library -->
+    <!-- ============================================================== -->
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular.min.js?v=20170201"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular-route.js?v=20170201"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular-animate.js?v=20170201"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular-sanitize.js?v=20170201"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.3/angular-ui-router.min.js"></script>-->
+
+    <script src="https://maps.google.com/maps/api/js?libraries=placeses,visualization,drawing,geometry,places&key=AIzaSyDP9SBKJrBcSilxnJbbu8F5IequdurxpKc"></script>
+    <script src="/assets/angularjs/angular.js"></script>
+    <script src="/assets/angularjs/angular-route.js?v=20170201"></script>
+    <script src="/assets/angularjs/angular-animate.js?v=20170201"></script>
+    <script src="/assets/angularjs/angular-sanitize.js?v=20170201"></script>
+    <script src="/assets/angularjs/angular-ui-router.min.js"></script>
+    <script src="/assets/angularjs/angular-aria.min.js"></script>
+    <script src="/assets/angularjs/angular-messages.min.js"></script>
+    <script src="/assets/angularjs/angular-material.min.js"></script>
+    <script src="/assets/angularjs/ng-map.js"></script>
+
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-aria.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-messages.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.8/angular-material.min.js"></script>-->
+
+    <script src="/app/shared/components/uploader/console-sham.js"></script>
+    <script src="/app/shared/components/uploader/angular-file-upload.min.js"></script>
+    <script src="/app/shared/components/pagination/dirPagination.js"></script>
+    <script src="/app/shared/components/uiBreadcrumbs/uiBreadcrumbs.js"></script>
+    <script src="/app/shared/components/sidebar/sidebar.comp.js"></script>
+
+    <!--<script src="/app/shared/components/uploader/console-sham.js"></script>
+    <script src="/app/shared/components/uploader/angular-file-upload.min.js"></script> -->
+    <!-- ============================================================== -->
+    <script src="/assets/js/jk-rating-stars.min.js"></script>
+
+    <!-- Angular Material Library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.8/angular-material.min.js"></script>
+    <!-- End Angular Library -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <!-- Bootstrap popper Core JavaScript -->
+    <script src="/assets/plugins/bootstrap/js/popper.min.js"></script>
+    <script src="/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="/assets/js/perfect-scrollbar.jquery.min.js"></script>
+    <!--Wave Effects -->
+    <script src="/assets/js/waves.js"></script>
+    <!--Menu sidebar -->
+    <script src="/assets/js/sidebarmenu.js"></script>
+    <script src="/assets/plugins/select2/dist/js/select2.full.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="/assets/plugins/multiselect/js/jquery.multi-select.js"></script>
+
+    <!-- <script src="/assets/plugins/toast-master/js/jquery.toast.js"></script> -->
+    <!-- ============================================================== -->
+    <!-- This page plugins -->
+    <!-- ============================================================== -->
+    <!--sparkline JavaScript -->
+    <script src="/assets/plugins/sparkline/jquery.sparkline.min.js"></script>
+    <!--morris JavaScript -->
+    <script src="/assets/plugins/chartist-js/dist/chartist.min.js"></script>
+    <script src="/assets/plugins/sweetalert/sweetalert.min.js"></script>
+    <!--<script src="/assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.min.css"></script>-->
+    <!--c3 JavaScript -->
+    <script src="/assets/plugins/d3/d3.min.js"></script>
+    <script src="/assets/plugins/c3-master/c3.min.js"></script>
+    <!-- Plugin JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/ng-material-datetimepicker/dist/angular-material-datetimepicker.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/ng-material-datetimepicker/dist/angular-material-datetimepicker.min.js.map"></script> -->
+    <script src="/assets/plugins/exceljs/dist/exceljs.js"></script>
+    <script src="/assets/plugins/exceljs/dist/FileSaver.js"></script>
+
+    <script src="/assets/plugins/moment/moment.js"></script>
+    <script src="/assets/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+    <!-- Date Picker Plugin JavaScript -->
+    <script src="/assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+    <!-- Date range Plugin JavaScript -->
+    <script src="assets/plugins/bootstrap-datetimepicker/js/moment.min.js"></script>
+    <script src="/assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
+    <script src="/assets/plugins/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script src="assets/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+    <!-- <script src="assets/plugins/bootstrap-datetimepicker/js/datetimepicker.js"></script> -->
+
+
+    <!-- Chart JS -->
+    <!--<script src="/assets/js/dashboard3.js"></script>-->
+    <!-- ============================================================== -->
+    <!-- Style switcher -->
+    <!-- ============================================================== -->
+    <script src="/assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
+
+    <!--Custom JavaScript -->
+    <script src="/assets/js/custom.min.js"></script>
+
+    <!-- ============================================================== -->
+    <!-- Angular Core Api -->
+    <script src="/app/shared/api/base.api.js"></script>
+    <script src="/app/shared/api/uploader.api.js"></script>
+    <script src="/app/shared/api/config.api.js"></script>
+    <script src="/app/shared/api/role.api.js"></script>
+    <script src="/app/shared/api/user.api.js"></script>
+    <script src="/app/shared/api/thanhpho.api.js"></script>
+    <script src="/app/shared/api/notify.api.js"></script>
+    <script src="/app/shared/api/statistic.api.js"></script>
+    <script src="/app/shared/api/hangsanxuat.api.js"></script>
+    <script src="/app/shared/api/loaikhachhang.api.js"></script>
+    <script src="/app/shared/api/nguonkhach.api.js"></script>
+    <script src="/app/shared/api/nhacungcap.api.js"></script>
+    <script src="/app/shared/api/nhomsanpham.api.js"></script>
+    <script src="/app/shared/api/nhucaugia.api.js"></script>
+    <script src="/app/shared/api/phongban.api.js"></script>
+    <script src="/app/shared/api/quanhuyen.api.js"></script>
+    <script src="/app/shared/api/baohanh.api.js"></script>
+    <script src="/app/shared/api/dungcu.api.js"></script>
+    <script src="/app/shared/api/customer.api.js"></script>
+    <script src="/app/shared/api/contract.api.js"></script>
+    <script src="/app/shared/api/congviec.api.js"></script>
+    <script src="/app/shared/api/uploader.api.js"></script>
+    <script src="/app/shared/api/sanpham.api.js"></script>
+    <script src="/app/shared/api/product.api.js"></script>
+    <script src="/app/shared/api/baocao.api.js"></script>
+    <!-- End Angular Core Api -->
+    <!-- Angular Services -->
+    <script src="/app/components/common.srv.js"></script>
+    <script src="/app/components/customer/baoGiaSevice.js"></script>
+    <!-- End Angular Services -->
+    <!-- Angular Directives -->
+    <script src="/app/shared/directives/datePicker.drct.js"></script>
+    <script src="/app/shared/directives/timePicker.drct.js"></script>
+    <script src="/app/shared/directives/datetimePicker.drct.js"></script>
+    <script src="/app/shared/directives/loading.drct.js"></script>
+    <script src="/app/shared/directives/myModal.drct.js"></script>
+    <script src="/app/shared/directives/select2.drct.js"></script>
+    <script src="/app/shared/directives/notification.drct.js"></script>
+    <script src="/app/shared/directives/select2ajax.drct.js"></script>
+    <script src="/app/shared/directives/dateRangePicker.drct.js"></script>
+    <!-- End Angular Directives -->
+    <!-- Angular Services -->
+    <script src="/app/shared/services/SweetAlert.min.js"></script>
+    <!-- End Angular Services -->
+    <!-- Angular App Components -->
+    <script src="/app/shared/components/toaster/ngToast.min.js"></script>
+    <script src="/app/shared/components/profile/profile.comp.js"></script>
+    <script src="/app/shared/components/notification/notify.comp.js"></script>
+    <script src="/app/components/home/home.comp.js"></script>
+    <script src="/app/components/config/config.comp.js"></script>
+    <script src="/app/components/user/user.comp.js"></script>
+    <script src="/app/components/thanhpho/thanhpho.comp.js"></script>
+    <script src="/app/components/role/role.comp.js"></script>
+    <script src="/app/components/permission/permission.comp.js"></script>
+    <script src="/app/components/profile/profile.comp.js"></script>
+    <script src="/app/components/profile/setting.comp.js"></script>
+    <script src="/app/components/notification/notification.comp.js"></script>
+    <script src="/app/components/hangsanxuat/hangsanxuat.comp.js"></script>
+    <script src="/app/components/loaikhachhang/loaikhachhang.comp.js"></script>
+    <script src="/app/components/nguonkhach/nguonkhach.comp.js"></script>
+    <script src="/app/components/nhacungcap/nhacungcap.comp.js"></script>
+    <script src="/app/components/nhomsanpham/nhomsanpham.comp.js"></script>
+    <script src="/app/components/nhucaugia/nhucaugia.comp.js"></script>
+    <script src="/app/components/phongban/phongban.comp.js"></script>
+    <script src="/app/components/quanhuyen/quanhuyen.comp.js"></script>
+    <script src="/app/components/baohanh/baohanh.comp.js"></script>
+    <script src="/app/components/dungcu/dungcu.comp.js"></script>
+    <script src="/app/components/product/edit.comp.js"></script>
+    <script src="/app/components/product/list.comp.js"></script>
+    <script src="/app/components/statistic/statistic_customer.comp.js"></script>
+    <script src="/app/components/statistic/statistic_profit_total.comp.js"></script>
+    <script src="/app/components/statistic/statistic_profit.comp.js"></script>
+    <script src="/app/components/statistic/statistic_progress.comp.js"></script>
+    <script src="/app/components/statistic/statistic_move2work.comp.js"></script>
+    <script src="/app/components/statistic/statistic_cost.comp.js"></script>
+    <script src="/app/components/statistic/statistic_construction.comp.js"></script>
+
+    <script src="/app/components/customer/customer.comp.js"></script>
+    <script src="/app/components/customer/list.comp.js"></script>
+    <script src="/app/components/customer/add.comp.js"></script>
+    <script src="/app/components/contract/contract.comp.js"></script>
+    <script src="/app/components/contract/list.comp.js"></script>
+    <script src="/app/components/contract/add.comp.js"></script>
+    <script src="/app/components/contract/track.comp.js"></script>
+    <script src="/app/components/contract/trackexcel.comp.js"></script>
+    <script src="/app/components/task/add.comp.js"></script>
+    <script src="/app/components/task/list.comp.js"></script>
+    <script src="/app/components/contract/deploymentContract.comp.js"></script>
+    <script src="/app/components/contract/deploymentDetailAttachments.comp.js"></script>
+    <script src="/app/components/contract/deploymentDetailConstructiondiary.comp.js"></script>
+    <script src="/app/components/contract/deploymentDetailContenttask.comp.js"></script>
+    <script src="/app/components/contract/deploymentDetailContractdeploy.comp.js"></script>
+    <script src="/app/components/contract/deploymentDetailCostomerjoin.comp.js"></script>
+    <script src="/app/components/contract/deploymentDetailError.comp.js"></script>
+    <script src="/app/components/contract/deploymentDetailFeedback.comp.js"></script>
+    <script src="/app/components/contract/deploymentDetailFinance.comp.js"></script>
+    <script src="/app/components/contract/deploymentDetailMakeshift.comp.js"></script>
+    <script src="/app/components/contract/deploymentDetailPlandeploy.comp.js"></script>
+    <script src="/app/components/contract/deploymentDetailSupplies.comp.js"></script>
+    <script src="/app/components/contract/deploymentDetailTechnical.comp.js"></script>
+    <script src="/app/components/contract/doploymentDetailResult.comp.js"></script>
+    <!-- End Angular App Components -->
+    <!-- Angular App Definitions -->
+    <script src="/app/app.config.js"></script>
+    <script src="/app/app.routes.js"></script>
+    <script src="/app/app.components.js"></script>
+    <script src="/app/app.directives.js"></script>
+    <script src="/app/app.services.js"></script>
+    <script src="/app/app.core.js"></script>
+    <script src="/app/app.js"></script>
+    <!-- End Angular App Definitions -->
+    <!-- ============================================================== -->
+</body>
+
+</html>

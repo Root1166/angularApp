@@ -1,0 +1,22 @@
+
+
+<div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+        <h3 class="text-themecolor" style="text-transform:uppercase">{{ pageName }}</h3>
+    </div>
+    <div class="col-md-7 align-self-center">
+        <!--<ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+            <li class="breadcrumb-item">Apps</li>
+            <li class="breadcrumb-item active">Dashboard 3</li>
+        </ol>-->
+
+        <ol class="breadcrumb" ng-hide="breadcrumbs.length==1">
+            <li ng-repeat="crumb in breadcrumbs" class="breadcrumb-item"
+                ng-class="{ active: $last }">
+                <a ui-sref="{{ crumb.route }}" ng-if="!$last">{{ crumb.displayName }}&nbsp;</a><span ng-show="$last">{{ crumb.displayName }}</span>
+            </li>
+        </ol>
+    </div>
+
+</div>

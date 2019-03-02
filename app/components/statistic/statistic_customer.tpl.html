@@ -1,0 +1,141 @@
+<div class="section-header">
+    <div class="title">
+        <i class="fas fa-user-friends"></i>
+        BÁO CÁO KHÁCH HÀNG
+    </div>
+    <div class="options">
+        <button type="button" class="btn btn-info">
+            <i class="fas fa-filter"></i> Thống kê</button>
+        <button type="button" class="btn btn-primary">
+            <i class="fas fa-file-excel"></i> Xuất excel</button>
+        <button type="button" class="btn btn-danger">
+            <i class="fas fa-print"></i> In báo cáo</button>
+    </div>
+</div>
+
+<h6 class="card-subtitle">Báo cáo khách hàng</h6>
+
+<div class="row mt-3 grid-filter" style>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Chọn thành phố</label>
+        </div>
+        <md-autocomplete md-min-length="0" md-selected-item-change="$ctrl.onSelectThanhpho(item)" md-search-text="$scrl.searchText"
+            md-model="$scrl.searchText" md-items="item in $ctrl.searchThanhpho($scrl.searchText)" md-item-text="item.Title" placeholder="Thành phố">
+            <md-item-template>
+                <span md-highlight-text="$scrl.searchText">{{item.Title}}</span>
+            </md-item-template>
+        </md-autocomplete>
+    </div>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Chọn quận huyện</label>
+        </div>
+        <md-autocomplete md-min-length="0" md-selected-item-change="$ctrl.onSelectQuanhuyen(item)" md-search-text="$scrl.searchQuanhuyen"
+            md-model="$scrl.searchQuanhuyen" md-items="item in $ctrl.searchQuanhuyen($scrl.searchQuanhuyen)" md-item-text="item.Title"
+            placeholder="Quận Huyện">
+            <md-item-template>
+                <span md-highlight-text="$scrl.searchQuanhuyen">{{item.Title}}</span>
+            </md-item-template>
+        </md-autocomplete>
+    </div>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Lọc theo nhu cầu giá</label>
+        </div>
+        <md-autocomplete md-min-length="0" md-selected-item-change="$ctrl.onSelectNhucaugia(item)" md-search-text="$scrl.searchNhucaugia"
+            md-model="$scrl.searchNhucaugia" md-items="item in $ctrl.searchNhucaugia($scrl.searchNhucaugia)" md-item-text="item.TenNhucau"
+            placeholder="Nhu cầu giá">
+            <md-item-template>
+                <span md-highlight-text="$scrl.searchNhucaugia">{{item.TenNhucau}}</span>
+            </md-item-template>
+        </md-autocomplete>
+    </div>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Lọc theo loại khách hàng</label>
+        </div>
+        <md-autocomplete md-min-length="0" md-selected-item-change="$ctrl.onSelectLoaikhach(item)" md-search-text="$scrl.searchLoaikhach"
+            md-model="$scrl.searchLoaikhach" md-items="item in $ctrl.searchLoaikhach($scrl.searchLoaikhach)" md-item-text="item.TenLoai"
+            placeholder="Loại khách hàng">
+            <md-item-template>
+                <span md-highlight-text="$scrl.searchLoaikhach">{{item.TenLoai}}</span>
+            </md-item-template>
+        </md-autocomplete>
+    </div>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Lọc theo tên nguồn</label>
+        </div>
+        <md-autocomplete md-min-length="0" md-selected-item-change="$ctrl.onSelectNguonkhach(item)" md-search-text="$scrl.searchNguonkhach"
+            md-model="$scrl.searchNguonkhach" md-items="item in $ctrl.searchNguonkhach($scrl.searchNguonkhach)" md-item-text="item.TenNguon"
+            placeholder="Nguồn khách hàng">
+            <md-item-template>
+                <span md-highlight-text="$scrl.searchNguonkhach">{{item.TenNguon}}</span>
+            </md-item-template>
+        </md-autocomplete>
+    </div>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Lọc theo tên sản phẩm</label>
+        </div>
+        <md-autocomplete md-search-text="$ctrl.searchSanpham" md-selected-item-change="$ctrl.onSelectSanphamquantam(item)" md-items="item in $ctrl.searchSanphamquantam($ctrl.searchSanpham)"
+            md-item-text="item.TenSanpham" md-min-length="0" placeholder="Sản phẩm quan tâm">
+            <md-item-template>
+                <span md-highlight-text="$ctrl.searchSanpham">{{item.TenSanpham}}</span>
+            </md-item-template>
+        </md-autocomplete>
+    </div>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Lọc theo thời gian</label>
+        </div>
+        <div date-range-picker on-load-callback="$ctrl.filterByDate(arg1)" class="btn btn-primary" title="" data-toggle="dropdown">
+            <i class="glyph-icon icon-calendar"></i>
+            <span></span>
+            <b class="caret"></b>
+        </div>
+    </div>
+</div>
+
+<table class="display nowrap table table-hover table-striped table-bordered full-color-table full-info-table hover-table"
+    cellspacing="0" width="100%">
+    <colgroup>
+        <col width="15%" />
+        <col width="15%" />
+        <col width="15%" />
+        <col width="15%" />
+        <col width="15%" />
+        <col width="15%" />
+    </colgroup>
+    <thead>
+        <tr>
+            <th>Khách hàng</th>
+            <th>Nam giới</th>
+            <th>Nữ giới</th>
+            <th>SN tháng này</th>
+            <th>SN tháng sau</th>
+            <th>Có Tk social</th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <th>Khách hàng</th>
+            <th>Nam giới</th>
+            <th>Nữ giới</th>
+            <th>SN tháng này</th>
+            <th>SN tháng sau</th>
+            <th>Có Tk social</th>
+        </tr>
+    </tfoot>
+    <tbody>
+        <tr>
+            <td>{{ $ctrl.statisticCustomerModels.Khachhang }}</td>
+            <td>{{ $ctrl.statisticCustomerModels.Namgioi }}</td>
+            <td>{{ $ctrl.statisticCustomerModels.Nugioi }}</td>
+            <td>{{ $ctrl.statisticCustomerModels.SNThangnay }}</td>
+            <td>{{ $ctrl.statisticCustomerModels.SNThangsau }}</td>
+            <td>{{ $ctrl.statisticCustomerModels.CoTKSocial }}</td>
+        </tr>
+    </tbody>
+</table>

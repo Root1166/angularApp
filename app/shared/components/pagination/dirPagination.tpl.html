@@ -1,0 +1,34 @@
+﻿<div class="dataTables_paginate paging_simple_numbers" ng-if="1 < pages.length || !autoHide">
+    <a ng-if="boundaryLinks" ng-class="{ disabled : pagination.current == 1 }" class="paginate_button previous disabled" aria-controls="example23" data-dt-idx="1" tabindex="0" ng-click="setCurrent(1)">First</a>
+    <a ng-if="boundaryLinks" ng-class="{ disabled : pagination.current == 1 }" class="paginate_button previous disabled" aria-controls="example23" data-dt-idx="1" tabindex="0" ng-click="setCurrent(pagination.current - 1)">Previous</a>
+    <span>
+        <a ng-repeat="pageNumber in pages track by tracker(pageNumber, $index)" ng-class="{ current : pagination.current == pageNumber, disabled : pageNumber == '...' }" ng-click="setCurrent(pageNumber)" class="paginate_button" aria-controls="example23" data-dt-idx="{{$index+1}}" tabindex="0">{{ pageNumber }}</a>
+    </span>
+    <a ng-if="boundaryLinks" ng-class="{ disabled : pagination.current == pagination.last }" class="paginate_button next" aria-controls="example23" data-dt-idx="{{pagination.last}}" tabindex="0" ng-click="setCurrent(pagination.current + 1)">Next</a>
+    <a ng-if="boundaryLinks" ng-class="{ disabled : pagination.current == pagination.last }" class="paginate_button next" aria-controls="example23" data-dt-idx="{{pagination.last}}" tabindex="0" ng-click="setCurrent(pagination.last)">Last</a>
+</div>
+<div class="dataTables_paginate" role="status" aria-live="polite" style="margin-right: 20px;margin-top: 10px;">Showing {{ range.lower }} to {{ range.upper }} of {{ range.total }} entries</div>
+
+<!--<div class="dataTables_paginate paging_bootstrap" id="datatable-responsive_paginate">
+    <ul class="pagination" ng-if="1 < pages.length || !autoHide">
+        <li ng-if="boundaryLinks" ng-class="{ disabled : pagination.current == 1 }">
+            <a href="" ng-click="setCurrent(1)">&laquo;</a>
+        </li>
+        <li ng-if="directionLinks" ng-class="{ disabled : pagination.current == 1 }">
+            <a href="" ng-click="setCurrent(pagination.current - 1)">&lsaquo;</a>
+        </li>
+        <li ng-repeat="pageNumber in pages track by tracker(pageNumber, $index)" ng-class="{ active : pagination.current == pageNumber, disabled : pageNumber == '...' }">
+            <a href="" ng-click="setCurrent(pageNumber)">{{ pageNumber }}</a>
+        </li>
+
+        <li ng-if="directionLinks" ng-class="{ disabled : pagination.current == pagination.last }">
+            <a href="" ng-click="setCurrent(pagination.current + 1)">&rsaquo;</a>
+        </li>
+        <li ng-if="boundaryLinks" ng-class="{ disabled : pagination.current == pagination.last }">
+            <a href="" ng-click="setCurrent(pagination.last)">&raquo;</a>
+        </li>
+    </ul>
+</div>
+<div class="dataTables_info" id="datatable-responsive_info" role="status" aria-live="polite">
+    <div class="range-label">Đang hiển thị {{ range.lower }} - {{ range.upper }} của {{ range.total }} bản ghi</div>
+</div>-->

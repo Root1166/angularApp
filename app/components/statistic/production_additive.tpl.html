@@ -1,0 +1,151 @@
+<div class="section-header">
+    <div class="title">
+        <i class="fas fa-user-friends"></i>
+        THỐNG KÊ PHỤ GIA SỬ DỤNG CHO SẢN XUẤT
+    </div>
+    <div class="options">
+        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#stockCardModelDialog" ng-click="$ctrl.onAdd()">
+            <i class="fas fa-plus"></i> Thống kê</button>
+        <button type="button" ng-click="$ctrl.onRemoves()" class="btn btn-primary">
+            <i class="fa fa-file-excel"></i> Xuất excel</button>
+        <button type="button" ng-click="$ctrl.onRemoves()" class="btn btn-danger">
+            <i class="fas fa-print"></i> In báo cáo</button>
+    </div>
+</div>
+
+<h6 class="card-subtitle">Thống kê phụ gia sử dụng cho sản xuất...</h6>
+
+<div class="row mt-3 grid-filter" style>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Kỳ báo cáo</label>
+        </div>
+        <input class="form-control input-daterange-datepicker" type="text" name="daterange" value="">
+    </div>
+</div>
+
+
+<table class="display nowrap table table-hover table-striped table-bordered full-color-table full-info-table hover-table"
+    cellspacing="0" width="100%">
+    <colgroup>
+        <col width="50" />
+        <col width="30%" />
+        <col width="30%" />
+        <col width="30%" />
+    </colgroup>
+    <thead>
+        <tr>
+            <th>
+            </th>
+            <th>Mã phụ gia</th>
+            <th>Tên phụ gia</th>
+            <th>Tổng</th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <th>
+            </th>
+            <th>Mã phụ gia</th>
+            <th>Tên phụ gia</th>
+            <th>Tổng</th>
+        </tr>
+    </tfoot>
+    <tbody dir-paginate="stockCard in $ctrl.stockCardModels | itemsPerPage: $ctrl.pageSize" pagination-id="dataPagination" current-page="$ctrl.currentPage"
+        total-items="$ctrl.totalRowCount">
+        <tr>
+            <td class="center">
+                {{$index+1}}
+            </td>
+            <td>{{ stockCard.Ma }}</td>
+            <td>{{ stockCard.Ten }}</td>
+            <td>{{ stockCard.Tong }}</td>
+        </tr>
+    </tbody>
+</table>
+</div>
+</div>
+
+<div class="row">
+    <div class="col-sm-6">
+        <div class="dataTables_length" id="datatable-responsive_length">
+            <label>
+                <select name="datatable-responsive_length" ng-model="$ctrl.pageSize" aria-controls="datatable-responsive" class="form-control">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+                records / page
+            </label>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <dir-pagination-controls boundary-links="true" on-page-change="$ctrl.onPageChanged(newPageNumber)" pagination-id="dataPagination"></dir-pagination-controls>
+    </div>
+</div>
+
+<div class="modal fade" my-modal="stockCardModelDialog" id="stockCardModelDialog" tabindex="-1" role="dialog" aria-labelledby="changePassModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel1">{{ $ctrl.currentProviderModel.Id==0 || $ctrl.currentProviderModel.Id==undefined ?'Thêm mới':'Cập nhật' }}
+                    khách hàng</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Mã KH *:</label>
+                        <input type="text" class="form-control" ng-model="$ctrl.currentProviderModel.Code" />
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Tên khách hàng *:</label>
+                        <input type="text" class="form-control" ng-model="$ctrl.currentProviderModel.Name" />
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Địa chỉ:</label>
+                        <input type="text" class="form-control" ng-model="$ctrl.currentProviderModel.Address" />
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Khu vực:</label>
+                        <select name="editable-datatable_length" aria-controls="editable-datatable" class="form-control input-sm" ng-model="$ctrl.currentUserModel.DepartmentModel"
+                            ng-options="s.Name for s in $ctrl.departmentModels">
+                            <option value="">---Chọn khu vực---</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Xếp hạng:</label>
+                        <select name="editable-datatable_length" aria-controls="editable-datatable" class="form-control input-sm" ng-model="$ctrl.currentUserModel.DepartmentModel"
+                            ng-options="s.Name for s in $ctrl.departmentModels">
+                            <option value="">---Chọn hạng---</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Số điện thoại:</label>
+                        <input type="text" class="form-control" ng-model="$ctrl.currentProviderModel.Phone" />
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Fax:</label>
+                        <input type="text" class="form-control" ng-model="$ctrl.currentProviderModel.Fax" />
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Người liên hệ:</label>
+                        <input type="text" class="form-control" ng-model="$ctrl.currentProviderModel.Fax" />
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="control-label">Điện thoại người liên hệ:</label>
+                        <input type="text" class="form-control" ng-model="$ctrl.currentProviderModel.Fax" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" ng-click="$ctrl.onSaveProviderModel()">Ghi lại</button>
+            </div>
+        </div>
+    </div>
+</div>

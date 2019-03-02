@@ -1,0 +1,101 @@
+<div class="section-header">
+    <div class="title">
+        <i class="fas fa-map-marked-alt"></i>
+        BÁO CÁO KHU VỰC
+    </div>
+    <div class="options">
+        <button type="button" class="btn btn-info">
+            <i class="fas fa-filter"></i> Thống kê
+        </button>
+        <button type="button" class="btn btn-primary">
+            <i class="fas fa-file-excel-o"></i> Xuất excel
+        </button>
+        <button type="button" class="btn btn-danger">
+            <i class="fas fa-print"></i> In báo cáo
+        </button>
+    </div>
+</div>
+
+<h6 class="card-subtitle">Báo cáo khu vực</h6>
+
+<div class="row mt-3 grid-filter" style>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Lọc theo Kỹ thuật</label>
+        </div>
+        <md-autocomplete required md-input-name="autocomplete" md-min-length="0" md-selected-item-change="$ctrl.onSelectKythuatvien(item)"
+            md-selected-item="$ctrl.currentBaohanhModel.KythuatXulyName" md-search-text="$scrl.searchText" md-model="$scrl.searchText"
+            md-items="item in $ctrl.searchKythuatvien($scrl.searchText)" md-item-text="item.Hovaten" m placeholder="-- Chọn kỹ thuật --">
+            <md-item-template>
+                <span md-highlight-text="$scrl.searchText">{{item.Hovaten}}</span>
+            </md-item-template>
+        </md-autocomplete>
+    </div>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Lọc theo thời gian</label>
+        </div>
+        <div date-range-picker on-load-callback="$ctrl.filterByDate(arg1)" class="btn btn-primary" title="" data-toggle="dropdown">
+            <i class="glyph-icon icon-calendar"></i>
+            <span></span>
+            <b class="caret"></b>
+        </div>
+    </div>
+</div>
+
+<table class="display nowrap table table-hover
+                        table-striped table-bordered full-color-table
+                        full-info-table hover-table" cellspacing="0" width="100%">
+    <colgroup>
+        <col width="20%" />
+        <col width="20%" />
+        <col width="20%" />
+        <col width="20%" />
+        <col width="20%" />
+    </colgroup>
+    <thead>
+        <tr>
+            <th>Tên kỹ thuật</th>
+            <th>Số lần đi tỉnh</th>
+            <th>Số lần ở HN</th>
+            <th>Số lần đi lân cận HN</th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <th>Tên kỹ thuật</th>
+            <th>Số lần đi tỉnh</th>
+            <th>Số lần ở HN</th>
+            <th>Số lần đi lân cận HN</th>
+        </tr>
+    </tfoot>
+    <tbody dir-paginate="reportRegion in $ctrl.reportRegionModel | itemsPerPage: $ctrl.pageSize" pagination-id="dataPagination"
+        current-page="$ctrl.currentPage" total-items="$ctrl.totalRowCount">
+        <tr>
+            <td>{{ reportRegion.Kythuat }}</td>
+            <td>{{ reportRegion.SoLanDiTinh }} </td>
+            <td>{{ reportRegion.SoLanOHaNoi }}</td>
+            <td>{{ reportRegion.SoLanDiLanCanHN }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="row">
+    <div class="col-sm-3">
+        <div class="dataTables_length" id="datatable-responsive_length">
+            <label>
+                <select name="datatable-responsive_length" ng-model="$ctrl.pageSize" aria-controls="datatable-responsive" class="form-control">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+                records / page
+            </label>
+        </div>
+    </div>
+    <div class="col-sm-9">
+        <dir-pagination-controls boundary-links="true" on-page-change="$ctrl.onPageChanged(newPageNumber)" pagination-id="dataPagination"></dir-pagination-controls>
+    </div>
+</div>

@@ -1,0 +1,92 @@
+<div class="section-header">
+    <div class="title">
+        <i class="fas fa-dollar-sign"></i>
+        BÁO CÁO LỢI NHUẬN
+    </div>
+    <div class="options">
+        <button type="button" class="btn btn-info">
+            <i class="fas fa-filter"></i> Thống kê</button>
+        <button type="button" class="btn btn-primary">
+            <i class="fas fa-file-excel-o"></i> Xuất excel</button>
+        <button type="button" class="btn btn-danger">
+            <i class="fas fa-print"></i> In báo cáo</button>
+    </div>
+</div>
+
+<h6 class="card-subtitle">Báo cáo lợi nhuận nhuận tổng hợp</h6>
+
+<div class="row mt-3 grid-filter" style>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Lọc theo thành phố</label>
+        </div>
+        <md-autocomplete md-min-length="0" md-selected-item-change="$ctrl.onSelectThanhpho(item)" md-search-text="$scrl.searchText"
+            md-model="$scrl.searchText" md-items="item in $ctrl.searchThanhpho($scrl.searchText)" md-item-text="item.Title" placeholder="Thành phố">
+            <md-item-template>
+                <span md-highlight-text="$scrl.searchText">{{item.Title}}</span>
+            </md-item-template>
+        </md-autocomplete>
+    </div>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Lọc theo quận huyện</label>
+        </div>
+        <md-autocomplete md-min-length="0" md-selected-item-change="$ctrl.onSelectQuanhuyen(item)" md-search-text="$scrl.searchQuanhuyen"
+            md-model="$scrl.searchQuanhuyen" md-items="item in $ctrl.searchQuanhuyen($scrl.searchQuanhuyen)" md-item-text="item.Title"
+            placeholder="Quận Huyện">
+            <md-item-template>
+                <span md-highlight-text="$scrl.searchQuanhuyen">{{item.Title}}</span>
+            </md-item-template>
+        </md-autocomplete>
+    </div>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Lọc theo thời gian</label>
+        </div>
+        <div date-range-picker on-load-callback="$ctrl.filterByDate(arg1)" class="btn btn-primary" title="" data-toggle="dropdown">
+            <i class="glyph-icon icon-calendar"></i>
+            <span></span>
+            <b class="caret"></b>
+        </div>
+    </div>
+</div>
+
+<table class="display nowrap table table-hover table-striped table-bordered full-color-table full-info-table hover-table"
+    cellspacing="0" width="100%">
+    <colgroup>
+        <col width="15%" />
+        <col width="15%" />
+        <col width="15%" />
+        <col width="15%" />
+    </colgroup>
+    <thead>
+        <tr>
+            <th>Hợp đồng</th>
+            <th>Đơn hàng</th>
+            <th>Khách hàng</th>
+            <th>Doanh số</th>
+            <th>Chi phí</th>
+            <th>Lợi nhuận</th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <th>Hợp đồng</th>
+            <th>Đơn hàng</th>
+            <th>Khách hàng</th>
+            <th>Doanh số</th>
+            <th>Chi phí</th>
+            <th>Lợi nhuận</th>
+        </tr>
+    </tfoot>
+    <tbody>
+        <tr>
+            <td>{{ $ctrl.ProfitModels.Hopdong }}</td>
+            <td>{{ $ctrl.ProfitModels.Donhang }}</td>
+            <td>{{ $ctrl.ProfitModels.Khachhang }}</td>
+            <td>{{ $ctrl.ProfitModels.Doanhso | currency: '':0 }} đ</td>
+            <td>{{ $ctrl.ProfitModels.Chiphi | currency: '':0 }} đ</td>
+            <td>{{ $ctrl.ProfitModels.Loinhuan | currency: '':0 }} đ</td>
+        </tr>
+    </tbody>
+</table>

@@ -1,0 +1,160 @@
+<div class="section-header">
+    <div class="title">
+        <i class="fas fa-user-friends"></i>
+        DANH SÁCH SẢN PHẨM
+    </div>
+    <div class="options">
+        <a ui-sref="home.product.add" class="btn btn-info">
+            <i class="fas fa-plus"></i> Thêm sản phẩm mới</a>
+        <button onclick="document.getElementById('fileImport').click();" type="button" class="btn btn-info">
+            <i class="fas fa-import"></i> Nạp từ excel
+        </button>
+        <input id="fileImport" autoupload="true" nv-file-select="" uploader="$ctrl.uploader" type="file" accept=".xls,.xlsx,.csv"
+            style="display:none;">
+        <button type="button" ng-click="$ctrl.onFileExport()" class="btn btn-success">
+            <i class="fas fa-export"></i> Xuất ra Excel
+        </button>
+        <button type="button" ng-click="$ctrl.onRemoves()" class="btn btn-danger">
+            <i class="fas fa-trash"></i> Xóa
+        </button>
+    </div>
+</div>
+<h6 class="card-subtitle">Quản lý danh sách bảo hành của hệ thống</h6>
+
+<div class="row mt-3 grid-filter" style>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Tìm kiếm</label>
+        </div>
+        <input type="text" class="form-control input-sm" ng-model="$ctrl.search" ng-keypress="$ctrl.onSearch($event)" placeholder=""
+            aria-controls="editable-datatable">
+    </div>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Lọc theo chủng loại</label>
+        </div>
+        <md-autocomplete md-input-name="autocomplete" md-min-length="0" md-search-text="$scrl.searchChungloai" md-model="$scrl.searchChungloai"
+            md-items="item in $ctrl.searchChungloai($scrl.searchChungloai)" md-item-text="item.TenNhomsanpham" md-floating-label="-- Chủng loại --">
+            <md-item-template>
+                <span md-highlight-text="$scrl.searchChungloai">{{item.TenNhomsanpham}}</span>
+            </md-item-template>
+        </md-autocomplete>
+    </div>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Lọc theo người tạo</label>
+        </div>
+        <md-autocomplete md-input-name="autocomplete" md-min-length="0" md-search-text="$scrl.searchNguoitao" md-model="$scrl.searchNguoitao"
+            md-items="item in $ctrl.searchNguoitao($scrl.searchNguoitao)" md-item-text="item.Hovaten" md-floating-label="-- Người tạo --">
+            <md-item-template>
+                <span md-highlight-text="$scrl.searchNguoitao">{{item.Hovaten}}</span>
+            </md-item-template>
+        </md-autocomplete>
+    </div>
+</div>
+<br>
+
+<table class="display nowrap table table-hover table-striped table-bordered full-color-table full-info-table hover-table"
+    cellspacing="0" width="100%">
+    <colgroup>
+        <col width="5%">
+        <col width="5%">
+        <col width="10%">
+        <col width="25%">
+        <col width="25%">
+        <col width="15%">
+        <col width="5%">
+    </colgroup>
+    <thead>
+        <tr>
+            <th>STT</th>
+            <th>
+                <input type="checkbox" id="chkAll" ng-click="$ctrl.toggleAll()" ng-model="$ctrl.isAllSelected" class="filled-in chk-col-light-blue"
+                />
+                <label for="chkAll"></label>
+            </th>
+            <th>Ảnh</th>
+            <th>Thông tin sản phẩm</th>
+            <th class="text-center">Giá</th>
+            <th>Ngày tạo/cập nhật</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+            <th>STT</th>
+            <th></th>
+            <th>Ảnh</th>
+            <th>Thông tin sản phẩm</th>
+            <th class="text-center">Giá</th>
+            <th>Ngày tạo/cập nhật</th>
+            <th></th>
+        </tr>
+    </tfoot>
+    <tbody dir-paginate="product in $ctrl.productModels | itemsPerPage: $ctrl.pageSize | filter:{nhomsanpham:$scrl.searchChungloai,NguoitaoName:$scrl.searchNguoitao}"
+        pagination-id="dataPagination" current-page="$ctrl.currentPage" total-items="$ctrl.totalRowCount">
+        <tr>
+            <td class="center">
+                {{$index+1}}
+            </td>
+
+            <td class="center">
+                <input type="checkbox" ng-model="product.selected" id="chkItem{{$index+1}}" class="filled-in chk-col-light-blue" />
+                <label for="chkItem{{$index+1}}"></label>
+            </td>
+            <td>
+                <img src="{{ product.AnhSanpham}}" width="100%"> </td>
+            <td>
+                Mã: {{ product.MaSanpham }}
+                <br /> Tên: {{ product.TenSanpham }}
+                <br /> Chủng loại: {{ product.nhomsanpham }}
+                <br /> Mô tả: {{ product.Mota }}
+            </td>
+            <td>
+                <ul ng-repeat="gia in product.Giabans">
+                    <li>{{gia.Nhucau}} : {{gia.Gia}} đ</li>
+                </ul>
+            </td>
+            <td>
+                <small> Tạo lúc: {{ product.Ngaytao | date:'dd/MM/yyyy'}} bởi {{ product.NguoitaoName }} </small>
+                <br />
+                <small>Cập nhật lúc: {{ product.Ngaycapnhat | date:'dd/MM/yyyy'}} bởi {{ product.NguoicapnhatName }} </small>
+                <br />
+            </td>
+            <td class="center">
+                <button class="btn btn-secondary">
+                    <a data-toggle="tooltip" data-original-title="Sửa" ui-sref="home.product.edit({id:'{{product.SanphamId}}'})">
+                        <i class="fa fa-edit text-inverse m-r-10"></i> Sửa
+                    </a>
+                </button>
+                <button class="btn btn-danger">
+                    <a data-toggle="tooltip" data-original-title="Xóa" ng-click="$ctrl.onRemove(product)">
+                        <i class="fa fa-trash"></i> Xóa
+                    </a>
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</div>
+</div>
+
+<div class="row">
+    <div class="col-sm-3">
+        <div class="dataTables_length" id="datatable-responsive_length">
+            <label>
+                <select name="datatable-responsive_length" ng-model="$ctrl.pageSize" aria-controls="datatable-responsive" class="form-control">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+                records / page
+            </label>
+        </div>
+    </div>
+    <div class="col-sm-9">
+        <dir-pagination-controls boundary-links="true" on-page-change="$ctrl.onPageChanged(newPageNumber)" pagination-id="dataPagination"></dir-pagination-controls>
+    </div>
+</div>

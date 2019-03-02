@@ -1,0 +1,186 @@
+<div class="section-header">
+    <div class="title">
+        <i class="fas fa-user-friends"></i>
+        Dụng cụ
+    </div>
+    <div class="options">
+        <button type="button" class="btn btn-info" ng-click="$ctrl.onAdd()" style="float:right">
+            <i ng-class="!$ctrl.show ? 'fas fa-minus text':'fas fa-plus text'" aria-hidden="true"></i>
+        </button>
+    </div>
+</div>
+
+<h6 class="card-subtitle">Quản lý danh sách dụng cụ của hệ thống</h6>
+
+<div class="row mt-3 grid-filter" style>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Tìm kiếm</label>
+        </div>
+        <input type="text" class="form-control input-sm" ng-model="$ctrl.search" ng-keypress="$ctrl.onSearch($event)" placeholder=""
+            aria-controls="editable-datatable">
+    </div>
+</div>
+
+
+<div class="row">
+    <div ng-class="$ctrl.show ?'col-sm-12':'col-sm-8'">
+        <div class="row">
+            <div class="col-sm-12">
+                <table class="display nowrap table table-hover table-striped table-bordered full-color-table full-info-table hover-table"
+                    cellspacing="0" width="100%">
+                    <colgroup>
+                        <col width="5%" />
+                        <col width="20%" />
+                        <col width="20%" />
+                        <col width="20%" />
+                        <col width="20%" />
+                        <col width="15%" />
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>STT</th>
+                            <th>Dụng cụ </th>
+                            <th>Ngày giao</th>
+                            <th>Ngày nhận</th>
+                            <th>Người giao</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>STT</th>
+                            <th>Dụng cụ </th>
+                            <th>Ngày giao</th>
+                            <th>Ngày nhận</th>
+                            <th>Người giao</th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+                    <tbody dir-paginate="dungcu in $ctrl.dungcuModels | itemsPerPage: $ctrl.pageSize" pagination-id="dataPagination" current-page="$ctrl.currentPage"
+                        total-items="$ctrl.totalRowCount">
+                        <tr>
+                            <td>{{$index +1}}</td>
+                            <td>{{dungcu.TenDungcu }}</td>
+                            <td>{{dungcu.Ngaygiao | date:'dd/MM/yyyy'}}</td>
+                            <td>{{dungcu.Ngaynhan | date:'dd/MM/yyyy'}}</td>
+                            <td>{{dungcu.Nguoigiao}}</td>
+                            <td class="text-nowrap">
+                                <a class="btn" ng-click="$ctrl.onEdit(dungcu);$ctrl.show=false" data-original-title="Cập nhật">
+                                    <i class="fa fa-pencil text-inverse"></i>
+                                </a>
+                                <a class="btn" data-toggle="tooltip" data-original-title="Xóa" ng-click="$ctrl.onRemove(dungcu)">
+                                    <i class="fa fa-close text-danger"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4" style="margin-top:1.3%" ng-show="!$ctrl.show">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Công cụ,dụng cụ ..." ng-model="$ctrl.currentDungcuModel.TenDungcu" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="input-group">
+                    <input type="text" onfocus="(this.type='date')" class="form-control" ng-model="$ctrl.currentDungcuModel.Ngaygiao" type="text"
+                        placeholder="Ngày bàn giao ...">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="input-group">
+                    <input type="text" onfocus="(this.type='date')" class="form-control" ng-model="$ctrl.currentDungcuModel.Ngaynhan" type="text"
+                        placeholder="Ngày nhận ...">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <md-autocomplete required md-input-name="autocomplete" md-min-length="0" md-selected-item-change="$ctrl.onSelectNguoinhan(item)"
+                    md-selected-item="$ctrl.currentDungcuModel.Nguoinhan" md-search-text="$scrl.searchNguoinhan" md-items="item in $ctrl.searchUser($scrl.searchNguoinhan)"
+                    md-item-text="item.Hovaten" placeholder="Người nhận ....">
+                    <md-item-template>
+                        <span md-highlight-text="$scrl.searchNguoinhan">{{item.Hovaten}}</span>
+                    </md-item-template>
+                </md-autocomplete>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <md-autocomplete required md-input-name="autocomplete" md-min-length="0" md-selected-item-change="$ctrl.onSelectNguoigiao(item)"
+                    md-selected-item="$ctrl.currentDungcuModel.Nguoigiao" md-search-text="$scrl.searchNguoigiao" md-items="item in $ctrl.searchUser($scrl.searchNguoigiao)"
+                    md-item-text="item.Hovaten" placeholder="Người giao ....">
+                    <md-item-template>
+                        <span md-highlight-text="$scrl.searchNguoigiao">{{item.Hovaten}}</span>
+                    </md-item-template>
+                </md-autocomplete>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="input-group">
+                    <input type="number" class="form-control" ng-model="$ctrl.currentDungcuModel.Dongia" type="text" placeholder="Đơn giá">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="input-group">
+                    <input type="text" class="form-control" ng-model="$ctrl.currentDungcuModel.Soluong" type="text" placeholder="Số lượng">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <md-autocomplete required md-input-name="autocomplete" md-min-length="0" md-selected-item-change="$ctrl.onSelectNguoimua(item)"
+                    md-selected-item="$ctrl.currentDungcuModel.Nguoimua" md-search-text="$scrl.searchNguoimua" md-items="item in $ctrl.searchUser($scrl.searchNguoimua)"
+                    md-item-text="item.Hovaten" placeholder="Người mua">
+                    <md-item-template>
+                        <span md-highlight-text="$scrl.searchNguoimua">{{item.Hovaten}}</span>
+                    </md-item-template>
+                </md-autocomplete>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="input-group">
+                    <textarea class="form-control" rows="3" ng-model="$ctrl.currentDungcuModel.Ghichu" placeholder="Ghi chú ..."></textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="text-right col-sm-12">
+                <button type="button" class="btn btn-info ng-binding" ng-click="$ctrl.onSaveDungcuModel()">
+                    <i class="fas fa-plus"></i> Ghi</button>
+                <button type="button" class="btn btn-success ng-binding" ng-click="$ctrl.onCanel()">
+                    <i class="fas fa-times"></i> Hủy</button>
+            </div>
+        </div>
+    </div>
+    <div class="row col-sm-12">
+        <div class="col-sm-6">
+            <div class="dataTables_length" id="datatable-responsive_length">
+                <label>
+                    <select name="datatable-responsive_length" ng-model="$ctrl.pageSize" aria-controls="datatable-responsive" class="form-control">
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                    records / page
+                </label>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <dir-pagination-controls boundary-links="true" on-page-change="$ctrl.onPageChanged(newPageNumber)" pagination-id="dataPagination"></dir-pagination-controls>
+        </div>
+    </div>
+</div>

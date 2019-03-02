@@ -1,0 +1,173 @@
+﻿<div class="section-header">
+    <div class="title">
+        <i class="fas fa-exclamation-triangle"></i>
+        SỰ CỐ
+    </div>
+    <div class="options">
+        <button ng-click="$ctrl.add()" class="btn btn-info" data-original-title="Thêm thông tin" data-toggle="modal" data-target="#tab8">
+            <i class="fas fa-plus"></i> Thêm thông tin
+        </button>
+    </div>
+</div>
+
+<div class="row mt-3 grid-filter" style>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Tìm kiếm</label>
+        </div>
+        <input ng-model="$ctrl.text" class="form-control" placeholder="Tìm theo tên, mô tả công việc" type="text" ng-keypress="$ctrl.onSearch($event)"
+        />
+    </div>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Lọc theo loại lỗi</label>
+        </div>
+        <select name="editable-datatable_length" aria-controls="editable-datatable" class="form-control input-sm" ng-model="loailoi"
+            ng-options="item.value for item in $ctrl.loaiSucos" ng-change="$ctrl.onSelectLoailoi(loailoi)">
+            <option value="">Loại lỗi</option>
+        </select>
+    </div>
+    <div class="col-sm-6 col-lg-4 col-xl-3 form-group">
+        <div class="ctl-label">
+            <label>Lọc theo kỹ thuật viên</label>
+        </div>
+        <select name="editable-datatable_length" aria-controls="editable-datatable" class="form-control input-sm" ng-model="kythuatvien"
+            ng-options="item.Ten for item in $ctrl.liCustomjoins" ng-change="$ctrl.onSelectKythuatvien(kythuatvien)">
+            <option value="">Kỹ thuật viên</option>
+        </select>
+    </div>
+</div>
+
+
+<table class="display nowrap table table-hover table-striped table-bordered full-color-table full-info-table hover-table"
+    cellspacing="0" width="100%">
+    <colgroup>
+        <col width="50" />
+        <col width="35%" />
+        <col width="17%" />
+        <col width="17%" />
+        <col width="20%" />
+        <col />
+    </colgroup>
+    <thead>
+        <tr>
+            <th>STT</th>
+            <th>Sự cố</th>
+            <th>Xảy ra</th>
+            <th>Khắc phục</th>
+            <th>Người thực hiện</th>
+            <th>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="item in $ctrl.liErrors">
+            <td class="center">
+                {{$index + 1}}
+            </td>
+            <td class="center">
+                {{item.Ghichu}}
+            </td>
+            <td class="center">
+                {{item.ThoidiemXayra | date: 'dd/MM/yyyy'}}
+            </td>
+            <td class="center">
+                {{item.ThoidiemKhacphuc | date: 'dd/MM/yyyy'}}
+            </td>
+            <td class="center">
+                {{item.nguoiThuchien.Hovaten}}
+            </td>
+            <td class="text-nowrap">
+                <button ng-click="$ctrl.edit(item)" class="btn btn-secondary" data-original-title="Sửa" data-toggle="modal" data-target="#tab8">
+                    Sửa</button>
+                <button ng-click="$ctrl.delete(item)" class="btn btn-danger" data-original-title="Xóa">
+                    Xóa</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="modal fade" my-modal="roleModelDialog" id="tab8" role="dialog" aria-labelledby="changePassModalLabel" style="display: none;"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLabel1">
+                    <b>Thêm thông tin</b>
+                </h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="ng-pristine ng-valid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>Loại sự cố</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <select name="editable-datatable_length" aria-controls="editable-datatable" class="form-control input-sm" ng-model="$ctrl.model.LoaiSuco"
+                                ng-options="s.id as s.value for s in $ctrl.loaiSucos">
+                                <option value="">--Loại sự cố--</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <textarea ng-model="$ctrl.model.Ghichu" class="form-control" rows="3" placeholder="Ghi chú..."></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>Thời điểm xảy ra</label>
+                        </div>
+                        <div class="col-md-12">
+                            <input ng-model="$ctrl.model.ThoidiemXayra" class="form-control" date-picker lang="vi" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>Thời điểm khắc phục</label>
+                        </div>
+                        <div class="col-md-12">
+                            <input ng-model="$ctrl.model.ThoidiemKhacphuc" class="form-control" date-picker format="dd/MM/yyyy" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>Người thực hiện</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <select name="editable-datatable_length" aria-controls="editable-datatable" class="form-control input-sm" ng-model="$ctrl.model.NguoithuchienId"
+                                ng-options="s.UserId as s.Ten for s in $ctrl.liCustomjoins">
+                                <option value="">--Người thực hiện--</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <textarea ng-model="$ctrl.model.PhuonganKhacphuc" class="form-control" rows="3" placeholder="Phương án khắc phục..."></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input class="form-control" nv-file-select uploader="$ctrl.uploader" type="file" accept=".png,.jpeg,.pdf,.bmp,.gif" placeholder="Ảnh hiện trường">
+                            <div ng-show="$ctrl.model.AnhHientruong != undefined">
+                                <b>1 file uploaded</b>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button ng-click="$ctrl.cancel()" type="button" class="btn btn-default" data-dismiss="modal">Hủy</button>
+                <button ng-click="$ctrl.insert()" type="button" class="btn btn-primary">Ghi lại</button>
+            </div>
+        </div>
+    </div>
+</div>
